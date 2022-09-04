@@ -1,6 +1,4 @@
 #include "carros.h"
-#include <iostream>
-using namespace std;
 
 Carros::Carros() {
   horsepower = 250, upgradeLevel = 0;
@@ -18,7 +16,7 @@ void Carros::upgrade(int level) {
   this -> upgradeLevel = level;
 }
 
-void Carros::printState() const {
-  printf("Horsepower: %i\n", horsepower);
-  printf("Upgrade Level: %i\n", upgradeLevel);
+void Carros::printState(string nome) const {
+  cout << "Horsepower do " << nome << ": " << horsepower << endl;
+  cout << "Upgrade Level do " << nome << ": " << upgradeLevel << endl;
 }
