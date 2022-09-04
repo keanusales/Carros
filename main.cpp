@@ -43,7 +43,8 @@ int main() {
           cin.clear(); cin.ignore();
           system("clear||cls");
           cout << "Digite um valor no intevalo dado!\n";
-        } break;
+        }
+        break;
       case 3:
         system("clear||cls");
         cout << "Ate a proxima vez!\n";
