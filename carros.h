@@ -9,12 +9,11 @@ class Carros {
   public:
     Carros();
     ~Carros();
-    void upgrade(int level);
-    void printState(string nome) const;
+    void upgrade(int);
+    void printState(string) const;
 
   private:
-    int horsepower;
-    int upgradeLevel;
+    int horsepower, upgradeLevel;
 };
 
 #endif //CARROS_H
