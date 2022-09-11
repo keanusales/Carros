@@ -2,18 +2,25 @@
 #define CARROS_H
 
 #include <iostream>
-#include <string>
-using namespace std;
+using std::string;
+using std::cout;
+using std::cin;
 
 class Carros {
   public:
-    Carros();
-    ~Carros();
-    void upgrade(int);
-    void printState(string) const;
+    Carros(int = 250);
+    Carros(const Carros &);
+    void setStatus(int);
+    void getStatus(string) const;
+    int verifyHP(int) const;
+    int verifyLevel(int) const;
 
   private:
-    int horsepower, upgradeLevel;
+    int hpAtual, hpStock;
+    int upLevel = 0;
+    const int MINHP = 250;
+    const int MAXHP = 700;
+    const int MODHP = 1500;
 };
 
-#endif //CARROS_H
+#endif

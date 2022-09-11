@@ -1,22 +1,46 @@
 #include "carros.h"
 
-Carros::Carros() {
-  horsepower = 250, upgradeLevel = 0;
+Carros::Carros(int hpStock) {
+  this -> hpStock = verifyHP(hpStock);
+  this -> hpAtual = this -> hpStock;
 }
 
-Carros::~Carros() {}
-
-void Carros::upgrade(int level) {
-  if (level == 0) this -> horsepower = 250;
-  else if (level == 1) this -> horsepower = 400;
-  else if (level == 2) this -> horsepower = 550;
-  else if (level == 3) this -> horsepower = 700;
-  else if (level == 4) this -> horsepower = 800;
-  else this -> horsepower = 900;
-  this -> upgradeLevel = level;
+Carros::Carros(const Carros & other) {
+  this -> hpStock = other.hpStock;
+  this -> hpAtual = other.hpAtual;
 }
 
-void Carros::printState(string nome) const {
-  cout << "Horsepower do " << nome << ": " << horsepower << endl;
-  cout << "Upgrade Level do " << nome << ": " << upgradeLevel << endl;
+int Carros::verifyHP(int hpStock) const {
+  if (MINHP <= hpStock && hpStock <= MAXHP) return hpStock;
+  system("clear||cls");
+  cout << "Digite um HP no intervalo [250, 700]\n";
+  return MINHP;
+}
+
+int Carros::verifyLevel(int level) const {
+  if (0 <= level && level <= 6) {
+    system("clear||cls");
+    cout << "Atualizacao realizada com sucesso!\n";
+    return level;
+  }
+  system("clear||cls");
+  cout << "Digite um valor no intevalo dado!\n";
+  return upLevel;
+}
+
+void Carros::setStatus(int level) {
+  this -> upLevel = verifyLevel(level);
+  if (upLevel == 0) this -> hpAtual = hpStock;
+  else if (upLevel == 1) this -> hpAtual = hpStock + 150;
+  else if (upLevel == 2) this -> hpAtual = hpStock + 300;
+  else if (upLevel == 3) this -> hpAtual = hpStock + 450;
+  else if (upLevel == 4) this -> hpAtual = hpStock + 600;
+  else if (upLevel == 5) this -> hpAtual = hpStock + 750;
+  else this -> hpAtual = hpStock + 850;
+  this -> hpAtual = (hpAtual <= MODHP) ? hpAtual : MODHP;
+}
+
+void Carros::getStatus(string nome) const {
+  cout << "Horsepower do " << nome << ": " << hpAtual << "\n";
+  cout << "Upgrade Level do " << nome << ": " << upLevel << "\n";
 }
