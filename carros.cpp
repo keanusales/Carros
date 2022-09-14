@@ -1,12 +1,16 @@
 #include "carros.h"
 
-Carros::Carros(int hpStock){
+Carros::Carros(int hpStock)
+:MINHP(250)
+{
   this -> hpStock = verifyHP(hpStock);
   this -> hpAtual = this -> hpStock;
   this -> upLevel = 0;
 }
 
-Carros::Carros(const Carros & other) {
+Carros::Carros(const Carros & other) 
+:MINHP(250)
+{
   this -> hpStock = other.hpStock;
   this -> hpAtual = other.hpAtual;
 }

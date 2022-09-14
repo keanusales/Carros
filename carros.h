@@ -19,7 +19,7 @@ class Carros {
     int hpAtual;
     int hpStock;
     int upLevel;
-    const int MINHP = 250;
+    const int MINHP;
     const int MAXHP = 700;
     const int MODHP = 1500;
 };
