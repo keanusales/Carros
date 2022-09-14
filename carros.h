@@ -16,8 +16,9 @@ class Carros {
     int verifyLevel(int) const;
 
   private:
-    int hpAtual, hpStock;
-    int upLevel = 0;
+    int hpAtual;
+    int hpStock;
+    int upLevel;
     const int MINHP = 250;
     const int MAXHP = 700;
     const int MODHP = 1500;
