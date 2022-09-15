@@ -1,5 +1,4 @@
 #include "carros.cpp"
-#include "carros.h"
 
 int main() {
   int opcao, level, escolha;
@@ -22,7 +21,7 @@ int main() {
         break;
       case 2:
         system("clear||cls");
-        cout << "1: Lancer X, 2: GTR, 3: Lancer 9 - \n";
+        cout << "1: Lancer X, 2: GTR, 3: Lancer 9 - ";
         cin >> escolha;
         cout << "Digite o nivel da atualizacao [0, 6]: ";
         cin >> level;
