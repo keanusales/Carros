@@ -1,6 +1,9 @@
 #ifndef CARROS_H
 #define CARROS_H
 
+#include <map>
+using std::map;
+
 #include <iostream>
 using std::string;
 using std::cout;

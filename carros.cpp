@@ -40,6 +40,14 @@ int Carros::verifyLevel(int level) const {
 
 void Carros::setStatus(int level) {
   this -> upLevel = verifyLevel(level);
+  map <int, int> hpAtual;
+  hpAtual[0] = hpStock;
+  hpAtual[1] = hpStock + 150;
+  hpAtual[2] = hpStock + 300;
+  hpAtual[3] = hpStock + 450;
+  hpAtual[4] = hpStock + 600;
+  hpAtual[5] = hpStock + 750;
+  hpAtual[6] = hpStock + 850;
   if (upLevel == 0) this -> hpAtual = hpStock;
   else if (upLevel == 1) this -> hpAtual = hpStock + 150;
   else if (upLevel == 2) this -> hpAtual = hpStock + 300;
