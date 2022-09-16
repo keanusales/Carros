@@ -2,9 +2,9 @@
 
 int main() {
   int opcao, level, escolha;
-  Carros nissanGTR(630);
-  Carros lancerEvoX(280);
-  Carros lancerEvoIX(lancerEvoX);
+  Carros carro1("Nissan GTR", 630);
+  Carros carro2("Lancer Evo X", 280);
+  Carros carro3(carro2);
   system("clear||cls");
   while (1) {
     cout << "1 - Printar estado atual dos carros\n"
@@ -15,25 +15,28 @@ int main() {
     switch (opcao) {
       case 1:
         system("clear||cls");
-        lancerEvoX.getStatus("Lancer X");
-        nissanGTR.getStatus("GTR R35");
-        lancerEvoIX.getStatus("Lancer 9");
+        carro1.getStatus();
+        carro2.getStatus();
+        carro3.getStatus();
         break;
       case 2:
         system("clear||cls");
-        cout << "1: Lancer X, 2: GTR, 3: Lancer 9 - ";
+        cout << "1: " << carro1.getName() << "\n"
+          << "2: " << carro2.getName() << "\n"
+          << "3: " << carro3.getName() << "\n"
+          << "Qual opcao voce escolhe? ";
         cin >> escolha;
         cout << "Digite o nivel da atualizacao [0, 6]: ";
         cin >> level;
         switch (escolha) {
           case 1:
-            lancerEvoX.setStatus(level);
+            carro1.setStatus(level);
             break;
           case 2:
-            nissanGTR.setStatus(level);
+            carro2.setStatus(level);
             break;
           case 3:
-            lancerEvoIX.setStatus(level);
+            carro3.setStatus(level);
             break;
           default:
             system("clear||cls");

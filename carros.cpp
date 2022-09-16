@@ -1,17 +1,23 @@
 #include "carros.h"
 
-Carros::Carros(int hpStock)
-:MINHP(250), MAXHP(700), MODHP(1500) {
+const int Carros::MINHP = 250;
+const int Carros::MAXHP = 700;
+const int Carros::MODHP = 1500;
+
+Carros::Carros(string nameCar, int hpStock) {
+  this -> nameCar = nameCar;
   this -> hpStock = verifyHP(hpStock);
   this -> hpAtual = this -> hpStock;
+  this -> quantCarros++;
   this -> upLevel = 0;
 }
 
-Carros::Carros(const Carros & other)
-:MINHP(250), MAXHP(700), MODHP(1500) {
+Carros::Carros(const Carros & other) {
+  this -> nameCar = other.nameCar;
   this -> hpStock = other.hpStock;
   this -> hpAtual = other.hpAtual;
   this -> upLevel = other.upLevel;
+  this -> quantCarros++;
 }
 
 int Carros::verifyHP(int hpStock) const {
@@ -44,7 +50,11 @@ void Carros::setStatus(int level) {
   this -> hpAtual = (hpAtual <= MODHP) ? hpAtual : MODHP;
 }
 
-void Carros::getStatus(string nome) const {
-  cout << "Horsepower do " << nome << ": " << hpAtual << "\n";
-  cout << "Upgrade Level do " << nome << ": " << upLevel << "\n";
+void Carros::getStatus() const {
+  cout << "Horsepower do " << nameCar << ": " << hpAtual << "\n";
+  cout << "Upgrade Level do " << nameCar << ": " << upLevel << "\n";
+}
+
+string Carros::getName() const {
+  return nameCar;
 }

@@ -8,10 +8,11 @@ using std::cin;
 
 class Carros {
   public:
-    Carros(int = 250);
+    Carros(string, int = 250);
     Carros(const Carros &);
     void setStatus(int);
-    void getStatus(string) const;
+    void getStatus() const;
+    string getName() const;
     int verifyHP(int) const;
     int verifyLevel(int) const;
 
@@ -19,9 +20,12 @@ class Carros {
     int hpAtual;
     int hpStock;
     int upLevel;
-    const int MINHP;
-    const int MAXHP;
-    const int MODHP;
+    string nameCar;
+    bool isUpgraded;
+    static int quantCarros;
+    static const int MINHP;
+    static const int MAXHP;
+    static const int MODHP;
 };
 
 #endif
