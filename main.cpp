@@ -5,6 +5,8 @@ int main() {
   Carros carro1("Nissan GTR", 630);
   Carros carro2("Lancer Evo X", 280);
   Carros carro3(carro2);
+  Carros carro4("Golf GTI", 230);
+  Carros carro5("Aventador", 770);
   system("clear||cls");
   while (1) {
     cout << "1 - Printar estado atual dos carros\n"

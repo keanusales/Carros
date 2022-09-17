@@ -1,16 +1,17 @@
 #include "carros.h"
 
-int Carros::quantCars = 0;
+int Carros::numCars = 0;
+int Carros::numUpDone = 0;
 const int Carros::MINHP = 250;
 const int Carros::MAXHP = 700;
 const int Carros::MODHP = 1500;
 
 Carros::Carros(string nameCar, int hpStock)
-:upLevel(0), isDangerous(0) {
+:upLevel(0), isDanger(0) {
   this -> nameCar = nameCar;
   this -> hpStock = verifyHP(hpStock);
   this -> hpAtual = this -> hpStock;
-  this -> quantCars++;
+  this -> numCars++;
 }
 
 Carros::Carros(const Carros & other) {
@@ -18,8 +19,8 @@ Carros::Carros(const Carros & other) {
   this -> hpStock = other.hpStock;
   this -> hpAtual = other.hpAtual;
   this -> upLevel = other.upLevel;
-  this -> isDangerous = 0;
-  this -> quantCars++;
+  this -> isDanger = other.isDanger;
+  this -> numCars++;
 }
 
 int Carros::verifyHP(int hpStock) const {
@@ -51,8 +52,9 @@ void Carros::setStatus(int level) {
   store[6] = this -> hpStock + 850;
   this -> upLevel = verifyLevel(level);
   int temp = store.find(upLevel) -> second;
-  this -> isDangerous = (temp > 1000) ? 1 : 0;
+  this -> isDanger = (temp > 1000) ? 1 : 0;
   this -> hpAtual = (temp <= MODHP) ? temp : MODHP;
+  numUpDone++;
 }
 
 void Carros::getStatus() const {
@@ -60,6 +62,12 @@ void Carros::getStatus() const {
   cout << "Upgrade Level do " << nameCar << ": " << upLevel << "\n";
 }
 
-string Carros::getName() const {
-  return nameCar;
+string Carros::getName() const { return nameCar; }
+
+void Carros::getNumCars() {
+  cout << "Quantidade atual de carros: " << numCars << "\n";
+}
+
+void Carros::getDanger() {
+  cout << "Número de alterações feitas: " << numUpDone << "\n";
 }
