@@ -21,10 +21,10 @@ int main() {
         break;
       case 2:
         system("clear||cls");
-        cout << "1: " << carro1.getName() << "\n"
-          << "2: " << carro2.getName() << "\n"
-          << "3: " << carro3.getName() << "\n"
-          << "Qual opcao voce escolhe? ";
+        cout << "1: " << carro1.getName()
+          << ", 2: " << carro2.getName()
+          << ", 3: " << carro3.getName()
+          << "\nQual opcao voce escolhe? ";
         cin >> escolha;
         cout << "Digite o nivel da atualizacao [0, 6]: ";
         cin >> level;

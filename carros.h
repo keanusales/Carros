@@ -24,8 +24,8 @@ class Carros {
     int hpStock;
     int upLevel;
     string nameCar;
-    bool isUpgraded;
-    static int quantCarros;
+    bool isDangerous;
+    static int quantCars;
     static const int MINHP;
     static const int MAXHP;
     static const int MODHP;

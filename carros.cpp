@@ -1,15 +1,16 @@
 #include "carros.h"
 
+int Carros::quantCars = 0;
 const int Carros::MINHP = 250;
 const int Carros::MAXHP = 700;
 const int Carros::MODHP = 1500;
 
-Carros::Carros(string nameCar, int hpStock) {
+Carros::Carros(string nameCar, int hpStock)
+:upLevel(0), isDangerous(0) {
   this -> nameCar = nameCar;
   this -> hpStock = verifyHP(hpStock);
   this -> hpAtual = this -> hpStock;
-  this -> quantCarros++;
-  this -> upLevel = 0;
+  this -> quantCars++;
 }
 
 Carros::Carros(const Carros & other) {
@@ -17,7 +18,8 @@ Carros::Carros(const Carros & other) {
   this -> hpStock = other.hpStock;
   this -> hpAtual = other.hpAtual;
   this -> upLevel = other.upLevel;
-  this -> quantCarros++;
+  this -> isDangerous = 0;
+  this -> quantCars++;
 }
 
 int Carros::verifyHP(int hpStock) const {
@@ -39,23 +41,18 @@ int Carros::verifyLevel(int level) const {
 }
 
 void Carros::setStatus(int level) {
+  map <const int, int> store;
+  store[0] = this -> hpStock;
+  store[1] = this -> hpStock + 150;
+  store[2] = this -> hpStock + 300;
+  store[3] = this -> hpStock + 450;
+  store[4] = this -> hpStock + 600;
+  store[5] = this -> hpStock + 750;
+  store[6] = this -> hpStock + 850;
   this -> upLevel = verifyLevel(level);
-  map <int, int> hpAtual;
-  hpAtual[0] = hpStock;
-  hpAtual[1] = hpStock + 150;
-  hpAtual[2] = hpStock + 300;
-  hpAtual[3] = hpStock + 450;
-  hpAtual[4] = hpStock + 600;
-  hpAtual[5] = hpStock + 750;
-  hpAtual[6] = hpStock + 850;
-  if (upLevel == 0) this -> hpAtual = hpStock;
-  else if (upLevel == 1) this -> hpAtual = hpStock + 150;
-  else if (upLevel == 2) this -> hpAtual = hpStock + 300;
-  else if (upLevel == 3) this -> hpAtual = hpStock + 450;
-  else if (upLevel == 4) this -> hpAtual = hpStock + 600;
-  else if (upLevel == 5) this -> hpAtual = hpStock + 750;
-  else this -> hpAtual = hpStock + 850;
-  this -> hpAtual = (hpAtual <= MODHP) ? hpAtual : MODHP;
+  int temp = store.find(upLevel) -> second;
+  this -> isDangerous = (temp > 1000) ? 1 : 0;
+  this -> hpAtual = (temp <= MODHP) ? temp : MODHP;
 }
 
 void Carros::getStatus() const {
