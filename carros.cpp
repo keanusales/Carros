@@ -25,18 +25,23 @@ Carros::Carros(const Carros & other) {
 
 int Carros::verifyHP(int hpStock) const {
   if (MINHP <= hpStock && hpStock <= MAXHP) return hpStock;
-  system("clear||cls");
+  if (MINHP >= hpStock) {
+    // system("clear||cls");
+    cout << "Digite um HP no intervalo [250, 700]\n";
+    return MINHP;
+  }
+  // system("clear||cls");
   cout << "Digite um HP no intervalo [250, 700]\n";
-  return MINHP;
+  return MAXHP;
 }
 
 int Carros::verifyLevel(int level) const {
   if (0 <= level && level <= 6) {
-    system("clear||cls");
+    // system("clear||cls");
     cout << "Atualizacao realizada com sucesso!\n";
     return level;
   }
-  system("clear||cls");
+  // system("clear||cls");
   cout << "Digite um valor no intevalo dado!\n";
   return upLevel;
 }
@@ -62,12 +67,16 @@ void Carros::getStatus() const {
   cout << "Upgrade Level do " << nameCar << ": " << upLevel << "\n";
 }
 
+void Carros::getDanger() const {
+  cout << "E perigoso? " << isDanger << "\n";
+}
+
 string Carros::getName() const { return nameCar; }
 
 void Carros::getNumCars() {
   cout << "Quantidade atual de carros: " << numCars << "\n";
 }
 
-void Carros::getDanger() {
-  cout << "Número de alterações feitas: " << numUpDone << "\n";
+void Carros::getNumDone() {
+  cout << "Numero de alteracoes feitas: " << numUpDone << "\n";
 }

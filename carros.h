@@ -15,11 +15,12 @@ class Carros {
     Carros(const Carros &);
     void setStatus(int);
     void getStatus() const;
+    void getDanger() const;
     string getName() const;
     int verifyHP(int) const;
     int verifyLevel(int) const;
     static void getNumCars();
-    static void getDanger();
+    static void getNumDone();
 
   private:
     int hpAtual;
