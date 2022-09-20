@@ -1,20 +1,20 @@
 Digite um HP no intervalo [250, 700]
 Digite um HP no intervalo [250, 700]
 
-Horsepower do Nissan GTR: 630   
-Upgrade Level do Nissan GTR: 0  
+Horsepower do Nissan GTR: 630  
+Upgrade Level do Nissan GTR: 0 
+
+Horsepower do Lancer Evo X: 280
+Upgrade Level do Lancer Evo X: 0
 
 Horsepower do Lancer Evo X: 280 
 Upgrade Level do Lancer Evo X: 0
 
-Horsepower do Lancer Evo X: 280 
-Upgrade Level do Lancer Evo X: 0  
+Horsepower do Golf GTI: 250     
+Upgrade Level do Golf GTI: 0    
 
-Horsepower do Golf GTI: 250       
-Upgrade Level do Golf GTI: 0      
-
-Horsepower do Aventador: 700      
-Upgrade Level do Aventador: 0     
+Horsepower do Aventador: 700 
+Upgrade Level do Aventador: 0
 
 Quantidade atual de carros: 5     
 

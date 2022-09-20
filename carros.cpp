@@ -6,7 +6,7 @@ const int Carros::MINHP = 250;
 const int Carros::MAXHP = 700;
 const int Carros::MODHP = 1500;
 
-Carros::Carros(string nameCar, int hpStock)
+Carros::Carros(const string & nameCar, int hpStock)
 :upLevel(0), isDanger(0) {
   this -> nameCar = nameCar;
   this -> hpStock = verifyHP(hpStock);

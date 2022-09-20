@@ -11,7 +11,7 @@ using std::cin;
 
 class Carros {
   public:
-    Carros(const string, int = 250);
+    Carros(const string &, int = 250);
     Carros(const Carros &);
     void setStatus(int);
     void getStatus() const;
