@@ -60,7 +60,7 @@ void Carros::copyExtCar(Carros *array[]) {
   }
   if (numCars + 1 > MAXCARS) {
     system("cls||clear");
-    cout << "Numero maximo de carros alcancado!\n";
+    cout << "Estamos no maximo de carros!\n";
     return;
   }
   int escolha = getEscolha(array);
@@ -96,6 +96,11 @@ void Carros::deleteCar(Carros *array[]) {
 }
 
 void Carros::chooseCar(Carros *array[]) {
+  if (!numCars) {
+    system("cls||clear");
+    cout << "Nao ha carros para modificar!\n";
+    return;
+  }
   int escolha = getEscolha(array);
   if (verifyEscolha(escolha)) {
     cout << "Qual a mofificacao desejada? [0, 6]: ";
@@ -130,6 +135,10 @@ bool Carros::verifyHP(const int hpStock) {
 
 void Carros::getStatusArray(Carros *array[]) {
   system("cls||clear");
+  if (!numCars) {
+    cout << "Nao ha carros para mostrar!\n";
+    return;
+  }
   for (int i = 0; i < numCars; i++) {
     int hp = array[i]->hpAtual;
     int up = array[i]->upLevel;
