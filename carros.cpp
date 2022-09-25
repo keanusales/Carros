@@ -27,29 +27,29 @@ Carros::~Carros() { this -> numCars--; }
 
 void Carros::setNewCar(Carros *array[]) {
   system("cls||clear");
-  if (numCars + 1 <= MAXCARS) {
-    string nameCar; int hpStock;
-    while (1) {
-      cout << "Digite o nome do carro: ";
-      cin.ignore(); getline(cin, nameCar);
-      if (verifyName(nameCar)) break;
-      system("cls||clear");
-      cout << "Tamanho maximo alcancado!\n";
-    }
-    while (1) {
-      cout << "Digite a potencia do carro: ";
-      cin >> hpStock;
-      if (verifyHP(hpStock)) break;
-      system("cls||clear");
-      cout << "Digite entre 100 e 1000!\n";
-    }
-    int posicao = numCars;
-    array[posicao] = new Carros(nameCar, hpStock);
-    system("cls||clear");
-    cout << "Carro adicionado com sucesso!\n";
+  if (numCars + 1 > MAXCARS) {
+    cout << "Estamos no maximo de carros!\n";
     return;
   }
-  cout << "Numero maximo de carros alcancado!\n";
+  string nameCar; int hpStock;
+  while (1) {
+    cout << "Digite o nome do carro: ";
+    cin.ignore(); getline(cin, nameCar);
+    if (verifyName(nameCar)) break;
+    system("cls||clear");
+    cout << "Nome muito grande! Diminua!\n";
+  }
+  while (1) {
+    cout << "Digite a potencia do carro: ";
+    cin >> hpStock;
+    if (verifyHP(hpStock)) break;
+    system("cls||clear");
+    cout << "Hp deve ficar entre 100 e 1000!\n";
+  }
+  int posicao = numCars;
+  array[posicao] = new Carros(nameCar, hpStock);
+  system("cls||clear");
+  cout << "Carro adicionado com sucesso!\n";
 }
 
 void Carros::copyExtCar(Carros *array[]) {
