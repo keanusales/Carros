@@ -9,19 +9,21 @@ using std::cin;
 
 class Carros {
   public:
-    static void construct(Carros *[], const string &, const int);
     Carros(const string &, const int);
     Carros(const Carros &);
-    static void destuct(Carros *[], const int);
     ~Carros();
-    void setStatus(const int);
-    int verifyHP(const int) const;
-    int verifyLevel(const int) const;
-    static void getStatusArray(Carros *[]);
-    static void getNamesArray(Carros *[]);
+    static void setNewCar(Carros *[]);
+    static void copyExtCar(Carros *[]);
+    static void deleteCar(Carros *[]);
+    static void chooseCar(Carros *[]);
+    static int getEscolha(Carros *[]);
     static bool verifyEscolha(const int);
+    static bool verifyName(const string &);
+    static bool verifyHP(const int);
+    static void getStatusArray(Carros *[]);
+    void verifyLevel(const int);
+    void setStatus(const int);
     static int getMaxCars();
-    static void getNumCars();
 
   private:
     int hpAtual;
@@ -29,6 +31,7 @@ class Carros {
     int upLevel;
     string nameCar;
     static int numCars;
+    static const int MAXLEN;
     static const int MINHP;
     static const int MAXHP;
     static const int MODHP;

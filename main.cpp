@@ -5,50 +5,32 @@ int main() {
   Carros *carro[Carros::getMaxCars()];
   carro[0] = new Carros("Nissan GTR", 630);
   carro[1] = new Carros("Lancer Evo X", 280);
-  carro[2] = new Carros(*carro[1]);
-  carro[3] = new Carros("Aventador", 770);
+  carro[2] = new Carros("Aventador", 770);
   system("clear||cls");
   while (1) {
     cout << "1 - Criar um novo carro\n"
-      << "2 - Deletar um carro existente\n"
-      << "3 - Printar estado atual dos carros\n" 
-      << "4 - Fazer uma atualizacao em um dos carros\n"
-      << "5 - Printar o numero atual dos carros\n"
+      << "2 - Copiar um carro ja existente\n"
+      << "3 - Deletar um carro existente\n"
+      << "4 - Printar estado atual dos carros\n" 
+      << "5 - Modificar um dos carros\n"
       << "6 - Sair do programa\n"
       << "Qual opcao voce escolhe? ";
     cin >> opcao;
     switch (opcao) {
-      case 1: {
-        string nameCar;
-        int hpStock;
-        system("clear||cls");
-        cout << "Digite o nome do carro: ";
-        cin.ignore(); getline(cin, nameCar);
-        cout << "Digite a potencia do carro: ";
-        cin >> hpStock;
-        Carros::construct(carro, nameCar, hpStock);
-      } break;
+      case 1:
+        Carros::setNewCar(carro);
+        break;
       case 2:
-        Carros::getNamesArray(carro);
-        cout << "Qual opcao voce escolhe? ";
-        cin >> escolha;
-        Carros::destuct(carro, escolha);
+        Carros::copyExtCar(carro);
         break;
       case 3:
-        Carros::getStatusArray(carro);
+        Carros::deleteCar(carro);
         break;
       case 4:
-        Carros::getNamesArray(carro);
-        cout << "Qual opcao voce escolhe? ";
-        cin >> escolha;
-        cout << "Digite o nivel da atualizacao [0, 6]: ";
-        cin >> level;
-        if (Carros::verifyEscolha(escolha))
-          carro[escolha]->setStatus(level);
-        else cout << "Digite um valor especificado!\n";
+        Carros::getStatusArray(carro);
         break;
       case 5:
-        Carros::getNumCars();
+        Carros::chooseCar(carro);
         break;
       case 6:
         system("clear||cls");

@@ -1,26 +1,15 @@
 #include "carros.h"
 
 int Carros::numCars = 0;
+const int Carros::MAXLEN = 30;
 const int Carros::MINHP = 100;
 const int Carros::MAXHP = 1000;
 const int Carros::MODHP = 1800;
 const int Carros::MAXCARS = 10;
 
-void Carros::construct(Carros *array[], const string &nameCar, const int hpStock) {
-  if (numCars + 1 <= MAXCARS) {
-    int posPrevia = numCars;
-    array[posPrevia] = new Carros(nameCar, hpStock);
-    system("clear||cls");
-    cout << "Carro adicionado com sucesso!\n";
-  } else {
-    system("clear||cls");
-    cout << "O número máximo de carros foi alcancado!\n";
-  }
-}
-
 Carros::Carros(const string &nameCar, const int hpStock) {
   this -> nameCar = nameCar;
-  this -> hpStock = verifyHP(hpStock);
+  this -> hpStock = hpStock;
   this -> hpAtual = this -> hpStock;
   this -> upLevel = 0;
   this -> numCars++;
@@ -34,65 +23,108 @@ Carros::Carros(const Carros &other) {
   this -> numCars++;
 }
 
-void Carros::destuct(Carros *array[], const int element) {
-  if (verifyEscolha(element) && numCars) {
-    delete array[element];
-    for (int i = element; i < numCars; i++)
-      array[i] = array[i+1];
-    array[numCars] = NULL;
-    system("clear||cls");
-    cout << "Carro deletado com sucesso!\n";
-  } else {
-    system("clear||cls");
-    cout << "Digite um valor especificado!\n";
-  }
-}
-
 Carros::~Carros() { this -> numCars--; }
 
-int Carros::verifyHP(const int hpStock) const {
-  if (MINHP <= hpStock && hpStock <= MAXHP) return hpStock;
-  if (hpStock <= MINHP) {
-    system("clear||cls");
-    cout << "Digite um HP no intervalo [100, 1000]\n";
-    return MINHP;
+void Carros::setNewCar(Carros *array[]) {
+  system("cls||clear");
+  if (numCars + 1 <= MAXCARS) {
+    string nameCar; int hpStock;
+    while (1) {
+      cout << "Digite o nome do carro: ";
+      cin.ignore(); getline(cin, nameCar);
+      if (verifyName(nameCar)) break;
+      system("cls||clear");
+      cout << "Tamanho maximo alcancado!\n";
+    }
+    while (1) {
+      cout << "Digite a potencia do carro: ";
+      cin >> hpStock;
+      if (verifyHP(hpStock)) break;
+      system("cls||clear");
+      cout << "Digite entre 100 e 1000!\n";
+    }
+    int posicao = numCars;
+    array[posicao] = new Carros(nameCar, hpStock);
+    system("cls||clear");
+    cout << "Carro adicionado com sucesso!\n";
+    return;
   }
-  system("clear||cls");
-  cout << "Digite um HP no intervalo [100, 1000]\n";
-  return MAXHP;
+  cout << "Numero maximo de carros alcancado!\n";
 }
 
-int Carros::verifyLevel(const int level) const {
-  if (0 <= level && level <= 6) {
-    system("clear||cls");
-    cout << "Atualizacao realizada com sucesso!\n";
-    return level;
+void Carros::copyExtCar(Carros *array[]) {
+  if (numCars + 1 <= MAXCARS) {
+    int escolha = getEscolha(array);
+    if (verifyEscolha(escolha)) {
+      int posicao = numCars;
+      array[posicao] = new Carros(*array[escolha]);
+      system("cls||clear");
+      cout << "Carro adicionado com sucesso!\n";
+      return;
+    }
+    system("cls||clear");
+    cout << "Digite um carro especificado!\n";
+    return;
   }
-  system("clear||cls");
-  cout << "Digite um valor no intevalo dado!\n";
-  return upLevel;
+  system("cls||clear");
+  cout << "Numero maximo de carros alcancado!\n";
+}
+
+void Carros::deleteCar(Carros *array[]) {
+  if (!numCars) {
+    system("cls||clear");
+    cout << "Nao ha carros para deletar!\n";
+    return;
+  }
+  int escolha = getEscolha(array);
+  if (verifyEscolha(escolha)) {
+    delete array[escolha];
+    for (int i = escolha; i < numCars; i++)
+      array[i] = array[i+1];
+    array[numCars] = NULL;
+    system("cls||clear");
+    cout << "Carro deletado com sucesso!\n";
+    return;
+  }
+  system("cls||clear");
+  cout << "Digite um carro especificado!\n";
+}
+
+void Carros::chooseCar(Carros *array[]) {
+  int escolha = getEscolha(array);
+  if (verifyEscolha(escolha)) {
+    cout << "Qual a mofificacao desejada? [0, 6]: ";
+    int level; cin >> level;
+    array[escolha]->verifyLevel(level);
+    return;
+  }
+  system("cls||clear");
+  cout << "Digite um carro especificado!\n";
+}
+
+int Carros::getEscolha(Carros *array[]) {
+  system("cls||clear");
+  for (int i = 0; i < numCars; i++)
+    cout << i << " - " << array[i]->nameCar << "\n";
+  cout << "Qual opcao voce escolhe? ";
+  int escolha; cin >> escolha;
+  return escolha;
 }
 
 bool Carros::verifyEscolha(const int escolha) {
   return (0 <= escolha && escolha < numCars);
 }
 
-void Carros::setStatus(const int level) {
-  int store[7]; //Array é melhor que map
-  store[0] = this -> hpStock;
-  store[1] = this -> hpStock + 150;
-  store[2] = this -> hpStock + 300;
-  store[3] = this -> hpStock + 450;
-  store[4] = this -> hpStock + 600;
-  store[5] = this -> hpStock + 750;
-  store[6] = this -> hpStock + 850;
-  this -> upLevel = verifyLevel(level);
-  this -> hpAtual = store[upLevel];
-  this -> hpAtual = (hpAtual <= MODHP) ? hpAtual : MODHP;
+bool Carros::verifyName(const string &nameCar) {
+  return (nameCar.length() <= MAXLEN);
+}
+
+bool Carros::verifyHP(const int hpStock) {
+  return (MINHP <= hpStock && hpStock <= MAXHP);
 }
 
 void Carros::getStatusArray(Carros *array[]) {
-  system("clear||cls");
+  system("cls||clear");
   for (int i = 0; i < numCars; i++) {
     int hp = array[i]->hpAtual;
     int up = array[i]->upLevel;
@@ -102,15 +134,22 @@ void Carros::getStatusArray(Carros *array[]) {
   }
 }
 
-void Carros::getNamesArray(Carros *array[]) {
-  system("clear||cls");
-  for (int i = 0; i < numCars; i++)
-    cout << i << " - " << array[i]->nameCar << "\n";
+void Carros::verifyLevel(const int level) {
+  if (0 <= level && level <= 6) {
+    setStatus(level);
+    system("cls||clear");
+    cout << "Atualizacao realizada com sucesso!\n";
+    return;
+  }
+  system("cls||clear");
+  cout << "Digite um nivel no intevalo dado!\n";
+}
+
+void Carros::setStatus(const int level) {
+  const int store[7] = {0, 150, 300, 450, 600, 750, 850};
+  this -> hpAtual = this -> hpStock + store[level];
+  if (hpAtual > MODHP) this -> hpAtual = MODHP;
+  this -> upLevel = level;
 }
 
 int Carros::getMaxCars() { return MAXCARS; }
-
-void Carros::getNumCars() {
-  system("clear||cls");
-  cout << "Numero de carros: " << numCars << "\n";
-}
