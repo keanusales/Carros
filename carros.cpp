@@ -8,7 +8,8 @@ const int Carros::MAXCARS = 10;
 
 void Carros::construct(Carros *array[], const string &nameCar, const int hpStock) {
   if (numCars + 1 <= MAXCARS) {
-    array[numCars] = new Carros(nameCar, hpStock);
+    int posPrevia = numCars;
+    array[posPrevia] = new Carros(nameCar, hpStock);
     system("clear||cls");
     cout << "Carro adicionado com sucesso!\n";
   } else {
@@ -90,18 +91,26 @@ void Carros::setStatus(const int level) {
   this -> hpAtual = (hpAtual <= MODHP) ? hpAtual : MODHP;
 }
 
-void Carros::statusArray(Carros *array[]) {
+void Carros::getStatusArray(Carros *array[]) {
   system("clear||cls");
   for (int i = 0; i < numCars; i++) {
-    cout << "Horsepower do " << array[i]->nameCar << ": " << array[i]->hpAtual << "\n";
-    cout << "Upgrade Level do " << array[i]->nameCar << ": " << array[i]->upLevel << "\n";
+    int hp = array[i]->hpAtual;
+    int up = array[i]->upLevel;
+    string name = array[i]->nameCar;
+    cout << "Horsepower do " << name << ": " << hp << "\n";
+    cout << "Upgrade Level do " << name << ": " << up << "\n";
   }
 }
 
-void Carros::namesArray(Carros *array[]) {
+void Carros::getNamesArray(Carros *array[]) {
   system("clear||cls");
   for (int i = 0; i < numCars; i++)
     cout << i << " - " << array[i]->nameCar << "\n";
 }
 
 int Carros::getMaxCars() { return MAXCARS; }
+
+void Carros::getNumCars() {
+  system("clear||cls");
+  cout << "Numero de carros: " << numCars << "\n";
+}

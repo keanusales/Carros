@@ -13,7 +13,8 @@ int main() {
       << "2 - Deletar um carro existente\n"
       << "3 - Printar estado atual dos carros\n" 
       << "4 - Fazer uma atualizacao em um dos carros\n"
-      << "5 - Sair do programa\n"
+      << "5 - Printar o numero atual dos carros\n"
+      << "6 - Sair do programa\n"
       << "Qual opcao voce escolhe? ";
     cin >> opcao;
     switch (opcao) {
@@ -22,24 +23,22 @@ int main() {
         int hpStock;
         system("clear||cls");
         cout << "Digite o nome do carro: ";
-        cin >> nameCar;
+        cin.ignore(); getline(cin, nameCar);
         cout << "Digite a potencia do carro: ";
         cin >> hpStock;
         Carros::construct(carro, nameCar, hpStock);
       } break;
       case 2:
-        Carros::namesArray(carro);
+        Carros::getNamesArray(carro);
         cout << "Qual opcao voce escolhe? ";
         cin >> escolha;
         Carros::destuct(carro, escolha);
         break;
       case 3:
-        system("clear||cls");
-        Carros::statusArray(carro);
+        Carros::getStatusArray(carro);
         break;
       case 4:
-        system("clear||cls");
-        Carros::namesArray(carro);
+        Carros::getNamesArray(carro);
         cout << "Qual opcao voce escolhe? ";
         cin >> escolha;
         cout << "Digite o nivel da atualizacao [0, 6]: ";
@@ -49,6 +48,9 @@ int main() {
         else cout << "Digite um valor especificado!\n";
         break;
       case 5:
+        Carros::getNumCars();
+        break;
+      case 6:
         system("clear||cls");
         cout << "Ate a proxima vez!\n";
         exit(0);
