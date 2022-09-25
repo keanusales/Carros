@@ -53,21 +53,26 @@ void Carros::setNewCar(Carros *array[]) {
 }
 
 void Carros::copyExtCar(Carros *array[]) {
-  if (numCars + 1 <= MAXCARS) {
-    int escolha = getEscolha(array);
-    if (verifyEscolha(escolha)) {
-      int posicao = numCars;
-      array[posicao] = new Carros(*array[escolha]);
-      system("cls||clear");
-      cout << "Carro adicionado com sucesso!\n";
-      return;
-    }
+  if (!numCars) {
     system("cls||clear");
-    cout << "Digite um carro especificado!\n";
+    cout << "Nao ha carros para copiar!\n";
+    return;
+  }
+  if (numCars + 1 > MAXCARS) {
+    system("cls||clear");
+    cout << "Numero maximo de carros alcancado!\n";
+    return;
+  }
+  int escolha = getEscolha(array);
+  if (verifyEscolha(escolha)) {
+    int posicao = numCars;
+    array[posicao] = new Carros(*array[escolha]);
+    system("cls||clear");
+    cout << "Carro adicionado com sucesso!\n";
     return;
   }
   system("cls||clear");
-  cout << "Numero maximo de carros alcancado!\n";
+  cout << "Digite um carro especificado!\n";
 }
 
 void Carros::deleteCar(Carros *array[]) {
