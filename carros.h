@@ -1,6 +1,18 @@
 #ifndef CARROS_H
 #define CARROS_H
 
+#include <vector>
+using std::vector;
+
+#include <map>
+using std::map;
+
+#include <sstream>
+using std::stringstream;
+
+#include <cmath>
+using std::ceil;
+
 #include <iostream>
 using std::getline;
 using std::string;
@@ -12,33 +24,57 @@ class Carros {
     Carros(const string &, const int);
     Carros(const Carros &);
     ~Carros();
-    static void createCar(Carros *[]);
-    static void copyExtCar(Carros *[]);
-    static void deleteCar(Carros *[]);
-    static void modifyCar(Carros *[]);
-    static int getEscolha(Carros *[]);
-    static bool verifyEscolha(const int);
-    static bool verifyName(const string &);
-    static bool verifyHP(const int);
-    static void displayArray(Carros *[]);
-    static void getModDone(Carros *[]);
     void verifyLevel(const int);
-    void setStatus(const int);
+    void getToDoList() const;
+    void addToList(const string &);
+    void getListIndex();
+    string getNameCar() const;
+    string getTTires() const;
+    string getTEngine() const;
+    int getHpAtual() const;
+    int getUpLevel() const;
+    static int getNumCars();
+    static int getMaxLen();
+    static int getMinHP();
+    static int getMaxHP();
     static int getMaxCars();
 
   private:
-    int hpAtual;
-    int hpStock;
-    int upLevel;
-    int modDone[2];
-    string nameCar;
-    static int numCars;
-    static const int MAXLEN;
-    static const int MINHP;
-    static const int MAXHP;
-    static const int MODHP;
-    static const int MAXCARS;
-    static const int HPADD[];
+    void setStatus(const int);
+    void mapModHP(const int);
+    void mapTypeTires(const int);
+    void mapTypeEngine(const int);
+    void verifyIndex(const int);
+    void popFromList(const int);
+    int* intAtributes;
+    string* strAtributes;
+    string* toDoList;
+    int lenList, maxLenList;
+    static const int MAXLEN = 30;
+    static const int MINHP = 100;
+    static const int MAXHP = 1000;
+    static const int MAXCARS = 10;
+    static const int HPSTOCK = 0;
+    static const int HPATUAL = 1;
+    static const int UPLEVEL = 2;
+    static const int NAMECAR = 0;
+    static const int TYPETIRES = 1;
+    static const int TYPENGINE = 2;
+    static const int ATRIBUTES = 3;
 };
+
+void createCar(vector <Carros*>);
+void copyExtCar(vector <Carros*>);
+void deleteCar(vector <Carros*>);
+void displayArray(vector <Carros*>);
+void modifyCar(vector <Carros*>);
+void accessList(vector <Carros*>);
+void addToList(vector <Carros*>);
+void popFromList(vector <Carros*>);
+void exitProgram(vector <Carros*>);
+int getEscolha(vector <Carros*>);
+bool vEscolha(const int, vector <Carros*>);
+bool verifyName(const string &);
+bool verifyHP(const int);
 
 #endif

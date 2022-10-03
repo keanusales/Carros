@@ -1,50 +1,64 @@
-#include "carros.cpp"
+#include "mainf.cpp"
 
 int main() {
-  int opcao, level, escolha;
-  Carros *carroPtr[Carros::getMaxCars()];
-  carroPtr[0] = new Carros("Nissan GTR", 630);
-  carroPtr[1] = new Carros("Lancer Evo X", 280);
-  carroPtr[2] = new Carros("Aventador", 770);
+  vector <Carros*> carroPtr;
+  carroPtr.push_back(new Carros("Nissan GTR", 630));
+  carroPtr.push_back(new Carros("Lancer Evo X", 280));
+  carroPtr.push_back(new Carros("Aventador", 770));
+  int opcao;
   system("clear||cls");
   while (1) {
-    cout << "1 - Criar um novo carro\n"
-      << "2 - Copiar um carro ja existente\n"
-      << "3 - Deletar um carro existente\n"
-      << "4 - Printar estado atual dos carros\n" 
-      << "5 - Mostrar numero de modificacoes\n"
-      << "6 - Modificar um dos carros\n"
-      << "7 - Sair do programa\n"
-      << "Qual opcao voce escolhe? ";
-    cin >> opcao;
+    while (1) {
+      string input;
+      cout << "1 - Criar um novo carro\n"
+        << "2 - Copiar um carro ja existente\n"
+        << "3 - Deletar um carro existente\n"
+        << "4 - Printar estado atual dos carros\n"
+        << "5 - Modificar um dos carros\n"
+        << "6 - Acessar a lista de tarefas\n"
+        << "7 - Adicionar uma nova terefa\n"
+        << "8 - Apagar uma tarefa da lista\n"
+        << "9 - Sair do programa\n"
+        << "Qual opcao voce escolhe? ";
+      getline(cin, input);
+      stringstream stream(input);
+      if (stream >> opcao) break;
+      system("clear||cls");
+      cout << "Entrada invalida! Tente de novo!\n";
+    }
     switch (opcao) {
       case 1:
-        Carros::createCar(carroPtr);
+        createCar(carroPtr);
         break;
       case 2:
-        Carros::copyExtCar(carroPtr);
+        copyExtCar(carroPtr);
         break;
       case 3:
-        Carros::deleteCar(carroPtr);
+        deleteCar(carroPtr);
         break;
       case 4:
-        Carros::displayArray(carroPtr);
+        displayArray(carroPtr);
         break;
       case 5:
-        Carros::getModDone(carroPtr);
+        modifyCar(carroPtr);
         break;
       case 6:
-        Carros::modifyCar(carroPtr);
+        accessList(carroPtr);
         break;
       case 7:
-        system("clear||cls");
-        cout << "Ate a proxima vez!\n";
+        addToList(carroPtr);
+        break;
+      case 8:
+        popFromList(carroPtr);
+        break;
+      case 9:
+        exitProgram(carroPtr);
         exit(0);
       default:
-        cin.clear(); cin.ignore();
         system("clear||cls");
         cout << "Valor Invalido! Tente de novo.\n";
         break;
     }
   }
+  return 0;
 }
