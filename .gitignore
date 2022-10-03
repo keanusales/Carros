@@ -1,6 +1,5 @@
 # Prerequisites
 *.d
-*.vscode
 *.json
 
 # Compiled Object files
