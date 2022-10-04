@@ -28,6 +28,7 @@ class Carros {
     void getToDoList() const;
     void addToList(const string &);
     void getListIndex();
+    void getPerigoso() const;
     string getNameCar() const;
     string getTTires() const;
     string getTEngine() const;
@@ -50,6 +51,7 @@ class Carros {
     string* strAtributes;
     string* toDoList;
     int lenList, maxLenList;
+    vector <bool> perigoso;
     static const int MAXLEN = 30;
     static const int MINHP = 100;
     static const int MAXHP = 1000;
@@ -71,9 +73,10 @@ void modifyCar(vector <Carros*>);
 void accessList(vector <Carros*>);
 void addToList(vector <Carros*>);
 void popFromList(vector <Carros*>);
+void getPerigoso(vector <Carros*>);
 void exitProgram(vector <Carros*>);
 int getEscolha(vector <Carros*>);
-bool vEscolha(const int, vector <Carros*>);
+bool vEscolha(const int, const int);
 bool verifyName(const string &);
 bool verifyHP(const int);
 

@@ -18,7 +18,8 @@ int main() {
         << "6 - Acessar a lista de tarefas\n"
         << "7 - Adicionar uma nova terefa\n"
         << "8 - Apagar uma tarefa da lista\n"
-        << "9 - Sair do programa\n"
+        << "9 - Ver modificacoes perigosas\n"
+        << "10 - Sair do programa\n"
         << "Qual opcao voce escolhe? ";
       getline(cin, input);
       stringstream stream(input);
@@ -52,6 +53,9 @@ int main() {
         popFromList(carroPtr);
         break;
       case 9:
+        getPerigoso(carroPtr);
+        break;
+      case 10:
         exitProgram(carroPtr);
         exit(0);
       default:

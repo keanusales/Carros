@@ -59,6 +59,7 @@ void Carros::mapModHP(const int level) {
   modHP[5] = intAtributes[HPSTOCK] + 750;
   modHP[6] = intAtributes[HPSTOCK] + 850;
   this -> intAtributes[HPATUAL] = modHP[level];
+  perigoso.push_back(intAtributes[HPATUAL] > 1000);
 }
 
 void Carros::mapTypeTires (const int level) {
@@ -105,9 +106,9 @@ void Carros::addToList(const string &newTarefa) {
     this -> toDoList = new string[maxLenList];
     for (int i = 0; i < lenList; i++)
       this -> toDoList[i] = aux[i];
+    delete [] aux;
     for (int i = lenList; i < maxLenList; i++)
       this -> toDoList[i] = "";
-    delete [] aux;
   }
   this -> toDoList[lenList] = newTarefa;
   lenList++; system("cls||clear");
@@ -151,6 +152,17 @@ void Carros::popFromList(const int index) {
   for (int i = index; i < lenList; i++)
     this -> toDoList[i] = toDoList[i+1];
   this -> toDoList[lenList] = "";
+}
+
+void Carros::getPerigoso() const {
+  if (!perigoso.size()) {
+    cout << "Não ha nada na lista!\n";
+    return;
+  }
+  cout << "Lista de perigos: ";
+  for (bool elem : this -> perigoso)
+    cout << elem << " ";
+  cout << "\n";
 }
 
 string Carros::getNameCar() const {

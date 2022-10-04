@@ -44,7 +44,7 @@ void copyExtCar(vector <Carros*> carroPtr) {
     return;
   }
   int escolha = getEscolha(carroPtr);
-  if (vEscolha(escolha, carroPtr)) {
+  if (vEscolha(escolha, numCars)) {
     carroPtr.push_back(new Carros(*carroPtr[escolha]));
     system("cls||clear");
     cout << "Carro adicionado com sucesso!\n";
@@ -62,7 +62,7 @@ void deleteCar(vector <Carros*> carroPtr) {
     return;
   }
   int escolha = getEscolha(carroPtr);
-  if (vEscolha(escolha, carroPtr)) {
+  if (vEscolha(escolha, numCars)) {
     delete carroPtr[escolha];
     for (int i = escolha; i < numCars; i++)
       carroPtr[i] = carroPtr[i+1];
@@ -90,18 +90,19 @@ void displayArray(vector <Carros*> carroPtr) {
     cout << "Horsepower do " << name << ": " << hp << "\n";
     cout << "UpLevel do " << name << ": " << up << "\n";
     cout << "Pneu do " << name << ": " << tires << "\n";
-    cout << "Motor do " << name << ": " << engine << "\n";
+    cout << "Motor do " << name << ": " << engine << "\n\n";
   }
 }
 
 void modifyCar(vector <Carros*> carroPtr) {
-  if (!carroPtr.size()) {
+  const int numCars = carroPtr.size();
+  if (!numCars) {
     system("cls||clear");
     cout << "Nao ha carros para modificar!\n";
     return;
   }
   int escolha = getEscolha(carroPtr);
-  if (vEscolha(escolha, carroPtr)) {
+  if (vEscolha(escolha, numCars)) {
     int level;
     while (1) {
       string input;
@@ -120,13 +121,14 @@ void modifyCar(vector <Carros*> carroPtr) {
 }
 
 void accessList(vector <Carros*> carroPtr) {
-  system("cls||clear");
-  if (!carroPtr.size()) {
+  const int numCars = carroPtr.size();
+  if (!numCars) {
+    system("cls||clear");
     cout << "Nao ha carros para mostrar!\n";
     return;
   }
   int escolha = getEscolha(carroPtr);
-  if (vEscolha(escolha, carroPtr)) {
+  if (vEscolha(escolha, numCars)) {
     carroPtr[escolha]->getToDoList();
     return;
   }
@@ -135,16 +137,17 @@ void accessList(vector <Carros*> carroPtr) {
 }
 
 void addToList(vector <Carros*> carroPtr) {
-  system("cls||clear");
-  if (!carroPtr.size()) {
+  const int numCars = carroPtr.size();
+  if (!numCars) {
+    system("cls||clear");
     cout << "Nao ha carros para mostrar!\n";
     return;
   }
   int escolha = getEscolha(carroPtr);
-  if (vEscolha(escolha, carroPtr)) {
+  if (vEscolha(escolha, numCars)) {
     string newTarefa;
     cout << "Digite o nova tarefa: ";
-    cin.ignore(); getline(cin, newTarefa);
+    getline(cin, newTarefa);
     carroPtr[escolha]->addToList(newTarefa);
     return;
   }
@@ -153,14 +156,31 @@ void addToList(vector <Carros*> carroPtr) {
 }
 
 void popFromList(vector <Carros*> carroPtr) {
-  system("cls||clear");
-  if (!carroPtr.size()) {
+  const int numCars = carroPtr.size();
+  if (!numCars) {
+    system("cls||clear");
     cout << "Nao ha carros para mostrar!\n";
     return;
   }
   int escolha = getEscolha(carroPtr);
-  if (vEscolha(escolha, carroPtr)) {
+  if (vEscolha(escolha, numCars)) {
     carroPtr[escolha]->getListIndex();
+    return;
+  }
+  system("cls||clear");
+  cout << "Digite um carro especificado!\n";
+}
+
+void getPerigoso(vector <Carros*> carroPtr) {
+  const int numCars = carroPtr.size();
+  if (!numCars) {
+    system("cls||clear");
+    cout << "Nao ha carros para mostrar!\n";
+    return;
+  }
+  int escolha = getEscolha(carroPtr);
+  if (vEscolha(escolha, numCars)) {
+    carroPtr[escolha]->getPerigoso();
     return;
   }
   system("cls||clear");
@@ -192,8 +212,7 @@ int getEscolha(vector <Carros*> carroPtr) {
   return escolha;
 }
 
-bool vEscolha(const int escolha, vector <Carros*> carroPtr) {
-  const int numCars = carroPtr.size();
+bool vEscolha(const int escolha, const int numCars) {
   return (0 <= escolha && escolha < numCars);
 }
 
