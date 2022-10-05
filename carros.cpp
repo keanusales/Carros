@@ -59,7 +59,7 @@ void Carros::mapModHP(const int level) {
   modHP[5] = intAtributes[HPSTOCK] + 750;
   modHP[6] = intAtributes[HPSTOCK] + 850;
   this -> intAtributes[HPATUAL] = modHP[level];
-  perigoso.push_back(intAtributes[HPATUAL] > 1000);
+  perigoso.push_back(new bool(intAtributes[HPATUAL] > 1000));
 }
 
 void Carros::mapTypeTires (const int level) {
@@ -160,8 +160,8 @@ void Carros::getPerigoso() const {
     return;
   }
   cout << "Lista de perigos: ";
-  for (bool elem : this -> perigoso)
-    cout << elem << " ";
+  for (bool *elem : this -> perigoso)
+    cout << *elem << " ";
   cout << "\n";
 }
 

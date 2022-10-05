@@ -51,7 +51,7 @@ class Carros {
     string* strAtributes;
     string* toDoList;
     int lenList, maxLenList;
-    vector <bool> perigoso;
+    vector <bool*> perigoso;
     static const int MAXLEN = 30;
     static const int MINHP = 100;
     static const int MAXHP = 1000;
