@@ -21,12 +21,36 @@ int main() {
         deleteCar(carroPtr);
         break;
       case 4:
-        displayArray(carroPtr);
+        getAtributes(carroPtr);
         break;
       case 5:
-        modifyCar(carroPtr);
+        getModsDone(carroPtr);
         break;
       case 6:
+        setInternals(carroPtr);
+        break;
+      case 7:
+        setTurbo(carroPtr);
+        break;
+      case 8:
+        setIntake(carroPtr);
+        break;
+      case 9:
+        setExaust(carroPtr);
+        break;
+      case 10:
+        setEletronic(carroPtr);
+        break;
+      case 11:
+        setTransmission(carroPtr);
+        break;
+      case 12:
+        setSuspension(carroPtr);
+        break;
+      case 13:
+        setChassis(carroPtr);
+        break;
+      case 14:
         exitProgram(carroPtr);
         exit(0);
       default:

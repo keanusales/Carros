@@ -17,7 +17,7 @@ Carros::Carros(const string &nameCar, const int hpStock) {
   this -> atributes.nameCar = nameCar;
   this -> atributes.hpStock = hpStock;
   this -> atributes.hpAtual = hpStock;
-  this -> atributes.upLevel = 0;
+  // this -> atributes.upLevel = 0;
   this -> modsDone.turbo.part = "Original";
   this -> modsDone.intake.part = "Original";
   this -> modsDone.exaust.part = "Original";
@@ -40,7 +40,7 @@ Carros::~Carros() { this -> numCars--; }
 void Carros::getAtributes() const {
   cout << "Carro: " << atributes.nameCar << "\n";
   cout << "Horsepower: " << atributes.hpAtual << "\n";
-  cout << "UpLevel: " << atributes.upLevel << "\n\n";
+  // cout << "UpLevel: " << atributes.upLevel << "\n\n";
 }
 
 void Carros::getModsDone() const {
@@ -60,19 +60,71 @@ void Carros::setInternals(const int opcao) {
 }
 
 void Carros::setTurbo(const int opcao) {
+  if (modsDone.internals.part == "Original") {
+    system("cls||clear");
+    cout << "Internos Originais: Nao e posssivel modificar\n";
+    return;
+  }
+  const int hpAdd = Carros::turbos[opcao].hpGain;
+  if (hpAdd + atributes.hpAtual > modsDone.internals.hpResis) {
+    system("cls||clear");
+    cout << "Internos nao aguentam a nova potencia!\n"
+      << "Tente fazer um upgrade dos internos!\n";
+    return;
+  }
   this -> modsDone.turbo = Carros::turbos[opcao];
+  this -> atributes.hpAtual += hpAdd;
 }
 
 void Carros::setIntake(const int opcao) {
+  if (modsDone.internals.part == "Original") {
+    system("cls||clear");
+    cout << "Internos Originais: Nao e posssivel modificar\n";
+    return;
+  }
+  const int hpAdd = Carros::intake[opcao].hpGain;
+  if (hpAdd + atributes.hpAtual > modsDone.internals.hpResis) {
+    system("cls||clear");
+    cout << "Internos nao aguentam a nova potencia!\n"
+      << "Tente fazer um upgrade dos internos!\n";
+    return;
+  }
   this -> modsDone.intake = Carros::intake[opcao];
+  this -> atributes.hpAtual += hpAdd;
 }
 
 void Carros::setExaust(const int opcao) {
+  if (modsDone.internals.part == "Original") {
+    system("cls||clear");
+    cout << "Internos Originais: Nao e posssivel modificar\n";
+    return;
+  }
+  const int hpAdd = Carros::exaust[opcao].hpGain;
+  if (hpAdd + atributes.hpAtual > modsDone.internals.hpResis) {
+    system("cls||clear");
+    cout << "Internos nao aguentam a nova potencia!\n"
+      << "Tente fazer um upgrade dos internos!\n";
+    return;
+  }
   this -> modsDone.exaust = Carros::exaust[opcao];
+  this -> atributes.hpAtual += hpAdd;
 }
 
 void Carros::setEletronic(const int opcao) {
+  if (modsDone.internals.part == "Original") {
+    system("cls||clear");
+    cout << "Internos Originais: Nao e posssivel modificar\n";
+    return;
+  }
+  const int hpAdd = Carros::eletronics[opcao].hpGain;
+  if (hpAdd + atributes.hpAtual > modsDone.internals.hpResis) {
+    system("cls||clear");
+    cout << "Internos nao aguentam a nova potencia!\n"
+      << "Tente fazer um upgrade dos internos!\n";
+    return;
+  }
   this -> modsDone.eletronic = Carros::eletronics[opcao];
+  this -> atributes.hpAtual += hpAdd;
 }
 
 void Carros::setTransmission(const int opcao) {

@@ -61,7 +61,7 @@ class Carros {
     struct Atributes {
       int hpStock;
       int hpAtual;
-      int upLevel;
+      // int upLevel;
       string nameCar;
     } atributes;
     struct ModsDone {
@@ -87,7 +87,8 @@ int selectOption();
 void createCar(Carros *[]);
 void copyExtCar(Carros *[]);
 void deleteCar(Carros *[]);
-void displayArray(Carros *[]);
+void getAtributes(Carros *[]);
+void getModsDone(Carros *[]);
 void setInternals(Carros *[]);
 void setTurbo(Carros *[]);
 void setIntake(Carros *[]);
