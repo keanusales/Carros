@@ -1,189 +1,93 @@
-#include "carros.h"
+#include "dicts.cpp"
+
+int Carros::numCars = 0;
+const int Carros::MAXLEN = 30;
+const int Carros::MINHP = 100;
+const int Carros::MAXHP = 1000;
+const int Carros::MINLVL = 0;
+const int Carros::MAXLVL = 6;
+const int Carros::MAXCARS = 10;
+
+ostream &operator<<(ostream &output, const Carros *carro) {
+  output << carro->atributes.nameCar;
+  return output;
+}
 
 Carros::Carros(const string &nameCar, const int hpStock) {
-  this -> strAtributes = new string[ATRIBUTES];
-  this -> strAtributes[NAMECAR] = nameCar;
-  this -> strAtributes[TYPETIRES] = "Street";
-  this -> strAtributes[TYPENGINE] = "Original";
-  this -> intAtributes = new int[ATRIBUTES];
-  this -> intAtributes[HPSTOCK] = hpStock;
-  this -> intAtributes[HPATUAL] = hpStock;
-  this -> intAtributes[UPLEVEL] = 0;
-  this -> lenList = 0, maxLenList = 10;
-  this -> toDoList = new string[maxLenList];
-  for (int i = 0; i < maxLenList; i++)
-    this -> toDoList[i] = "";
+  this -> atributes.nameCar = nameCar;
+  this -> atributes.hpStock = hpStock;
+  this -> atributes.hpAtual = hpStock;
+  this -> atributes.upLevel = 0;
+  this -> modsDone.turbo.part = "Original";
+  this -> modsDone.intake.part = "Original";
+  this -> modsDone.exaust.part = "Original";
+  this -> modsDone.eletronic.part = "Original";
+  this -> modsDone.internals.part = "Original";
+  this -> modsDone.suspension.part = "Original";
+  this -> modsDone.trasmission.part = "Original";
+  this -> modsDone.chassis.part = "Original";
+  this -> numCars++;
 }
 
 Carros::Carros(const Carros &other) {
-  this -> strAtributes = new string[ATRIBUTES];
-  for(int i = 0; i < ATRIBUTES; i++)
-    this -> strAtributes[i] = other.strAtributes[i];
-  this -> intAtributes = new int[ATRIBUTES];
-  for(int i = 0; i <= ATRIBUTES; i++)
-    this -> intAtributes[i] = other.intAtributes[i];
-  this -> lenList = other.lenList;
-  this -> maxLenList = other.maxLenList;
-  this -> toDoList = new string[maxLenList];
-  for (int i = 0; i < maxLenList; i++)
-    this -> toDoList[i] = other.toDoList[i];
+  this -> atributes = other.atributes;
+  this -> modsDone = other.modsDone;
+  this -> numCars++;
 }
 
-Carros::~Carros() {}
+Carros::~Carros() { this -> numCars--; }
 
-void Carros::verifyLevel(const int level) {
-  if (0 <= level && level <= 6) {
-    this -> setStatus(level);
-    system("cls||clear");
-    cout << "Atualizacao realizada com sucesso!\n";
-    return;
-  }
-  system("cls||clear");
-  cout << "Digite um nivel no intevalo dado!\n";
+void Carros::getAtributes() const {
+  cout << "Carro: " << atributes.nameCar << "\n";
+  cout << "Horsepower: " << atributes.hpAtual << "\n";
+  cout << "UpLevel: " << atributes.upLevel << "\n\n";
 }
 
-void Carros::setStatus(const int level) {
-  this -> mapModHP(level);
-  this -> mapTypeTires(level);
-  this -> mapTypeEngine(level);
-  this -> intAtributes[UPLEVEL] = level;
+void Carros::getModsDone() const {
+  cout << "Carro: " << atributes.nameCar << "\n";
+  cout << "Turbo: " << modsDone.turbo.part << "\n";
+  cout << "Intake: " << modsDone.intake.part << "\n";
+  cout << "Exaust: " << modsDone.exaust.part << "\n";
+  cout << "Eletronic: " << modsDone.eletronic.part << "\n";
+  cout << "Internals: " << modsDone.internals.part << "\n";
+  cout << "Trasmission: " << modsDone.trasmission.part << "\n";
+  cout << "Suspension: " << modsDone.suspension.part << "\n";
+  cout << "Chassis: " << modsDone.chassis.part << "\n\n";
 }
 
-void Carros::mapModHP(const int level) {
-  map <const int, int> modHP;
-  modHP[0] = intAtributes[HPSTOCK];
-  modHP[1] = intAtributes[HPSTOCK] + 150;
-  modHP[2] = intAtributes[HPSTOCK] + 300;
-  modHP[3] = intAtributes[HPSTOCK] + 450;
-  modHP[4] = intAtributes[HPSTOCK] + 600;
-  modHP[5] = intAtributes[HPSTOCK] + 750;
-  modHP[6] = intAtributes[HPSTOCK] + 850;
-  this -> intAtributes[HPATUAL] = modHP[level];
-  perigoso.push_back(new bool(intAtributes[HPATUAL] > 1000));
+void Carros::setInternals(const int opcao) {
+  this -> modsDone.internals = Carros::internals[opcao];
 }
 
-void Carros::mapTypeTires (const int level) {
-  map <const int, string> typeTires;
-  typeTires[0] = "Street";
-  typeTires[1] = "Semi-Slick";
-  typeTires[2] = "Semi-Slick";
-  typeTires[3] = "Semi-Slick";
-  typeTires[4] = "Slick";
-  typeTires[5] = "Slick";
-  typeTires[6] = "Slick";
-  this -> strAtributes[TYPETIRES] = typeTires[level];
+void Carros::setTurbo(const int opcao) {
+  this -> modsDone.turbo = Carros::turbos[opcao];
 }
 
-void Carros::mapTypeEngine(const int level) {
-  map <const int, string> typeEngine;
-  typeEngine[0] = "Original";
-  typeEngine[1] = "Original w/ remap";
-  typeEngine[2] = "Street";
-  typeEngine[3] = "Street w/ remap";
-  typeEngine[4] = "Sport";
-  typeEngine[5] = "Sport w/ remap";
-  typeEngine[6] = "Full Racing";
-  this -> strAtributes[TYPENGINE] = typeEngine[level];
+void Carros::setIntake(const int opcao) {
+  this -> modsDone.intake = Carros::intake[opcao];
 }
 
-void Carros::getToDoList() const {
-  system("cls||clear");
-  if (!lenList) {
-    cout << "Nao ha tarefas na lista!\n";
-    return;
-  }
-  for (int i = 0; i < lenList; i++)
-    cout << i << " - " << toDoList[i] << "\n";
+void Carros::setExaust(const int opcao) {
+  this -> modsDone.exaust = Carros::exaust[opcao];
 }
 
-void Carros::addToList(const string &newTarefa) {
-  if (lenList + 1 > maxLenList) {
-    string* aux = new string[lenList];
-    for (int i = 0; i < lenList; i++)
-      aux[i] = this -> toDoList[i];
-    delete [] this -> toDoList;
-    maxLenList += int(ceil(maxLenList*.5));
-    this -> toDoList = new string[maxLenList];
-    for (int i = 0; i < lenList; i++)
-      this -> toDoList[i] = aux[i];
-    delete [] aux;
-    for (int i = lenList; i < maxLenList; i++)
-      this -> toDoList[i] = "";
-  }
-  this -> toDoList[lenList] = newTarefa;
-  lenList++; system("cls||clear");
-  cout << "Tarefa Adicionada com sucesso!\n";
+void Carros::setEletronic(const int opcao) {
+  this -> modsDone.eletronic = Carros::eletronics[opcao];
 }
 
-void Carros::getListIndex() {
-  system("cls||clear");
-  if (!lenList) {
-    cout << "Nao ha tarefas na lista!\n";
-    return;
-  }
-  int index;
-  while (1) {
-    string input;
-    for (int i = 0; i < lenList; i++)
-      cout << i << " - " << toDoList[i] << "\n";
-    cout << "Qual opcao voce escolhe? ";
-    getline(cin, input);
-    stringstream stream(input);
-    if (stream >> index) break;
-    system("cls||clear");
-    cout << "Entrada invalida! Tente de novo!\n";
-  }
-  this -> verifyIndex(index);
+void Carros::setTransmission(const int opcao) {
+  this -> modsDone.trasmission = Carros::trasmission[opcao];
 }
 
-void Carros::verifyIndex(const int index) {
-  if (0 <= index && index < lenList) {
-    this -> popFromList(index);
-    system("cls||clear");
-    cout << "Tarefa removida com sucesso!\n";
-    return;
-  }
-  system("cls||clear");
-  cout << "Digite um nivel no intevalo dado!\n";
+void Carros::setSuspension(const int opcao) {
+  this -> modsDone.suspension = Carros::suspension[opcao];
 }
 
-void Carros::popFromList(const int index) {
-  this -> lenList--;
-  for (int i = index; i < lenList; i++)
-    this -> toDoList[i] = toDoList[i+1];
-  this -> toDoList[lenList] = "";
+void Carros::setChassis(const int opcao) {
+  this -> modsDone.chassis = Carros::chassis[opcao];
 }
 
-void Carros::getPerigoso() const {
-  if (!perigoso.size()) {
-    cout << "Não ha nada na lista!\n";
-    return;
-  }
-  cout << "Lista de perigos: ";
-  for (bool *elem : this -> perigoso)
-    cout << *elem << " ";
-  cout << "\n";
-}
-
-string Carros::getNameCar() const {
-  return strAtributes[NAMECAR];
-}
-
-string Carros::getTTires() const {
-  return strAtributes[TYPETIRES];
-}
-
-string Carros::getTEngine() const {
-  return strAtributes[TYPENGINE];
-}
-
-int Carros::getHpAtual() const {
-  return intAtributes[HPATUAL];
-}
-
-int Carros::getUpLevel() const {
-  return intAtributes[UPLEVEL];
-}
+int Carros::getNumCars() { return numCars; }
 
 int Carros::getMaxLen() { return MAXLEN; }
 
