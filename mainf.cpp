@@ -10,16 +10,15 @@ int selectOption() {
       << "3 - Deletar um carro existente\n"
       << "4 - Printar estado atual dos carros\n"
       << "5 - Printar modificacoes feitas\n"
-      << "6 - Deletar uma modificacao feita\n"
-      << "7 - Setar internos de um carro\n"
-      << "8 - Setar turbo de um carro\n"
-      << "9 - Setar intake de um carro\n"
-      << "10 - Setar exaust de um carro\n"
-      << "11 - Setar eletronics de um carro\n"
-      << "12 - Setar transmission de um carro\n"
-      << "13 - Setar suspension de um carro\n"
-      << "14 - Setar chassis de um carro\n"
-      << "15 - Sair do programa\n"
+      << "6 - Setar internos de um carro\n"
+      << "7 - Setar turbo de um carro\n"
+      << "8 - Setar intake de um carro\n"
+      << "9 - Setar exaust de um carro\n"
+      << "10 - Setar eletronics de um carro\n"
+      << "11 - Setar transmission de um carro\n"
+      << "12 - Setar suspension de um carro\n"
+      << "13 - Setar chassis de um carro\n"
+      << "14 - Sair do programa\n"
       << "Qual opcao voce escolhe? ";
     getline(cin, input);
     stringstream stream(input);
@@ -131,41 +130,6 @@ void getModsDone(Carros *carroPtr[]) {
   cout << "Digite um carro especificado!\n";
 }
 
-void delModsDone(Carros *carroPtr[]) {
-  const int numCars = Carros::getNumCars();
-  if (!numCars) {
-    system("cls||clear");
-    cout << "Nao ha carros para mostrar!\n";
-    return;
-  }
-  int escolha = getEscolha(carroPtr);
-  if (verifyEscolha(escolha)) {
-    int opcao;
-    system("cls||clear");
-    while (1) {
-      string input;
-      cout << "0 - Turbo\n"
-        << "1 - Intake\n"
-        << "2 - Exaust\n"
-        << "3 - Eletronics\n"
-        << "4 - Internals\n"
-        << "5 - Transmission\n"
-        << "6 - Suspension\n"
-        << "7 - Chassis\n"
-        << "Qual opcao voce escolhe? ";
-      getline(cin, input);
-      stringstream stream(input);
-      if (stream >> opcao) break;
-      system("clear||cls");
-      cout << "Entrada invalida! Tente de novo!\n";
-    }
-    carroPtr[escolha]->delModsDone(opcao);
-    return;
-  }
-  system("cls||clear");
-  cout << "Digite um carro especificado!\n";
-}
-
 void setInternals(Carros *carroPtr[]) {
   const int numCars = Carros::getNumCars();
   if (!numCars) {
@@ -179,7 +143,7 @@ void setInternals(Carros *carroPtr[]) {
     system("cls||clear");
     while (1) {
       string input;
-      for (Carros::hpResis elem : Carros::internals)
+      for (Engine::interns elem : Engine::internsParts)
         cout << elem.part << " - " << elem.hpResis << "\n";
       cout << "Qual opcao voce escolhe? ";
       getline(cin, input);
@@ -208,7 +172,7 @@ void setTurbo(Carros *carroPtr[]) {
     system("cls||clear");
     while (1) {
       string input;
-      for (Carros::hpGain elem : Carros::turbos)
+      for (Engine::turbo elem : Engine::turbosParts)
         cout << elem.part << " - " << elem.hpGain << "\n";
       cout << "Qual opcao voce escolhe? ";
       getline(cin, input);
@@ -237,7 +201,7 @@ void setIntake(Carros *carroPtr[]) {
     system("cls||clear");
     while (1) {
       string input;
-      for (Carros::hpGain elem : Carros::intake)
+      for (Engine::intake elem : Engine::intakeParts)
         cout << elem.part << " - " << elem.hpGain << "\n";
       cout << "Qual opcao voce escolhe? ";
       getline(cin, input);
@@ -266,7 +230,7 @@ void setExaust(Carros *carroPtr[]) {
     system("cls||clear");
     while (1) {
       string input;
-      for (Carros::hpGain elem : Carros::exaust)
+      for (Engine::exaust elem : Engine::exaustParts)
         cout << elem.part << " - " << elem.hpGain << "\n";
       cout << "Qual opcao voce escolhe? ";
       getline(cin, input);
@@ -295,7 +259,7 @@ void setEletronic(Carros *carroPtr[]) {
     system("cls||clear");
     while (1) {
       string input;
-      for (Carros::hpGain elem : Carros::eletronics)
+      for (Engine::ECUnit elem : Engine::ECUnitParts)
         cout << elem.part << " - " << elem.hpGain << "\n";
       cout << "Qual opcao voce escolhe? ";
       getline(cin, input);
@@ -304,7 +268,7 @@ void setEletronic(Carros *carroPtr[]) {
       system("clear||cls");
       cout << "Entrada invalida! Tente de novo!\n";
     }
-    carroPtr[escolha]->setEletronic(opcao);
+    carroPtr[escolha]->setECUnit(opcao);
     return;
   }
   system("cls||clear");
@@ -324,7 +288,7 @@ void setTransmission(Carros *carroPtr[]) {
     system("cls||clear");
     while (1) {
       string input;
-      for (Carros::change elem : Carros::trasmission)
+      for (Transmiss::trasmiss elem : Transmiss::transmissParts)
         cout << elem.part << " - " << elem.time << "\n";
       cout << "Qual opcao voce escolhe? ";
       getline(cin, input);
@@ -333,7 +297,7 @@ void setTransmission(Carros *carroPtr[]) {
       system("clear||cls");
       cout << "Entrada invalida! Tente de novo!\n";
     }
-    carroPtr[escolha]->setTransmission(opcao);
+    carroPtr[escolha]->setTransmiss(opcao);
     return;
   }
   system("cls||clear");
@@ -353,7 +317,7 @@ void setSuspension(Carros *carroPtr[]) {
     system("cls||clear");
     while (1) {
       string input;
-      for (Carros::gForce elem : Carros::suspension)
+      for (Chassis::suspension elem : Chassis::suspensionParts)
         cout << elem.part << " - " << elem.gForce << "\n";
       cout << "Qual opcao voce escolhe? ";
       getline(cin, input);
@@ -382,7 +346,7 @@ void setChassis(Carros *carroPtr[]) {
     system("cls||clear");
     while (1) {
       string input;
-      for (Carros::gForce elem : Carros::chassis)
+      for (Chassis::chassis elem : Chassis::chassisParts)
         cout << elem.part << " - " << elem.gForce << "\n";
       cout << "Qual opcao voce escolhe? ";
       getline(cin, input);

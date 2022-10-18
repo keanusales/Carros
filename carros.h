@@ -1,18 +1,7 @@
 #ifndef CARROS_H
 #define CARROS_H
 
-#include <vector>
-using std::vector;
-
-#include <sstream>
-using std::stringstream;
-
-#include <iostream>
-using std::ostream;
-using std::getline;
-using std::string;
-using std::cout;
-using std::cin;
+#include "classes.h"
 
 class Carros {
   friend ostream &operator<<(ostream &, const Carros*);
@@ -24,13 +13,12 @@ class Carros {
     void verifyLevel(const int);
     void getAtributes() const;
     void getModsDone() const;
-    void delModsDone(const int);
-    void setInternals(const int);
     void setTurbo(const int);
     void setIntake(const int);
     void setExaust(const int);
-    void setEletronic(const int);
-    void setTransmission(const int);
+    void setECUnit(const int);
+    void setInternals(const int);
+    void setTransmiss(const int);
     void setSuspension(const int);
     void setChassis(const int);
     static int getNumCars();
@@ -39,42 +27,15 @@ class Carros {
     static int getMaxHP();
     static int getMaxCars();
 
-  public: //Bibliotecas
-    static const struct hpGain {
-      string part;
-      int hpGain;
-    } turbos[], intake[],
-    exaust[], eletronics[];
-    static const struct hpResis {
-      string part;
-      int hpResis;
-    } internals[];
-    static const struct change {
-      string part;
-      double time;
-    } trasmission[];
-    static const struct gForce {
-      string part;
-      double gForce;
-    } suspension[], chassis[];
-
   private:
     struct Atributes {
       int hpStock;
       int hpAtual;
-      // int upLevel;
       string nameCar;
     } atributes;
-    struct ModsDone {
-      hpGain turbo;
-      hpGain intake;
-      hpGain exaust;
-      hpGain eletronic;
-      hpResis internals;
-      change trasmission;
-      gForce suspension;
-      gForce chassis;
-    } modsDone;
+    Engine *myEngine;
+    Transmiss *myTransmiss;
+    Chassis *myChassis;
     static int numCars;
     static const int MAXLEN;
     static const int MINHP;
@@ -90,7 +51,6 @@ void copyExtCar(Carros *[]);
 void deleteCar(Carros *[]);
 void getAtributes(Carros *[]);
 void getModsDone(Carros *[]);
-void delModsDone(Carros *[]);
 void setInternals(Carros *[]);
 void setTurbo(Carros *[]);
 void setIntake(Carros *[]);
