@@ -10,15 +10,16 @@ int selectOption() {
       << "3 - Deletar um carro existente\n"
       << "4 - Printar estado atual dos carros\n"
       << "5 - Printar modificacoes feitas\n"
-      << "6 - Setar internos de um carro\n"
-      << "7 - Setar turbo de um carro\n"
-      << "8 - Setar intake de um carro\n"
-      << "9 - Setar exaust de um carro\n"
-      << "10 - Setar eletronics de um carro\n"
-      << "11 - Setar transmission de um carro\n"
-      << "12 - Setar suspension de um carro\n"
-      << "13 - Setar chassis de um carro\n"
-      << "14 - Sair do programa\n"
+      << "6 - Deletar uma modificacao feita\n"
+      << "7 - Setar internos de um carro\n"
+      << "8 - Setar turbo de um carro\n"
+      << "9 - Setar intake de um carro\n"
+      << "10 - Setar exaust de um carro\n"
+      << "11 - Setar eletronics de um carro\n"
+      << "12 - Setar transmission de um carro\n"
+      << "13 - Setar suspension de um carro\n"
+      << "14 - Setar chassis de um carro\n"
+      << "15 - Sair do programa\n"
       << "Qual opcao voce escolhe? ";
     getline(cin, input);
     stringstream stream(input);
@@ -130,6 +131,41 @@ void getModsDone(Carros *carroPtr[]) {
   cout << "Digite um carro especificado!\n";
 }
 
+void delModsDone(Carros *carroPtr[]) {
+  const int numCars = Carros::getNumCars();
+  if (!numCars) {
+    system("cls||clear");
+    cout << "Nao ha carros para mostrar!\n";
+    return;
+  }
+  int escolha = getEscolha(carroPtr);
+  if (verifyEscolha(escolha)) {
+    int opcao;
+    system("cls||clear");
+    while (1) {
+      string input;
+      cout << "0 - Turbo\n"
+        << "1 - Intake\n"
+        << "2 - Exaust\n"
+        << "3 - Eletronics\n"
+        << "4 - Internals\n"
+        << "5 - Transmission\n"
+        << "6 - Suspension\n"
+        << "7 - Chassis\n"
+        << "Qual opcao voce escolhe? ";
+      getline(cin, input);
+      stringstream stream(input);
+      if (stream >> opcao) break;
+      system("clear||cls");
+      cout << "Entrada invalida! Tente de novo!\n";
+    }
+    carroPtr[escolha]->delModsDone(opcao);
+    return;
+  }
+  system("cls||clear");
+  cout << "Digite um carro especificado!\n";
+}
+
 void setInternals(Carros *carroPtr[]) {
   const int numCars = Carros::getNumCars();
   if (!numCars) {
@@ -153,8 +189,6 @@ void setInternals(Carros *carroPtr[]) {
       cout << "Entrada invalida! Tente de novo!\n";
     }
     carroPtr[escolha]->setInternals(opcao);
-    system("cls||clear");
-    cout << "Atualizacao feita com sucesso!\n";
     return;
   }
   system("cls||clear");
@@ -184,8 +218,6 @@ void setTurbo(Carros *carroPtr[]) {
       cout << "Entrada invalida! Tente de novo!\n";
     }
     carroPtr[escolha]->setTurbo(opcao);
-    system("cls||clear");
-    cout << "Atualizacao feita com sucesso!\n";
     return;
   }
   system("cls||clear");
@@ -215,8 +247,6 @@ void setIntake(Carros *carroPtr[]) {
       cout << "Entrada invalida! Tente de novo!\n";
     }
     carroPtr[escolha]->setIntake(opcao);
-    system("cls||clear");
-    cout << "Atualizacao feita com sucesso!\n";
     return;
   }
   system("cls||clear");
@@ -246,8 +276,6 @@ void setExaust(Carros *carroPtr[]) {
       cout << "Entrada invalida! Tente de novo!\n";
     }
     carroPtr[escolha]->setExaust(opcao);
-    system("cls||clear");
-    cout << "Atualizacao feita com sucesso!\n";
     return;
   }
   system("cls||clear");
@@ -277,8 +305,6 @@ void setEletronic(Carros *carroPtr[]) {
       cout << "Entrada invalida! Tente de novo!\n";
     }
     carroPtr[escolha]->setEletronic(opcao);
-    system("cls||clear");
-    cout << "Atualizacao feita com sucesso!\n";
     return;
   }
   system("cls||clear");
@@ -308,8 +334,6 @@ void setTransmission(Carros *carroPtr[]) {
       cout << "Entrada invalida! Tente de novo!\n";
     }
     carroPtr[escolha]->setTransmission(opcao);
-    system("cls||clear");
-    cout << "Atualizacao feita com sucesso!\n";
     return;
   }
   system("cls||clear");
@@ -339,8 +363,6 @@ void setSuspension(Carros *carroPtr[]) {
       cout << "Entrada invalida! Tente de novo!\n";
     }
     carroPtr[escolha]->setSuspension(opcao);
-    system("cls||clear");
-    cout << "Atualizacao feita com sucesso!\n";
     return;
   }
   system("cls||clear");
@@ -370,8 +392,6 @@ void setChassis(Carros *carroPtr[]) {
       cout << "Entrada invalida! Tente de novo!\n";
     }
     carroPtr[escolha]->setChassis(opcao);
-    system("cls||clear");
-    cout << "Atualizacao feita com sucesso!\n";
     return;
   }
   system("cls||clear");

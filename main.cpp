@@ -27,30 +27,33 @@ int main() {
         getModsDone(carroPtr);
         break;
       case 6:
-        setInternals(carroPtr);
+        delModsDone(carroPtr);
         break;
       case 7:
-        setTurbo(carroPtr);
+        setInternals(carroPtr);
         break;
       case 8:
-        setIntake(carroPtr);
+        setTurbo(carroPtr);
         break;
       case 9:
-        setExaust(carroPtr);
+        setIntake(carroPtr);
         break;
       case 10:
-        setEletronic(carroPtr);
+        setExaust(carroPtr);
         break;
       case 11:
-        setTransmission(carroPtr);
+        setEletronic(carroPtr);
         break;
       case 12:
-        setSuspension(carroPtr);
+        setTransmission(carroPtr);
         break;
       case 13:
-        setChassis(carroPtr);
+        setSuspension(carroPtr);
         break;
       case 14:
+        setChassis(carroPtr);
+        break;
+      case 15:
         exitProgram(carroPtr);
         exit(0);
       default:

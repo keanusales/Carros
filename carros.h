@@ -24,6 +24,7 @@ class Carros {
     void verifyLevel(const int);
     void getAtributes() const;
     void getModsDone() const;
+    void delModsDone(const int);
     void setInternals(const int);
     void setTurbo(const int);
     void setIntake(const int);
@@ -89,6 +90,7 @@ void copyExtCar(Carros *[]);
 void deleteCar(Carros *[]);
 void getAtributes(Carros *[]);
 void getModsDone(Carros *[]);
+void delModsDone(Carros *[]);
 void setInternals(Carros *[]);
 void setTurbo(Carros *[]);
 void setIntake(Carros *[]);

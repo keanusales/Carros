@@ -18,14 +18,14 @@ Carros::Carros(const string &nameCar, const int hpStock) {
   this -> atributes.hpStock = hpStock;
   this -> atributes.hpAtual = hpStock;
   // this -> atributes.upLevel = 0;
-  this -> modsDone.turbo.part = "Original";
-  this -> modsDone.intake.part = "Original";
-  this -> modsDone.exaust.part = "Original";
-  this -> modsDone.eletronic.part = "Original";
-  this -> modsDone.internals.part = "Original";
-  this -> modsDone.suspension.part = "Original";
-  this -> modsDone.trasmission.part = "Original";
-  this -> modsDone.chassis.part = "Original";
+  this -> modsDone.turbo = {"Original", 0};
+  this -> modsDone.intake = {"Original", 0};
+  this -> modsDone.exaust = {"Original", 0};
+  this -> modsDone.eletronic = {"Original", 0};
+  this -> modsDone.internals = {"Original", 0};
+  this -> modsDone.suspension = {"Original", 0};
+  this -> modsDone.trasmission = {"Original", 0};
+  this -> modsDone.chassis = {"Original", 0};
   this -> numCars++;
 }
 
@@ -55,8 +55,60 @@ void Carros::getModsDone() const {
   cout << "Chassis: " << modsDone.chassis.part << "\n\n";
 }
 
+void Carros::delModsDone(const int opcao) {
+  system("clear||cls");
+  switch (opcao) {
+    case 0:
+      for (Carros::hpGain elem : Carros::turbos)
+        if (modsDone.turbo.part == elem.part)
+          this -> atributes.hpAtual -= elem.hpGain;
+      this -> modsDone.turbo = {"Original", 0};
+      break;
+    case 1:
+      for (Carros::hpGain elem : Carros::intake)
+        if (modsDone.intake.part == elem.part)
+          this -> atributes.hpAtual -= elem.hpGain;
+      this -> modsDone.intake = {"Original", 0};
+      break;
+    case 2:
+      for (Carros::hpGain elem : Carros::exaust)
+        if (modsDone.exaust.part == elem.part)
+          this -> atributes.hpAtual -= elem.hpGain;
+      this -> modsDone.exaust = {"Original", 0};
+      break;
+    case 3:
+      for (Carros::hpGain elem : Carros::eletronics)
+        if (modsDone.eletronic.part == elem.part)
+          this -> atributes.hpAtual -= elem.hpGain;
+      this -> modsDone.eletronic = {"Original", 0};
+      break;
+    case 4:
+      this -> atributes.hpAtual = atributes.hpStock;
+      this -> modsDone.internals = {"Original", 0};
+      this -> modsDone.turbo = {"Original", 0};
+      this -> modsDone.intake = {"Original", 0};
+      this -> modsDone.exaust = {"Original", 0};
+      this -> modsDone.eletronic = {"Original", 0};
+      break;
+    case 5:
+      this -> modsDone.trasmission = {"Original", 0};
+      break;
+    case 6:
+      this -> modsDone.suspension = {"Original", 0};
+      break;
+    case 7:
+      this -> modsDone.chassis = {"Original", 0};
+      break;
+    default:
+      cout << "Valor Invalido! Tente de novo.\n";
+      break;
+  }
+}
+
 void Carros::setInternals(const int opcao) {
   this -> modsDone.internals = Carros::internals[opcao];
+  system("cls||clear");
+  cout << "Atualizacao feita com sucesso!\n";
 }
 
 void Carros::setTurbo(const int opcao) {
@@ -74,6 +126,8 @@ void Carros::setTurbo(const int opcao) {
   }
   this -> modsDone.turbo = Carros::turbos[opcao];
   this -> atributes.hpAtual += hpAdd;
+  system("cls||clear");
+  cout << "Atualizacao feita com sucesso!\n";
 }
 
 void Carros::setIntake(const int opcao) {
@@ -91,6 +145,8 @@ void Carros::setIntake(const int opcao) {
   }
   this -> modsDone.intake = Carros::intake[opcao];
   this -> atributes.hpAtual += hpAdd;
+  system("cls||clear");
+  cout << "Atualizacao feita com sucesso!\n";
 }
 
 void Carros::setExaust(const int opcao) {
@@ -108,6 +164,8 @@ void Carros::setExaust(const int opcao) {
   }
   this -> modsDone.exaust = Carros::exaust[opcao];
   this -> atributes.hpAtual += hpAdd;
+  system("cls||clear");
+  cout << "Atualizacao feita com sucesso!\n";
 }
 
 void Carros::setEletronic(const int opcao) {
@@ -125,18 +183,26 @@ void Carros::setEletronic(const int opcao) {
   }
   this -> modsDone.eletronic = Carros::eletronics[opcao];
   this -> atributes.hpAtual += hpAdd;
+  system("cls||clear");
+  cout << "Atualizacao feita com sucesso!\n";
 }
 
 void Carros::setTransmission(const int opcao) {
   this -> modsDone.trasmission = Carros::trasmission[opcao];
+  system("cls||clear");
+  cout << "Atualizacao feita com sucesso!\n";
 }
 
 void Carros::setSuspension(const int opcao) {
   this -> modsDone.suspension = Carros::suspension[opcao];
+  system("cls||clear");
+  cout << "Atualizacao feita com sucesso!\n";
 }
 
 void Carros::setChassis(const int opcao) {
   this -> modsDone.chassis = Carros::chassis[opcao];
+  system("cls||clear");
+  cout << "Atualizacao feita com sucesso!\n";
 }
 
 int Carros::getNumCars() { return numCars; }
