@@ -1,4 +1,4 @@
-#include "classes.cpp"
+#include "chassis.cpp"
 
 int Carros::numCars = 0;
 const int Carros::MAXLEN = 30;
@@ -24,6 +24,8 @@ Carros::Carros(const string &nameCar, const int hpStock) {
 Carros::Carros(const Carros &other) {
   this -> atributes = other.atributes;
   this -> myEngine = new Engine(other.myEngine);
+  this -> myTransmiss = new Transmiss(other.myTransmiss);
+  this -> myChassis = new Chassis(other.myChassis);
   this -> numCars++;
 }
 
