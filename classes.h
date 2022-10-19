@@ -1,18 +1,9 @@
 #ifndef CLASSES_H
 #define CLASSES_H
 
-#include <vector>
-using std::vector;
+#include "include.h"
 
-#include <sstream>
-using std::stringstream;
-
-#include <iostream>
-using std::ostream;
-using std::getline;
-using std::string;
-using std::cout;
-using std::cin;
+// CLASSE ENGINE
 
 class Engine {
   friend ostream &operator<<(ostream &, const Engine*);
@@ -57,6 +48,8 @@ class Engine {
     interns myInterns;
 };
 
+// CLASSE TRASMISS
+
 class Transmiss {
   friend ostream &operator<<(ostream &, const Transmiss*);
 
@@ -75,6 +68,8 @@ class Transmiss {
   private:
     trasmiss myTransmiss;
 };
+
+// CLASSE CHASSIS
 
 class Chassis {
   friend ostream &operator<<(ostream &, const Chassis*);

@@ -4,8 +4,6 @@ int Carros::numCars = 0;
 const int Carros::MAXLEN = 30;
 const int Carros::MINHP = 100;
 const int Carros::MAXHP = 1000;
-const int Carros::MINLVL = 0;
-const int Carros::MAXLVL = 6;
 const int Carros::MAXCARS = 10;
 
 ostream &operator<<(ostream &output, const Carros *carro) {
@@ -29,7 +27,11 @@ Carros::Carros(const Carros &other) {
   this -> numCars++;
 }
 
-Carros::~Carros() { this -> numCars--; }
+Carros::~Carros() {
+  delete myEngine, myTransmiss, myChassis;
+  myEngine = 0, myTransmiss = 0, myChassis = 0;
+  this -> numCars--;
+}
 
 void Carros::getAtributes() const {
   cout << "Carro: " << atributes.nameCar << "\n";

@@ -40,8 +40,6 @@ class Carros {
     static const int MAXLEN;
     static const int MINHP;
     static const int MAXHP;
-    static const int MINLVL;
-    static const int MAXLVL;
     static const int MAXCARS;
 };
 
