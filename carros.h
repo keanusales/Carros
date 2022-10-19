@@ -8,7 +8,7 @@ class Carros {
 
   public:
     Carros(const string &, const int);
-    Carros(const Carros &);
+    Carros(const Carros*);
     ~Carros();
     void verifyLevel(const int);
     void getAtributes() const;
@@ -26,6 +26,12 @@ class Carros {
     static int getMinHP();
     static int getMaxHP();
     static int getMaxCars();
+
+  public: //Sobrecargas
+    const Carros &operator=(const Carros*);
+    bool operator==(const string &) const;
+    bool operator!=(const string &) const;
+    bool operator!() const;
 
   private:
     struct Atributes {

@@ -1,5 +1,7 @@
 #include "chassis.cpp"
 
+// IMPLEMENTAÇÃO
+
 int Carros::numCars = 0;
 const int Carros::MAXLEN = 30;
 const int Carros::MINHP = 100;
@@ -21,11 +23,8 @@ Carros::Carros(const string &nameCar, const int hpStock) {
   this -> numCars++;
 }
 
-Carros::Carros(const Carros &other) {
-  this -> atributes = other.atributes;
-  this -> myEngine = new Engine(other.myEngine);
-  this -> myTransmiss = new Transmiss(other.myTransmiss);
-  this -> myChassis = new Chassis(other.myChassis);
+Carros::Carros(const Carros *other) {
+  *this = other;
   this -> numCars++;
 }
 
@@ -128,3 +127,25 @@ int Carros::getMinHP() { return MINHP; }
 int Carros::getMaxHP() { return MAXHP; }
 
 int Carros::getMaxCars() { return MAXCARS; }
+
+// SOBRECARGAS
+
+const Carros &Carros::operator=(const Carros *other) {
+  this -> atributes = other->atributes;
+  this -> myEngine = new Engine(other->myEngine);
+  this -> myTransmiss = new Transmiss(other->myTransmiss);
+  this -> myChassis = new Chassis(other->myChassis);
+  return *this;
+}
+
+bool Carros::operator==(const string &name) const {
+  return atributes.nameCar == name;
+}
+
+bool Carros::operator!=(const string &name) const {
+  return !(*this == name);
+}
+
+bool Carros::operator!() const {
+  return !(atributes.hpAtual > 1000);
+}

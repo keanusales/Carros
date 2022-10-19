@@ -27,10 +27,7 @@ Chassis::Chassis() {
   this -> myChassis = {"Original", 0};
 }
 
-Chassis::Chassis(const Chassis *other) {
-  this -> mySuspension = other->mySuspension;
-  this -> myChassis = other->myChassis;
-}
+Chassis::Chassis(const Chassis *other) { *this = other; }
 
 Chassis::~Chassis() {}
 
@@ -40,4 +37,24 @@ void Chassis::setSuspension(const int opcao) {
 
 void Chassis::setChassis(const int opcao) {
   this -> myChassis = Chassis::chassisParts[opcao];
+}
+
+// SOBRECARGAS
+
+const Chassis &Chassis::operator=(const Chassis *other) {
+  this -> mySuspension = other->mySuspension;
+  this -> myChassis = other->myChassis;
+  return *this;
+}
+
+bool Chassis::operator==(const string &part) const {
+  return myChassis.part == part;
+}
+
+bool Chassis::operator!=(const string &part) const {
+  return !(*this == part);
+}
+
+bool Chassis::operator!() const {
+  return !(myChassis.gForce);
 }

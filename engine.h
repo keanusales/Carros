@@ -16,6 +16,12 @@ class Engine {
     bool setECUnit(const int, const int);
     void setInternals(const int);
 
+  public: //Sobrecargas
+    const Engine &operator=(const Engine*);
+    bool operator==(const string &) const;
+    bool operator!=(const string &) const;
+    bool operator!() const;
+
   public: //Bibliotecas
     static const struct turbo {
       string part;

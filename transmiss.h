@@ -12,6 +12,12 @@ class Transmiss {
     ~Transmiss();
     void setTransmiss(const int);
 
+  public: //Sobrecargas
+    const Transmiss &operator=(const Transmiss*);
+    bool operator==(const string &) const;
+    bool operator!=(const string &) const;
+    bool operator!() const;
+
   public: //Bibliotecas
     static const struct trasmiss {
       string part;

@@ -20,12 +20,29 @@ Transmiss::Transmiss() {
   this -> myTransmiss = {"Original", 0};
 }
 
-Transmiss::Transmiss(const Transmiss *other) {
-  this -> myTransmiss = other->myTransmiss;
-}
+Transmiss::Transmiss(const Transmiss *other) { *this = other; }
 
 Transmiss::~Transmiss() {}
 
 void Transmiss::setTransmiss(const int opcao) {
   this -> myTransmiss = Transmiss::transmissParts[opcao];
+}
+
+// SOBRECARGAS
+
+const Transmiss &Transmiss::operator=(const Transmiss *other) {
+  this -> myTransmiss = other->myTransmiss;
+  return *this;
+}
+
+bool Transmiss::operator==(const string &part) const {
+  return myTransmiss.part == part;
+}
+
+bool Transmiss::operator!=(const string &part) const {
+  return !(*this == part);
+}
+
+bool Transmiss::operator!() const {
+  return !(myTransmiss.time);
 }

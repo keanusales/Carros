@@ -54,13 +54,7 @@ Engine::Engine() {
   this -> myInterns = {"Original", 0};
 }
 
-Engine::Engine(const Engine *other) {
-  this -> myTurbo = other->myTurbo;
-  this -> myIntake = other->myIntake;
-  this -> myExaust = other->myExaust;
-  this -> myECUnit = other->myECUnit;
-  this -> myInterns = other->myInterns;
-}
+Engine::Engine(const Engine *other) { *this = other; }
 
 Engine::~Engine() {}
 
@@ -69,7 +63,7 @@ void Engine::setInternals(const int opcao) {
 }
 
 bool Engine::setTurbo(const int opcao, const int hpAtual) {
-  if (myInterns.part == "Original") return 0;
+  if (*this == "Original") return 0;
   const int hpAdd = Engine::turbosParts[opcao].hpGain;
   if (hpAdd + hpAtual > myInterns.hpResis) return 0;
   this -> myTurbo = Engine::turbosParts[opcao];
@@ -77,7 +71,7 @@ bool Engine::setTurbo(const int opcao, const int hpAtual) {
 }
 
 bool Engine::setIntake(const int opcao, const int hpAtual) {
-  if (myIntake.part == "Original") return 0;
+  if (*this == "Original") return 0;
   const int hpAdd = Engine::intakeParts[opcao].hpGain;
   if (hpAdd + hpAtual > myInterns.hpResis) return 0;
   this -> myIntake = Engine::intakeParts[opcao];
@@ -85,7 +79,7 @@ bool Engine::setIntake(const int opcao, const int hpAtual) {
 }
 
 bool Engine::setExaust(const int opcao, const int hpAtual) {
-  if (myInterns.part == "Original") return 0;
+  if (!*this) return 0;
   const int hpAdd = Engine::exaustParts[opcao].hpGain;
   if (hpAdd + hpAtual > myInterns.hpResis) return 0;
   this -> myExaust = Engine::exaustParts[opcao];
@@ -93,9 +87,32 @@ bool Engine::setExaust(const int opcao, const int hpAtual) {
 }
 
 bool Engine::setECUnit(const int opcao, const int hpAtual) {
-  if (myInterns.part == "Original") return 0;
+  if (!*this) return 0;
   const int hpAdd = Engine::ECUnitParts[opcao].hpGain;
   if (hpAdd + hpAtual > myInterns.hpResis) return 0;
   this -> myECUnit = Engine::ECUnitParts[opcao];
   return 1;
+}
+
+// SOBRECARGAS
+
+const Engine &Engine::operator=(const Engine *other) {
+  this -> myTurbo = other->myTurbo;
+  this -> myIntake = other->myIntake;
+  this -> myExaust = other->myExaust;
+  this -> myECUnit = other->myECUnit;
+  this -> myInterns = other->myInterns;
+  return *this;
+}
+
+bool Engine::operator==(const string &part) const {
+  return myInterns.part == part;
+}
+
+bool Engine::operator!=(const string &part) const {
+  return !(*this == part);
+}
+
+bool Engine::operator!() const {
+  return !(myInterns.hpResis);
 }

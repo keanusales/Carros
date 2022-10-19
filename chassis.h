@@ -13,6 +13,12 @@ class Chassis {
     void setSuspension(const int);
     void setChassis(const int);
 
+  public: //Sobrecargas
+    const Chassis &operator=(const Chassis*);
+    bool operator==(const string &) const;
+    bool operator!=(const string &) const;
+    bool operator!() const;
+
   public: //Bibliotecas
     static const struct chassis {
       string part;

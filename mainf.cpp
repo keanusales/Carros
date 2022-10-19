@@ -72,7 +72,7 @@ void copyExtCar(Carros *carroPtr[]) {
   }
   int escolha = getEscolha(carroPtr);
   if (verifyEscolha(escolha)) {
-    carroPtr[numCars] = new Carros(*carroPtr[escolha]);
+    carroPtr[numCars] = new Carros(carroPtr[escolha]);
     system("cls||clear");
     cout << "Carro adicionado com sucesso!\n";
     return;
