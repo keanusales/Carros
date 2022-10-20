@@ -16,12 +16,6 @@ const Chassis::chassis Chassis::chassisParts[] = {
 
 // IMPLEMENTAÇÃO
 
-ostream &operator<<(ostream &output, const Chassis *chassis) {
-  output << "Suspension: " << chassis->myChassis.part << "\n";
-  output << "Chassis: " << chassis->myChassis.part << "\n";
-  return output;
-}
-
 Chassis::Chassis() {
   this -> mySuspension = {"Original", 0};
   this -> myChassis = {"Original", 0};
@@ -40,6 +34,12 @@ void Chassis::setChassis(const int opcao) {
 }
 
 // SOBRECARGAS
+
+ostream &operator<<(ostream &output, const Chassis *chassis) {
+  output << "Suspension: " << chassis->myChassis.part << "\n";
+  output << "Chassis: " << chassis->myChassis.part << "\n";
+  return output;
+}
 
 const Chassis &Chassis::operator=(const Chassis *other) {
   this -> mySuspension = other->mySuspension;

@@ -21,6 +21,7 @@ class Carros {
     void setTransmiss(const int);
     void setSuspension(const int);
     void setChassis(const int);
+    void checkDate(const int) const;
     static int getNumCars();
     static int getMaxLen();
     static int getMinHP();
@@ -35,6 +36,7 @@ class Carros {
 
   private:
     struct Atributes {
+      Date *cDate;
       int hpStock;
       int hpAtual;
       string nameCar;
@@ -55,14 +57,15 @@ void copyExtCar(Carros *[]);
 void deleteCar(Carros *[]);
 void getAtributes(Carros *[]);
 void getModsDone(Carros *[]);
-void setInternals(Carros *[]);
 void setTurbo(Carros *[]);
 void setIntake(Carros *[]);
 void setExaust(Carros *[]);
-void setEletronic(Carros *[]);
-void setTransmission(Carros *[]);
+void setECUnit(Carros *[]);
+void setInternals(Carros *[]);
+void setTransmiss(Carros *[]);
 void setSuspension(Carros *[]);
 void setChassis(Carros *[]);
+void checkDate(Carros *[]);
 void exitProgram(Carros *[]);
 int getEscolha(Carros *[]);
 bool verifyEscolha(const int);

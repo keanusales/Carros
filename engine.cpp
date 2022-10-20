@@ -1,4 +1,4 @@
-#include "carros.h"
+#include "date.cpp"
 
 // DICIONÁRIOS
 
@@ -36,15 +36,6 @@ const Engine::interns Engine::internsParts[] = {
 };
 
 // IMPLEMENTAÇÃO
-
-ostream &operator<<(ostream &output, const Engine *engine) {
-  output << "Turbo: " << engine->myTurbo.part << "\n";
-  output << "Intake: " << engine->myIntake.part << "\n";
-  output << "Exaust: " << engine->myExaust.part << "\n";
-  output << "ECUnit: " << engine->myECUnit.part << "\n";
-  output << "Internals: " << engine->myInterns.part << "\n";
-  return output;
-}
 
 Engine::Engine() {
   this -> myTurbo = {"Original", 0};
@@ -95,6 +86,15 @@ bool Engine::setECUnit(const int opcao, const int hpAtual) {
 }
 
 // SOBRECARGAS
+
+ostream &operator<<(ostream &output, const Engine *engine) {
+  output << "Turbo: " << engine->myTurbo.part << "\n";
+  output << "Intake: " << engine->myIntake.part << "\n";
+  output << "Exaust: " << engine->myExaust.part << "\n";
+  output << "ECUnit: " << engine->myECUnit.part << "\n";
+  output << "Internals: " << engine->myInterns.part << "\n";
+  return output;
+}
 
 const Engine &Engine::operator=(const Engine *other) {
   this -> myTurbo = other->myTurbo;

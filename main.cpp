@@ -39,10 +39,10 @@ int main() {
         setExaust(carroPtr);
         break;
       case 10:
-        setEletronic(carroPtr);
+        setECUnit(carroPtr);
         break;
       case 11:
-        setTransmission(carroPtr);
+        setTransmiss(carroPtr);
         break;
       case 12:
         setSuspension(carroPtr);
@@ -51,6 +51,9 @@ int main() {
         setChassis(carroPtr);
         break;
       case 14:
+        checkDate(carroPtr);
+        break;
+      case 15:
         exitProgram(carroPtr);
         exit(0);
       default:

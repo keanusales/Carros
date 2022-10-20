@@ -11,11 +11,6 @@ const Transmiss::trasmiss Transmiss::transmissParts[] = {
 
 // IMPLEMENTAÇÃO
 
-ostream &operator<<(ostream &output, const Transmiss *trasmiss) {
-  output << "Transmission: " << trasmiss->myTransmiss.part << "\n";
-  return output;
-}
-
 Transmiss::Transmiss() {
   this -> myTransmiss = {"Original", 0};
 }
@@ -29,6 +24,11 @@ void Transmiss::setTransmiss(const int opcao) {
 }
 
 // SOBRECARGAS
+
+ostream &operator<<(ostream &output, const Transmiss *trasmiss) {
+  output << "Transmission: " << trasmiss->myTransmiss.part << "\n";
+  return output;
+}
 
 const Transmiss &Transmiss::operator=(const Transmiss *other) {
   this -> myTransmiss = other->myTransmiss;

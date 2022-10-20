@@ -8,15 +8,11 @@ const int Carros::MINHP = 100;
 const int Carros::MAXHP = 1000;
 const int Carros::MAXCARS = 10;
 
-ostream &operator<<(ostream &output, const Carros *carro) {
-  output << carro->atributes.nameCar;
-  return output;
-}
-
 Carros::Carros(const string &nameCar, const int hpStock) {
   this -> atributes.nameCar = nameCar;
   this -> atributes.hpStock = hpStock;
   this -> atributes.hpAtual = hpStock;
+  this -> atributes.cDate = new Date();
   this -> myEngine = new Engine();
   this -> myTransmiss = new Transmiss();
   this -> myChassis = new Chassis();
@@ -24,8 +20,7 @@ Carros::Carros(const string &nameCar, const int hpStock) {
 }
 
 Carros::Carros(const Carros *other) {
-  *this = other;
-  this -> numCars++;
+  *this = other; this -> numCars++;
 }
 
 Carros::~Carros() {
@@ -36,7 +31,8 @@ Carros::~Carros() {
 
 void Carros::getAtributes() const {
   cout << "Carro: " << atributes.nameCar << "\n";
-  cout << "Horsepower: " << atributes.hpAtual << "\n\n";
+  cout << "Horsepower: " << atributes.hpAtual << "\n";
+  cout << "Dia da criacao: " << atributes.cDate << "\n";
 }
 
 void Carros::getModsDone() const {
@@ -118,6 +114,15 @@ void Carros::setChassis(const int opcao) {
   cout << "Atualizacao feita com sucesso!\n";
 }
 
+void Carros::checkDate(const int dia) const {
+  system("cls||clear");
+  if (atributes.cDate->checkDate(dia)) {
+    cout << "O dia existe nesse mes e nesse ano!\n";
+    return;
+  }
+  cout << "O dia nao existe nesse mes e nesse ano!\n";
+}
+
 int Carros::getNumCars() { return numCars; }
 
 int Carros::getMaxLen() { return MAXLEN; }
@@ -130,8 +135,16 @@ int Carros::getMaxCars() { return MAXCARS; }
 
 // SOBRECARGAS
 
+ostream &operator<<(ostream &output, const Carros *carro) {
+  output << carro->atributes.nameCar;
+  return output;
+}
+
 const Carros &Carros::operator=(const Carros *other) {
-  this -> atributes = other->atributes;
+  this -> atributes.nameCar = other->atributes.nameCar;
+  this -> atributes.hpStock = other->atributes.hpStock;
+  this -> atributes.hpAtual = other->atributes.hpAtual;
+  this -> atributes.cDate = new Date();
   this -> myEngine = new Engine(other->myEngine);
   this -> myTransmiss = new Transmiss(other->myTransmiss);
   this -> myChassis = new Chassis(other->myChassis);
