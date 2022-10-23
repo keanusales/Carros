@@ -3,12 +3,22 @@
 
 #include "chassis.h"
 
+struct diaCria {
+  int dia, mes, ano;
+};
+struct Atributes {
+  diaCria diaCria;
+  int hpStock;
+  int hpAtual;
+  string nameCar;
+};
+
 class Carros {
-  friend ostream &operator<<(ostream &, const Carros*);
+  friend ostream &operator<<(ostream &, const Carros &);
 
   public:
     Carros(const string &, const int);
-    Carros(const Carros*);
+    Carros(const Carros &);
     ~Carros();
     void verifyLevel(const int);
     void getAtributes() const;
@@ -29,18 +39,13 @@ class Carros {
     static int getMaxCars();
 
   public: //Sobrecargas
-    const Carros &operator=(const Carros*);
-    bool operator==(const string &) const;
-    bool operator!=(const string &) const;
-    bool operator!() const;
+    const Carros &operator=(const Carros &);
+    const bool operator==(const string &) const;
+    const bool operator!=(const string &) const;
+    const bool operator!() const;
 
   private:
-    struct Atributes {
-      Date *cDate;
-      int hpStock;
-      int hpAtual;
-      string nameCar;
-    } atributes;
+    Atributes atributes;
     Engine *myEngine;
     Transmiss *myTransmiss;
     Chassis *myChassis;
@@ -50,6 +55,10 @@ class Carros {
     static const int MAXHP;
     static const int MAXCARS;
 };
+
+ostream &operator<<(ostream &, const diaCria &);
+
+// FUNÇÕES DA MAIN
 
 int selectOption();
 void createCar(Carros *[]);

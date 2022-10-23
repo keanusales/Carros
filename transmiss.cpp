@@ -2,7 +2,7 @@
 
 // DICIONÁRIOS
 
-const Transmiss::trasmiss Transmiss::transmissParts[] = {
+const transmiss Transmiss::transmissParts[] = {
   {"Original Trasmission w/ Short Shifter, Sport Clutch", .2},
   {"Sport Trasmission w/ H-Pattern Short Shifter, Sport+ Clutch", .17},
   {"Sport Trasmission w/ Sequential Shifter, Racing Clutch", .14},
@@ -15,7 +15,7 @@ Transmiss::Transmiss() {
   this -> myTransmiss = {"Original", 0};
 }
 
-Transmiss::Transmiss(const Transmiss *other) { *this = other; }
+Transmiss::Transmiss(const Transmiss &other) { *this = other; }
 
 Transmiss::~Transmiss() {}
 
@@ -23,26 +23,37 @@ void Transmiss::setTransmiss(const int opcao) {
   this -> myTransmiss = Transmiss::transmissParts[opcao];
 }
 
-// SOBRECARGAS
+const transmiss Transmiss::getTransmiss(const int opcao) {
+  return Transmiss::transmissParts[opcao];
+}
 
-ostream &operator<<(ostream &output, const Transmiss *trasmiss) {
-  output << "Transmission: " << trasmiss->myTransmiss.part << "\n";
+// SOBRECARGAS DA CLASSE
+
+ostream &operator<<(ostream &output, const Transmiss &trasmiss) {
+  output << "Transmission: " << trasmiss.myTransmiss.part << "\n";
   return output;
 }
 
-const Transmiss &Transmiss::operator=(const Transmiss *other) {
-  this -> myTransmiss = other->myTransmiss;
+const Transmiss &Transmiss::operator=(const Transmiss &other) {
+  this -> myTransmiss = other.myTransmiss;
   return *this;
 }
 
-bool Transmiss::operator==(const string &part) const {
+const bool Transmiss::operator==(const string &part) const {
   return myTransmiss.part == part;
-}
+} //Esse
 
-bool Transmiss::operator!=(const string &part) const {
+const bool Transmiss::operator!=(const string &part) const {
   return !(*this == part);
-}
+} //Esse
 
-bool Transmiss::operator!() const {
+const bool Transmiss::operator!() const {
   return !(myTransmiss.time);
+} //Esse
+
+// SOBRECARGAS DOS STRUCTS
+
+ostream &operator<<(ostream &output, const transmiss &elem) {
+  output << elem.part << " - " << elem.time;
+  return output;
 }

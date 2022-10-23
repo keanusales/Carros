@@ -1,55 +1,72 @@
 #ifndef ENGINE_H
 #define ENGINE_H
 
-#include "date.h"
+#include "include.h"
+
+struct turbo {
+  string part;
+  int hpGain;
+};
+struct intake {
+  string part;
+  int hpGain;
+};
+struct exaust {
+  string part;
+  int hpGain;
+};
+struct ECUnit {
+  string part;
+  int hpGain;
+};
+struct intern {
+  string part;
+  int hpResis;
+};
 
 class Engine {
-  friend ostream &operator<<(ostream &, const Engine*);
+  friend ostream &operator<<(ostream &, const Engine &);
 
   public:
     Engine();
-    Engine(const Engine*);
+    Engine(const Engine &);
     ~Engine();
-    bool setTurbo(const int, const int);
-    bool setIntake(const int, const int);
-    bool setExaust(const int, const int);
-    bool setECUnit(const int, const int);
+    const int setTurbo(const int, const int);
+    const int setIntake(const int, const int);
+    const int setExaust(const int, const int);
+    const int setECUnit(const int, const int);
     void setInternals(const int);
+    static const turbo getTurbo(const int);
+    static const intake getIntake(const int);
+    static const exaust getExaust(const int);
+    static const ECUnit getECUnit(const int);
+    static const intern getIntern(const int);
 
   public: //Sobrecargas
-    const Engine &operator=(const Engine*);
-    bool operator==(const string &) const;
-    bool operator!=(const string &) const;
-    bool operator!() const;
+    const Engine &operator=(const Engine &);
+    const bool operator==(const string &) const;
+    const bool operator!=(const string &) const;
+    const bool operator!() const;
 
-  public: //Bibliotecas
-    static const struct turbo {
-      string part;
-      int hpGain;
-    } turbosParts[];
-    static const struct intake {
-      string part;
-      int hpGain;
-    } intakeParts[];
-    static const struct exaust {
-      string part;
-      int hpGain;
-    } exaustParts[];
-    static const struct ECUnit {
-      string part;
-      int hpGain;
-    } ECUnitParts[];
-    static const struct interns {
-      string part;
-      int hpResis;
-    } internsParts[];
+  private: //Bibliotecas
+    static const turbo turbosParts[];
+    static const intake intakeParts[];
+    static const exaust exaustParts[];
+    static const ECUnit ECUnitParts[];
+    static const intern internParts[];
   
   private:
     turbo myTurbo;
     intake myIntake;
     exaust myExaust;
     ECUnit myECUnit;
-    interns myInterns;
+    intern myIntern;
 };
+
+ostream &operator<<(ostream &, const intern &);
+ostream &operator<<(ostream &, const turbo &);
+ostream &operator<<(ostream &, const intake &);
+ostream &operator<<(ostream &, const exaust &);
+ostream &operator<<(ostream &, const ECUnit &);
 
 #endif

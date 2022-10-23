@@ -15,16 +15,4 @@ using std::string;
 using std::cout;
 using std::cin;
 
-class Date {
-  friend ostream &operator<<(ostream &, const Date*);
-
-  public:
-    Date();
-    ~Date();
-    bool checkDate(const int) const;
-
-  private:
-    int dia, mes, ano;
-};
-
 #endif
