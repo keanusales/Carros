@@ -9,15 +9,19 @@ const int Carros::MAXHP = 1000;
 const int Carros::MAXCARS = 10;
 
 Carros::Carros(const string &nameCar, const int hpStock) {
-  time_t now = time(0);
-  tm *ltm = localtime(&now);
-  const int dia = ltm->tm_mday;
-  const int mes = 1 + ltm->tm_mon;
-  const int ano = 1900 + ltm->tm_year;
   this -> atributes.nameCar = nameCar;
   this -> atributes.hpStock = hpStock;
   this -> atributes.hpAtual = hpStock;
-  this -> atributes.diaCria = {dia, mes, ano};
+  this -> diaCria = getData();
+  this -> myEngine = new Engine();
+  this -> myTransmiss = new Transmiss();
+  this -> myChassis = new Chassis();
+  this -> numCars++;
+}
+
+Carros::Carros(const Atributes &entrie) {
+  this -> atributes = entrie;
+  this -> diaCria = getData();
   this -> myEngine = new Engine();
   this -> myTransmiss = new Transmiss();
   this -> myChassis = new Chassis();
@@ -25,7 +29,12 @@ Carros::Carros(const string &nameCar, const int hpStock) {
 }
 
 Carros::Carros(const Carros &other) {
-  *this = other; this -> numCars++;
+  this -> atributes = other.atributes;
+  this -> diaCria = getData();
+  this -> myEngine = new Engine(*other.myEngine);
+  this -> myTransmiss = new Transmiss(*other.myTransmiss);
+  this -> myChassis = new Chassis(*other.myChassis);
+  this -> numCars++;
 }
 
 Carros::~Carros() {
@@ -37,7 +46,7 @@ Carros::~Carros() {
 void Carros::getAtributes() const {
   cout << "Carro: " << atributes.nameCar << "\n";
   cout << "Horsepower: " << atributes.hpAtual << "\n";
-  cout << "Dia criacao: " << atributes.diaCria << "\n";
+  cout << "Dia da criacao: " << diaCria << "\n";
 }
 
 void Carros::getModsDone() const {
@@ -48,92 +57,131 @@ void Carros::getModsDone() const {
 }
 
 void Carros::setInternals(const int opcao) {
-  this -> myEngine->setInternals(opcao);
+  const bool resul = myEngine->setInternals(opcao);
   system("cls||clear");
-  cout << "Atualizacao feita com sucesso!\n";
+  if (resul) {
+    cout << "Atualizacao feita com sucesso!\n";
+    return;
+  }
+  cout << "A parte selecionada ja esta no carro!\n";
 }
 
 void Carros::setTurbo(const int opcao) {
-  system("cls||clear");
   const int hpFinal = myEngine->setTurbo(opcao, atributes.hpStock);
-  if (hpFinal) {
+  system("cls||clear");
+  if (hpFinal > 0) {
     this -> atributes.hpAtual = hpFinal;
     cout << "Atualizacao feita com sucesso!\n";
     return;
   }
-  cout << "Internos nao aguentam ou sao originais!\n"
-    << "Tente fazer um upgrade dos internos!\n";
+  if (!hpFinal) {
+    cout << "Internos nao aguentam ou sao originais!\n"
+      << "Tente fazer um upgrade dos internos!\n";
+    return;
+  }
+  cout << "A parte selecionada ja esta no carro!\n";
 }
 
 void Carros::setIntake(const int opcao) {
-  system("cls||clear");
   const int hpFinal = myEngine->setIntake(opcao, atributes.hpStock);
-  if (hpFinal) {
+  system("cls||clear");
+  if (hpFinal > 0) {
     this -> atributes.hpAtual = hpFinal;
     cout << "Atualizacao feita com sucesso!\n";
     return;
   }
-  cout << "Internos nao aguentam ou sao originais!\n"
-    << "Tente fazer um upgrade dos internos!\n";
+  if (!hpFinal) {
+    cout << "Internos nao aguentam ou sao originais!\n"
+      << "Tente fazer um upgrade dos internos!\n";
+    return;
+  }
+  cout << "A parte selecionada ja esta no carro!\n";
 }
 
 void Carros::setExaust(const int opcao) {
-  system("cls||clear");
   const int hpFinal = myEngine->setExaust(opcao, atributes.hpStock);
-  if (hpFinal) {
+  system("cls||clear");
+  if (hpFinal > 0) {
     this -> atributes.hpAtual = hpFinal;
     cout << "Atualizacao feita com sucesso!\n";
     return;
   }
-  cout << "Internos nao aguentam ou sao originais!\n"
-    << "Tente fazer um upgrade dos internos!\n";
+  if (!hpFinal) {
+    cout << "Internos nao aguentam ou sao originais!\n"
+      << "Tente fazer um upgrade dos internos!\n";
+    return;
+  }
+  cout << "A parte selecionada ja esta no carro!\n";
 }
 
 void Carros::setECUnit(const int opcao) {
-  system("cls||clear");
   const int hpFinal = myEngine->setECUnit(opcao, atributes.hpStock);
-  if (hpFinal) {
+  system("cls||clear");
+  if (hpFinal > 0) {
     this -> atributes.hpAtual = hpFinal;
     cout << "Atualizacao feita com sucesso!\n";
     return;
   }
-  cout << "Internos nao aguentam ou sao originais!\n"
-    << "Tente fazer um upgrade dos internos!\n";
+  if (!hpFinal) {
+    cout << "Internos nao aguentam ou sao originais!\n"
+      << "Tente fazer um upgrade dos internos!\n";
+    return;
+  }
+  cout << "A parte selecionada ja esta no carro!\n";
 }
 
 void Carros::setTransmiss(const int opcao) {
-  this -> myTransmiss->setTransmiss(opcao);
+  const bool resul = myTransmiss->setTransmiss(opcao);
   system("cls||clear");
-  cout << "Atualizacao feita com sucesso!\n";
+  if (resul) {
+    cout << "Atualizacao feita com sucesso!\n";
+    return;
+  }
+  cout << "A parte selecionada ja esta no carro!\n";
 }
 
-void Carros::setSuspension(const int opcao) {
-  this -> myChassis->setSuspension(opcao);
+void Carros::setSuspens(const int opcao) {
+  const bool resul = myChassis->setSuspens(opcao);
   system("cls||clear");
-  cout << "Atualizacao feita com sucesso!\n";
+  if (resul) {
+    cout << "Atualizacao feita com sucesso!\n";
+    return;
+  }
+  cout << "A parte selecionada ja esta no carro!\n";
 }
 
 void Carros::setChassis(const int opcao) {
-  this -> myChassis->setChassis(opcao);
+  const bool resul = myChassis->setChassis(opcao);
   system("cls||clear");
-  cout << "Atualizacao feita com sucesso!\n";
+  if (resul) {
+    cout << "Atualizacao feita com sucesso!\n";
+    return;
+  }
+  cout << "A parte selecionada ja esta no carro!\n";
 }
 
 void Carros::checkDate(const int dia) const {
   system("cls||clear");
   const int diasMes[] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-  if (dia > 0 && dia <= diasMes[atributes.diaCria.mes]) {
+  if (dia > 0 && dia <= diasMes[diaCria.mes]) {
     cout << "O dia existe nesse mes e nesse ano!\n";
     return;
   }
-  if (atributes.diaCria.mes == 2 && dia == 29 &&
-    atributes.diaCria.ano % 400 == 0 ||
-    (atributes.diaCria.ano % 4 == 0 &&
-    atributes.diaCria.ano % 100 != 0)) {
+  if (diaCria.mes == 2 && dia == 29 && diaCria.ano % 400 == 0
+    || (diaCria.ano % 4 == 0 && diaCria.ano % 100 != 0)) {
     cout << "O dia existe nesse mes e nesse ano!\n";
     return;
   }
   cout << "O dia nao existe nesse mes e nesse ano!\n";
+}
+
+const diaCria Carros::getData() const {
+  time_t now = time(0);
+  tm *ltm = localtime(&now);
+  const int dia = ltm->tm_mday;
+  const int mes = 1 + ltm->tm_mon;
+  const int ano = 1900 + ltm->tm_year;
+  return {dia, mes, ano};
 }
 
 int Carros::getNumCars() { return numCars; }
@@ -153,33 +201,37 @@ ostream &operator<<(ostream &output, const Carros &carro) {
   return output;
 }
 
-const Carros &Carros::operator=(const Carros &other) {
-  time_t now = time(0);
-  tm *ltm = localtime(&now);
-  const int dia = ltm->tm_mday;
-  const int mes = 1 + ltm->tm_mon;
-  const int ano = 1900 + ltm->tm_year;
-  this -> atributes.nameCar = other.atributes.nameCar;
-  this -> atributes.hpStock = other.atributes.hpStock;
-  this -> atributes.hpAtual = other.atributes.hpAtual;
-  this -> atributes.diaCria = {dia, mes, ano};
-  this -> myEngine = new Engine(*other.myEngine);
-  this -> myTransmiss = new Transmiss(*other.myTransmiss);
-  this -> myChassis = new Chassis(*other.myChassis);
-  return *this;
+const bool Carros::operator!=(const turbo &part) const {
+  return *myEngine != part;
 }
 
-const bool Carros::operator==(const string &name) const {
-  return atributes.nameCar == name;
-} //Esse
+const bool Carros::operator!=(const intake &part) const {
+  return *myEngine != part;
+}
 
-const bool Carros::operator!=(const string &name) const {
-  return !(*this == name);
-} //Esse
+const bool Carros::operator!=(const exaust &part) const {
+  return *myEngine != part;
+}
 
-const bool Carros::operator!() const {
-  return !(atributes.hpAtual > 1000);
-} //Esse
+const bool Carros::operator!=(const ECUnit &part) const {
+  return *myEngine != part;
+}
+
+const bool Carros::operator!=(const intern &part) const {
+  return *myEngine != part;
+}
+
+const bool Carros::operator!=(const transmiss &part) const {
+  return *myTransmiss != part;
+}
+
+const bool Carros::operator!=(const suspens &part) const {
+  return *myChassis != part;
+}
+
+const bool Carros::operator!=(const chassis &part) const {
+  return *myChassis != part;
+}
 
 // SOBRECARGAS DOS STRUCTS
 

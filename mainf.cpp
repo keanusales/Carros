@@ -2,7 +2,7 @@
 
 const int MAXCARS = Carros::getMaxCars();
 
-int selectOption() {
+const int selectOption() {
   while (1) {
     string input; int opcao;
     cout << "1 - Criar um novo carro\n"
@@ -36,11 +36,11 @@ void createCar(Carros *carroPtr[]) {
     cout << "Estamos no maximo de carros!\n";
     return;
   }
-  string nameCar; int hpStock;
+  Atributes entrie;
   while (1) {
     cout << "Digite o nome do carro: ";
-    getline(cin, nameCar);
-    if (verifyName(nameCar)) break;
+    getline(cin, entrie.nameCar);
+    if (verifyName(entrie.nameCar)) break;
     system("cls||clear");
     cout << "Nome muito grande! Diminua!\n";
   }
@@ -49,12 +49,13 @@ void createCar(Carros *carroPtr[]) {
     cout << "Digite a potencia do carro: ";
     getline(cin, input);
     stringstream stream(input);
-    if (stream >> hpStock)
-      if (verifyHP(hpStock)) break;
+    if (stream >> entrie.hpStock)
+      if (verifyHP(entrie.hpStock)) break;
     system("cls||clear");
     cout << "Hp deve ficar entre 100 e 1000!\n";
   }
-  carroPtr[numCars] = new Carros(nameCar, hpStock);
+  entrie.hpAtual = entrie.hpStock;
+  carroPtr[numCars] = new Carros(entrie);
   system("cls||clear");
   cout << "Carro adicionado com sucesso!\n";
 }
@@ -144,8 +145,11 @@ void setInternals(Carros *carroPtr[]) {
     system("cls||clear");
     while (1) {
       string input;
-      for (int i = 0; i < 6; i++)
-        cout << i << " - " << Engine::getIntern(i) << "\n";
+      for (int i = 0; i < 6; i++) {
+        const intern elem = Engine::getIntern(i);
+        if (*carroPtr[escolha] != elem)
+          cout << i << " - " << elem << "\n";
+      }
       cout << "Qual opcao voce escolhe? ";
       getline(cin, input);
       stringstream stream(input);
@@ -174,8 +178,11 @@ void setTurbo(Carros *carroPtr[]) {
     system("cls||clear");
     while (1) {
       string input;
-      for (int i = 0; i < 6; i++)
-        cout << i << " - " << Engine::getTurbo(i) << "\n";
+      for (int i = 0; i < 6; i++) {
+        const turbo elem = Engine::getTurbo(i);
+        if (*carroPtr[escolha] != elem)
+          cout << i << " - " << elem << "\n";
+      }
       cout << "Qual opcao voce escolhe? ";
       getline(cin, input);
       stringstream stream(input);
@@ -204,8 +211,11 @@ void setIntake(Carros *carroPtr[]) {
     system("cls||clear");
     while (1) {
       string input;
-      for (int i = 0; i < 4; i++)
-        cout << i << " - " << Engine::getIntake(i) << "\n";
+      for (int i = 0; i < 4; i++) {
+        const intake elem = Engine::getIntake(i);
+        if (*carroPtr[escolha] != elem)
+          cout << i << " - " << elem << "\n";
+      }
       cout << "Qual opcao voce escolhe? ";
       getline(cin, input);
       stringstream stream(input);
@@ -234,8 +244,11 @@ void setExaust(Carros *carroPtr[]) {
     system("cls||clear");
     while (1) {
       string input;
-      for (int i = 0; i < 3; i++)
-        cout << i << " - " << Engine::getExaust(i) << "\n";
+      for (int i = 0; i < 3; i++) {
+        const exaust elem = Engine::getExaust(i);
+        if (*carroPtr[escolha] != elem)
+          cout << i << " - " << elem << "\n";
+      }
       cout << "Qual opcao voce escolhe? ";
       getline(cin, input);
       stringstream stream(input);
@@ -264,8 +277,11 @@ void setECUnit(Carros *carroPtr[]) {
     system("cls||clear");
     while (1) {
       string input;
-      for (int i = 0; i < 2; i++)
-        cout << i << " - " << Engine::getECUnit(i) << "\n";
+      for (int i = 0; i < 2; i++) {
+        const ECUnit elem = Engine::getECUnit(i);
+        if (*carroPtr[escolha] != elem)
+          cout << i << " - " << elem << "\n";
+      }
       cout << "Qual opcao voce escolhe? ";
       getline(cin, input);
       stringstream stream(input);
@@ -294,8 +310,11 @@ void setTransmiss(Carros *carroPtr[]) {
     system("cls||clear");
     while (1) {
       string input;
-      for (int i = 0; i < 4; i++)
-        cout << i << " - " << Transmiss::getTransmiss(i) << "\n";
+      for (int i = 0; i < 4; i++) {
+        const transmiss elem = Transmiss::getTransmiss(i);
+        if (*carroPtr[escolha] != elem)
+          cout << i << " - " << elem << "\n";
+      }
       cout << "Qual opcao voce escolhe? ";
       getline(cin, input);
       stringstream stream(input);
@@ -311,7 +330,7 @@ void setTransmiss(Carros *carroPtr[]) {
   cout << "Digite um carro especificado!\n";
 }
 
-void setSuspension(Carros *carroPtr[]) {
+void setSuspens(Carros *carroPtr[]) {
   const int numCars = Carros::getNumCars();
   if (!numCars) {
     system("cls||clear");
@@ -324,8 +343,11 @@ void setSuspension(Carros *carroPtr[]) {
     system("cls||clear");
     while (1) {
       string input;
-      for (int i = 0; i < 3; i++)
-        cout << i << " - " << Chassis::getSuspension(i) << "\n";
+      for (int i = 0; i < 3; i++) {
+        const suspens elem = Chassis::getSuspens(i);
+        if (*carroPtr[escolha] != elem)
+          cout << i << " - " << elem << "\n";
+      }
       cout << "Qual opcao voce escolhe? ";
       getline(cin, input);
       stringstream stream(input);
@@ -334,7 +356,7 @@ void setSuspension(Carros *carroPtr[]) {
       system("clear||cls");
       cout << "Entrada invalida! Tente de novo!\n";
     }
-    carroPtr[escolha]->setSuspension(opcao);
+    carroPtr[escolha]->setSuspens(opcao);
     return;
   }
   system("cls||clear");
@@ -354,8 +376,11 @@ void setChassis(Carros *carroPtr[]) {
     system("cls||clear");
     while (1) {
       string input;
-      for (int i = 0; i < 3; i++)
-        cout << i << " - " << Chassis::getChassis(i) << "\n";
+      for (int i = 0; i < 3; i++) {
+        const chassis elem = Chassis::getChassis(i);
+        if (*carroPtr[escolha] != elem)
+          cout << i << " - " << elem << "\n";
+      }
       cout << "Qual opcao voce escolhe? ";
       getline(cin, input);
       stringstream stream(input);
@@ -407,14 +432,14 @@ void exitProgram(Carros *carroPtr[]) {
   cout << "Ate a proxima vez!\n";
 }
 
-int getEscolha(Carros *carroPtr[]) {
+const int getEscolha(Carros *carroPtr[]) {
   const int numCars = Carros::getNumCars();
   system("cls||clear");
   int escolha;
   while (1) {
     string input;
     for (int i = 0; i < numCars; i++)
-      cout << i << " - " << carroPtr[i] << "\n";
+      cout << i << " - " << *carroPtr[i] << "\n";
     cout << "Qual opcao voce escolhe? ";
     getline(cin, input);
     stringstream stream(input);
@@ -425,17 +450,17 @@ int getEscolha(Carros *carroPtr[]) {
   return escolha;
 }
 
-bool verifyEscolha(const int escolha) {
+const bool verifyEscolha(const int escolha) {
   const int numCars = Carros::getNumCars();
   return (0 <= escolha && escolha < numCars);
 }
 
-bool verifyName(const string &nameCar) {
+const bool verifyName(const string &nameCar) {
   const int MAXLEN = Carros::getMaxLen();
   return (nameCar.length() <= MAXLEN);
 }
 
-bool verifyHP(const int hpStock) {
+const bool verifyHP(const int hpStock) {
   const int MINHP = Carros::getMinHP();
   const int MAXHP = Carros::getMaxHP();
   return (MINHP <= hpStock && hpStock <= MAXHP);

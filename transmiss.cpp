@@ -15,12 +15,17 @@ Transmiss::Transmiss() {
   this -> myTransmiss = {"Original", 0};
 }
 
-Transmiss::Transmiss(const Transmiss &other) { *this = other; }
+Transmiss::Transmiss(const Transmiss &other) {
+  this -> myTransmiss = other.myTransmiss;
+}
 
 Transmiss::~Transmiss() {}
 
-void Transmiss::setTransmiss(const int opcao) {
-  this -> myTransmiss = Transmiss::transmissParts[opcao];
+const bool Transmiss::setTransmiss(const int opcao) {
+  const transmiss transmiss = Transmiss::transmissParts[opcao];
+  if (*this == transmiss) return 0;
+  *this = transmiss;
+  return 1;
 }
 
 const transmiss Transmiss::getTransmiss(const int opcao) {
@@ -34,22 +39,20 @@ ostream &operator<<(ostream &output, const Transmiss &trasmiss) {
   return output;
 }
 
-const Transmiss &Transmiss::operator=(const Transmiss &other) {
-  this -> myTransmiss = other.myTransmiss;
+const Transmiss &Transmiss::operator=(const transmiss &part) {
+  this -> myTransmiss = part;
   return *this;
 }
 
-const bool Transmiss::operator==(const string &part) const {
-  return myTransmiss.part == part;
-} //Esse
+const bool Transmiss::operator==(const transmiss &part) const {
+  if (myTransmiss.time == part.time) return 1;
+  if (myTransmiss.part == part.part) return 1;
+  return 0;
+}
 
-const bool Transmiss::operator!=(const string &part) const {
+const bool Transmiss::operator!=(const transmiss &part) const {
   return !(*this == part);
-} //Esse
-
-const bool Transmiss::operator!() const {
-  return !(myTransmiss.time);
-} //Esse
+}
 
 // SOBRECARGAS DOS STRUCTS
 

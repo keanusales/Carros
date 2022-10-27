@@ -45,7 +45,7 @@ int main() {
         setTransmiss(carroPtr);
         break;
       case 12:
-        setSuspension(carroPtr);
+        setSuspens(carroPtr);
         break;
       case 13:
         setChassis(carroPtr);

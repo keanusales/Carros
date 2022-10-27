@@ -2,7 +2,7 @@
 
 // DICIONÁRIOS
 
-const suspension Chassis::suspensionParts[] = {
+const suspens Chassis::suspensParts[] = {
   {"Semi-Slick Tires w/ Sport Suspension (shock absorbers, springs)", 0.8},
   {"Semi-Slick Tires w/ Racing Suspension (shock absorbers, springs, bushings etc)", 1},
   {"Slick Tires w/ Full Racing Suspension (coilovers, bushings, stabilizer bars etc)", 1.2}
@@ -17,28 +17,37 @@ const chassis Chassis::chassisParts[] = {
 // IMPLEMENTAÇÃO
 
 Chassis::Chassis() {
-  this -> mySuspension = {"Original", 0};
+  this -> mySuspens = {"Original", 0};
   this -> myChassis = {"Original", 0};
 }
 
-Chassis::Chassis(const Chassis &other) { *this = other; }
+Chassis::Chassis(const Chassis &other) {
+  this -> mySuspens = other.mySuspens;
+  this -> myChassis = other.myChassis;
+}
 
 Chassis::~Chassis() {}
 
-void Chassis::setSuspension(const int opcao) {
-  this -> mySuspension = Chassis::suspensionParts[opcao];
+const bool Chassis::setSuspens(const int opcao) {
+  const suspens suspens = Chassis::suspensParts[opcao];
+  if (*this == suspens) return 0;
+  *this = suspens;
+  return 1;
 }
 
-void Chassis::setChassis(const int opcao) {
-  this -> myChassis = Chassis::chassisParts[opcao];
+const bool Chassis::setChassis(const int opcao) {
+  const chassis chassis = Chassis::chassisParts[opcao];
+  if (*this == chassis) return 0;
+  *this = chassis;
+  return 1;
 }
 
 const chassis Chassis::getChassis(const int opcao) {
   return Chassis::chassisParts[opcao];
 }
 
-const suspension Chassis::getSuspension(const int opcao) {
-  return Chassis::suspensionParts[opcao];
+const suspens Chassis::getSuspens(const int opcao) {
+  return Chassis::suspensParts[opcao];
 }
 
 // SOBRECARGAS DA CLASSE
@@ -49,23 +58,35 @@ ostream &operator<<(ostream &output, const Chassis &chassis) {
   return output;
 }
 
-const Chassis &Chassis::operator=(const Chassis &other) {
-  this -> mySuspension = other.mySuspension;
-  this -> myChassis = other.myChassis;
+const Chassis &Chassis::operator=(const chassis &part) {
+  this -> myChassis = part;
   return *this;
 }
 
-const bool Chassis::operator==(const string &part) const {
-  return myChassis.part == part;
-} //Esse
+const Chassis &Chassis::operator=(const suspens &part) {
+  this -> mySuspens = part;
+  return *this;
+}
 
-const bool Chassis::operator!=(const string &part) const {
+const bool Chassis::operator==(const chassis &part) const {
+  if (myChassis.gForce == part.gForce) return 1;
+  if (myChassis.part == part.part) return 1;
+  return 0;
+}
+
+const bool Chassis::operator==(const suspens &part) const {
+  if (mySuspens.gForce == part.gForce) return 1;
+  if (mySuspens.part == part.part) return 1;
+  return 0;
+}
+
+const bool Chassis::operator!=(const chassis &part) const {
   return !(*this == part);
-} //Esse
+}
 
-const bool Chassis::operator!() const {
-  return !(myChassis.gForce);
-} //Esse
+const bool Chassis::operator!=(const suspens &part) const {
+  return !(*this == part);
+}
 
 // SOBRECARGAS DOS STRUCTS
 
@@ -74,7 +95,7 @@ ostream &operator<<(ostream &output, const chassis &elem) {
   return output;
 }
 
-ostream &operator<<(ostream &output, const suspension &elem) {
+ostream &operator<<(ostream &output, const suspens &elem) {
   output << elem.part << " - " << elem.gForce;
   return output;
 }

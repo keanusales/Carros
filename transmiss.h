@@ -15,14 +15,14 @@ class Transmiss {
     Transmiss();
     Transmiss(const Transmiss &);
     ~Transmiss();
-    void setTransmiss(const int);
+    const bool setTransmiss(const int);
     static const transmiss getTransmiss(const int);
 
   public: //Sobrecargas
-    const Transmiss &operator=(const Transmiss &);
-    const bool operator==(const string &) const;
-    const bool operator!=(const string &) const;
-    const bool operator!() const;
+    const Transmiss &operator=(const transmiss &);
+    const bool operator==(const transmiss &) const;
+    const bool operator!=(const transmiss &) const;
+    // const bool operator!() const;
 
   private: //Bibliotecas
     static const transmiss transmissParts[];

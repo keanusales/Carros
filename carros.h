@@ -7,7 +7,6 @@ struct diaCria {
   int dia, mes, ano;
 };
 struct Atributes {
-  diaCria diaCria;
   int hpStock;
   int hpAtual;
   string nameCar;
@@ -18,6 +17,7 @@ class Carros {
 
   public:
     Carros(const string &, const int);
+    Carros(const Atributes &);
     Carros(const Carros &);
     ~Carros();
     void verifyLevel(const int);
@@ -29,7 +29,7 @@ class Carros {
     void setECUnit(const int);
     void setInternals(const int);
     void setTransmiss(const int);
-    void setSuspension(const int);
+    void setSuspens(const int);
     void setChassis(const int);
     void checkDate(const int) const;
     static int getNumCars();
@@ -39,13 +39,22 @@ class Carros {
     static int getMaxCars();
 
   public: //Sobrecargas
-    const Carros &operator=(const Carros &);
-    const bool operator==(const string &) const;
-    const bool operator!=(const string &) const;
-    const bool operator!() const;
+    // const Carros &operator=(const Carros &);
+    // const bool operator==(const string &) const;
+    const bool operator!=(const turbo &) const;
+    const bool operator!=(const intake &) const;
+    const bool operator!=(const exaust &) const;
+    const bool operator!=(const ECUnit &) const;
+    const bool operator!=(const intern &) const;
+    const bool operator!=(const transmiss &) const;
+    const bool operator!=(const suspens &) const;
+    const bool operator!=(const chassis &) const;
+    // const bool operator!() const;
 
   private:
+    const diaCria getData() const;
     Atributes atributes;
+    diaCria diaCria;
     Engine *myEngine;
     Transmiss *myTransmiss;
     Chassis *myChassis;
@@ -60,7 +69,7 @@ ostream &operator<<(ostream &, const diaCria &);
 
 // FUNÇÕES DA MAIN
 
-int selectOption();
+const int selectOption();
 void createCar(Carros *[]);
 void copyExtCar(Carros *[]);
 void deleteCar(Carros *[]);
@@ -72,13 +81,13 @@ void setExaust(Carros *[]);
 void setECUnit(Carros *[]);
 void setInternals(Carros *[]);
 void setTransmiss(Carros *[]);
-void setSuspension(Carros *[]);
+void setSuspens(Carros *[]);
 void setChassis(Carros *[]);
 void checkDate(Carros *[]);
 void exitProgram(Carros *[]);
-int getEscolha(Carros *[]);
-bool verifyEscolha(const int);
-bool verifyName(const string &);
-bool verifyHP(const int);
+const int getEscolha(Carros *[]);
+const bool verifyEscolha(const int);
+const bool verifyName(const string &);
+const bool verifyHP(const int);
 
 #endif
