@@ -25,13 +25,8 @@ class Chassis {
     static const suspens getSuspens(const int);
 
   public: //Sobrecargas
-    const Chassis &operator=(const chassis &);
-    const Chassis &operator=(const suspens &);
     const bool operator==(const chassis &) const;
     const bool operator==(const suspens &) const;
-    const bool operator!=(const chassis &) const;
-    const bool operator!=(const suspens &) const;
-    // const bool operator!() const;
 
   private: //Bibliotecas
     static const chassis chassisParts[];

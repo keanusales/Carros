@@ -19,10 +19,7 @@ class Transmiss {
     static const transmiss getTransmiss(const int);
 
   public: //Sobrecargas
-    const Transmiss &operator=(const transmiss &);
     const bool operator==(const transmiss &) const;
-    const bool operator!=(const transmiss &) const;
-    // const bool operator!() const;
 
   private: //Bibliotecas
     static const transmiss transmissParts[];

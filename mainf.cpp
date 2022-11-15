@@ -1,25 +1,23 @@
-#include "carros.cpp"
+#include "trucks.cpp"
 
-const int MAXCARS = Carros::getMaxCars();
+const int MAXVEHICLES = Vehicle::getMaxVehicle();
 
 const int selectOption() {
   while (1) {
     string input; int opcao;
-    cout << "1 - Criar um novo carro\n"
-      << "2 - Copiar um carro ja existente\n"
-      << "3 - Deletar um carro existente\n"
-      << "4 - Printar estado atual dos carros\n"
-      << "5 - Printar modificacoes feitas\n"
-      << "6 - Setar internos de um carro\n"
-      << "7 - Setar turbo de um carro\n"
-      << "8 - Setar intake de um carro\n"
-      << "9 - Setar exaust de um carro\n"
-      << "10 - Setar eletronics de um carro\n"
-      << "11 - Setar transmission de um carro\n"
-      << "12 - Setar suspension de um carro\n"
-      << "13 - Setar chassis de um carro\n"
-      << "14 - Checar um dia com a criacao\n"
-      << "15 - Sair do programa\n"
+    cout << "1 - Criar um novo veiculo\n"
+      << "2 - Copiar um veiculo ja existente\n"
+      << "3 - Deletar um veiculo existente\n"
+      << "4 - Printar estado atual de um veiculo\n"
+      << "5 - Setar internos de um veiculo\n"
+      << "6 - Setar turbo de um veiculo\n"
+      << "7 - Setar intake de um veiculo\n"
+      << "8 - Setar exaust de um veiculo\n"
+      << "9 - Setar eletronics de um veiculo\n"
+      << "10 - Setar transmission de um veiculo\n"
+      << "11 - Setar suspension de um veiculo\n"
+      << "12 - Setar chassis de um veiculo\n"
+      << "13 - Sair do programa\n"
       << "Qual opcao voce escolhe? ";
     getline(cin, input);
     stringstream stream(input);
@@ -29,127 +27,99 @@ const int selectOption() {
   }
 }
 
-void createCar(Carros *carroPtr[]) {
-  const int numCars = Carros::getNumCars();
+void createCar(Vehicle *vehiclePtr[]) {
+  if (maximumVehicles()) return;
+  const int numVehicle = Vehicle::getNumVehicle();
+  newVeh vehicle;
   system("cls||clear");
-  if (numCars + 1 > MAXCARS) {
-    cout << "Estamos no maximo de carros!\n";
-    return;
-  }
-  Atributes entrie;
   while (1) {
-    cout << "Digite o nome do carro: ";
-    getline(cin, entrie.nameCar);
-    if (verifyName(entrie.nameCar)) break;
+    string input;
+    cout << "1 - O novo veiculo e um Carro\n"
+      << "2 - O novo veiculo e um Truck\n"
+      << "Qual tipo de veiculo voce quer? ";
+    getline(cin, input);
+    stringstream stream(input);
+    if (stream >> vehicle.typeVehicle)
+      if (verCreate(vehicle.typeVehicle)) break;
+    system("cls||clear");
+    cout << "Digite um dos tipos especificados!\n";
+  }
+  while (1) {
+    cout << "Digite o nome do veiculo: ";
+    getline(cin, vehicle.nameVehicle);
+    if (verName(vehicle.nameVehicle)) break;
     system("cls||clear");
     cout << "Nome muito grande! Diminua!\n";
   }
   while (1) {
     string input;
-    cout << "Digite a potencia do carro: ";
+    cout << "Digite a potencia do veiculo: ";
     getline(cin, input);
     stringstream stream(input);
-    if (stream >> entrie.hpStock)
-      if (verifyHP(entrie.hpStock)) break;
+    if (stream >> vehicle.hpStock)
+      if (verHpStock(vehicle.hpStock)) break;
     system("cls||clear");
     cout << "Hp deve ficar entre 100 e 1000!\n";
   }
-  entrie.hpAtual = entrie.hpStock;
-  carroPtr[numCars] = new Carros(entrie);
+  vehiclePtr[numVehicle] = Vehicle::create(vehicle);
   system("cls||clear");
   cout << "Carro adicionado com sucesso!\n";
 }
 
-void copyExtCar(Carros *carroPtr[]) {
-  const int numCars = Carros::getNumCars();
-  if (!numCars) {
-    system("cls||clear");
-    cout << "Nao ha carros para copiar!\n";
-    return;
-  }
-  if (numCars + 1 > MAXCARS) {
-    system("cls||clear");
-    cout << "Estamos no maximo de carros!\n";
-    return;
-  }
-  int escolha = getEscolha(carroPtr);
-  if (verifyEscolha(escolha)) {
-    carroPtr[numCars] = new Carros(*carroPtr[escolha]);
+void copyExtCar(Vehicle *vehiclePtr[]) {
+  if (existsVeh("copiar")) return;
+  if (maximumVehicles()) return;
+  const int numVehicle = Vehicle::getNumVehicle();
+  const int escolha = getEscolha(vehiclePtr);
+  if (verEscolha(escolha)) {
+    vehiclePtr[numVehicle] = vehiclePtr[escolha]->clone();
     system("cls||clear");
     cout << "Carro adicionado com sucesso!\n";
     return;
   }
   system("cls||clear");
-  cout << "Digite um carro especificado!\n";
+  cout << "Digite um veiculo especificado!\n";
 }
 
-void deleteCar(Carros *carroPtr[]) {
-  int numCars = Carros::getNumCars();
-  if (!numCars) {
-    system("cls||clear");
-    cout << "Nao ha carros para deletar!\n";
-    return;
-  }
-  int escolha = getEscolha(carroPtr);
-  if (verifyEscolha(escolha)) {
-    delete carroPtr[escolha]; numCars--;
-    for (int i = escolha; i < numCars; i++)
-      carroPtr[i] = carroPtr[i+1];
-    carroPtr[numCars] = 0;
+void deleteCar(Vehicle *vehiclePtr[]) {
+  if (existsVeh("deletar")) return;
+  int numVehicle = Vehicle::getNumVehicle();
+  const int escolha = getEscolha(vehiclePtr);
+  if (verEscolha(escolha)) {
+    delete vehiclePtr[escolha]; numVehicle--;
+    for (int i = escolha; i < numVehicle; i++)
+      vehiclePtr[i] = vehiclePtr[i+1];
+    vehiclePtr[numVehicle] = 0;
     system("cls||clear");
     cout << "Carro deletado com sucesso!\n";
     return;
   }
   system("cls||clear");
-  cout << "Digite um carro especificado!\n";
+  cout << "Digite um veiculo especificado!\n";
 }
 
-void getAtributes(Carros *carroPtr[]) {
-  const int numCars = Carros::getNumCars();
-  system("cls||clear");
-  if (!numCars) {
-    cout << "Nao ha carros para mostrar!\n";
-    return;
-  }
-  for (int i = 0; i < numCars; i++)
-    carroPtr[i]->getAtributes();
-}
-
-void getModsDone(Carros *carroPtr[]) {
-  const int numCars = Carros::getNumCars();
-  if (!numCars) {
+void getAtributes(Vehicle *vehiclePtr[]) {
+  if (existsVeh("mostrar")) return;
+  const int escolha = getEscolha(vehiclePtr);
+  if (verEscolha(escolha)) {
     system("cls||clear");
-    cout << "Nao ha carros para mostrar!\n";
-    return;
-  }
-  int escolha = getEscolha(carroPtr);
-  if (verifyEscolha(escolha)) {
-    system("cls||clear");
-    carroPtr[escolha]->getModsDone();
+    cout << *vehiclePtr[escolha];
     return;
   }
   system("cls||clear");
-  cout << "Digite um carro especificado!\n";
+  cout << "Digite um veiculo especificado!\n";
 }
 
-void setInternals(Carros *carroPtr[]) {
-  const int numCars = Carros::getNumCars();
-  if (!numCars) {
-    system("cls||clear");
-    cout << "Nao ha carros para modificar!\n";
-    return;
-  }
-  int escolha = getEscolha(carroPtr);
-  if (verifyEscolha(escolha)) {
+void setInternals(Vehicle *vehiclePtr[]) {
+  if (existsVeh("modificar")) return;
+  const int escolha = getEscolha(vehiclePtr);
+  if (verEscolha(escolha)) {
     int opcao;
     system("cls||clear");
     while (1) {
       string input;
-      for (int i = 0; i < 6; i++) {
-        const intern elem = Engine::getIntern(i);
-        if (*carroPtr[escolha] != elem)
-          cout << i << " - " << elem << "\n";
-      }
+      for (int i = 0; i < 6; i++)
+        cout << i << " - " << Engine::getIntern(i) << "\n";
       cout << "Qual opcao voce escolhe? ";
       getline(cin, input);
       stringstream stream(input);
@@ -158,31 +128,23 @@ void setInternals(Carros *carroPtr[]) {
       system("clear||cls");
       cout << "Entrada invalida! Tente de novo!\n";
     }
-    carroPtr[escolha]->setInternals(opcao);
+    vehiclePtr[escolha]->setInternals(opcao);
     return;
   }
   system("cls||clear");
-  cout << "Digite um carro especificado!\n";
+  cout << "Digite um veiculo especificado!\n";
 }
 
-void setTurbo(Carros *carroPtr[]) {
-  const int numCars = Carros::getNumCars();
-  if (!numCars) {
-    system("cls||clear");
-    cout << "Nao ha carros para modificar!\n";
-    return;
-  }
-  int escolha = getEscolha(carroPtr);
-  if (verifyEscolha(escolha)) {
+void setTurbos(Vehicle *vehiclePtr[]) {
+  if (existsVeh("modificar")) return;
+  const int escolha = getEscolha(vehiclePtr);
+  if (verEscolha(escolha)) {
     int opcao;
     system("cls||clear");
     while (1) {
       string input;
-      for (int i = 0; i < 6; i++) {
-        const turbo elem = Engine::getTurbo(i);
-        if (*carroPtr[escolha] != elem)
-          cout << i << " - " << elem << "\n";
-      }
+      for (int i = 0; i < 6; i++)
+        cout << i << " - " << Engine::getTurbo(i) << "\n";
       cout << "Qual opcao voce escolhe? ";
       getline(cin, input);
       stringstream stream(input);
@@ -191,31 +153,23 @@ void setTurbo(Carros *carroPtr[]) {
       system("clear||cls");
       cout << "Entrada invalida! Tente de novo!\n";
     }
-    carroPtr[escolha]->setTurbo(opcao);
+    vehiclePtr[escolha]->setTurbos(opcao);
     return;
   }
   system("cls||clear");
-  cout << "Digite um carro especificado!\n";
+  cout << "Digite um veiculo especificado!\n";
 }
 
-void setIntake(Carros *carroPtr[]) {
- const int numCars = Carros::getNumCars();
-  if (!numCars) {
-    system("cls||clear");
-    cout << "Nao ha carros para modificar!\n";
-    return;
-  }
-  int escolha = getEscolha(carroPtr);
-  if (verifyEscolha(escolha)) {
+void setIntake(Vehicle *vehiclePtr[]) {
+  if (existsVeh("modificar")) return;
+  const int escolha = getEscolha(vehiclePtr);
+  if (verEscolha(escolha)) {
     int opcao;
     system("cls||clear");
     while (1) {
       string input;
-      for (int i = 0; i < 4; i++) {
-        const intake elem = Engine::getIntake(i);
-        if (*carroPtr[escolha] != elem)
-          cout << i << " - " << elem << "\n";
-      }
+      for (int i = 0; i < 4; i++)
+        cout << i << " - " << Engine::getIntake(i) << "\n";
       cout << "Qual opcao voce escolhe? ";
       getline(cin, input);
       stringstream stream(input);
@@ -224,31 +178,23 @@ void setIntake(Carros *carroPtr[]) {
       system("clear||cls");
       cout << "Entrada invalida! Tente de novo!\n";
     }
-    carroPtr[escolha]->setIntake(opcao);
+    vehiclePtr[escolha]->setIntake(opcao);
     return;
   }
   system("cls||clear");
-  cout << "Digite um carro especificado!\n";
+  cout << "Digite um veiculo especificado!\n";
 }
 
-void setExaust(Carros *carroPtr[]) {
-  const int numCars = Carros::getNumCars();
-  if (!numCars) {
-    system("cls||clear");
-    cout << "Nao ha carros para modificar!\n";
-    return;
-  }
-  int escolha = getEscolha(carroPtr);
-  if (verifyEscolha(escolha)) {
+void setExaust(Vehicle *vehiclePtr[]) {
+  if (existsVeh("modificar")) return;
+  const int escolha = getEscolha(vehiclePtr);
+  if (verEscolha(escolha)) {
     int opcao;
     system("cls||clear");
     while (1) {
       string input;
-      for (int i = 0; i < 3; i++) {
-        const exaust elem = Engine::getExaust(i);
-        if (*carroPtr[escolha] != elem)
-          cout << i << " - " << elem << "\n";
-      }
+      for (int i = 0; i < 3; i++)
+        cout << i << " - " << Engine::getExaust(i) << "\n";
       cout << "Qual opcao voce escolhe? ";
       getline(cin, input);
       stringstream stream(input);
@@ -257,31 +203,23 @@ void setExaust(Carros *carroPtr[]) {
       system("clear||cls");
       cout << "Entrada invalida! Tente de novo!\n";
     }
-    carroPtr[escolha]->setExaust(opcao);
+    vehiclePtr[escolha]->setExaust(opcao);
     return;
   }
   system("cls||clear");
-  cout << "Digite um carro especificado!\n";
+  cout << "Digite um veiculo especificado!\n";
 }
 
-void setECUnit(Carros *carroPtr[]) {
-  const int numCars = Carros::getNumCars();
-  if (!numCars) {
-    system("cls||clear");
-    cout << "Nao ha carros para modificar!\n";
-    return;
-  }
-  int escolha = getEscolha(carroPtr);
-  if (verifyEscolha(escolha)) {
+void setECUnit(Vehicle *vehiclePtr[]) {
+  if (existsVeh("modificar")) return;
+  const int escolha = getEscolha(vehiclePtr);
+  if (verEscolha(escolha)) {
     int opcao;
     system("cls||clear");
     while (1) {
       string input;
-      for (int i = 0; i < 2; i++) {
-        const ECUnit elem = Engine::getECUnit(i);
-        if (*carroPtr[escolha] != elem)
-          cout << i << " - " << elem << "\n";
-      }
+      for (int i = 0; i < 2; i++)
+        cout << i << " - " << Engine::getECUnit(i) << "\n";
       cout << "Qual opcao voce escolhe? ";
       getline(cin, input);
       stringstream stream(input);
@@ -290,31 +228,23 @@ void setECUnit(Carros *carroPtr[]) {
       system("clear||cls");
       cout << "Entrada invalida! Tente de novo!\n";
     }
-    carroPtr[escolha]->setECUnit(opcao);
+    vehiclePtr[escolha]->setECUnit(opcao);
     return;
   }
   system("cls||clear");
-  cout << "Digite um carro especificado!\n";
+  cout << "Digite um veiculo especificado!\n";
 }
 
-void setTransmiss(Carros *carroPtr[]) {
-  const int numCars = Carros::getNumCars();
-  if (!numCars) {
-    system("cls||clear");
-    cout << "Nao ha carros para modificar!\n";
-    return;
-  }
-  int escolha = getEscolha(carroPtr);
-  if (verifyEscolha(escolha)) {
+void setTransmiss(Vehicle *vehiclePtr[]) {
+  if (existsVeh("modificar")) return;
+  const int escolha = getEscolha(vehiclePtr);
+  if (verEscolha(escolha)) {
     int opcao;
     system("cls||clear");
     while (1) {
       string input;
-      for (int i = 0; i < 4; i++) {
-        const transmiss elem = Transmiss::getTransmiss(i);
-        if (*carroPtr[escolha] != elem)
-          cout << i << " - " << elem << "\n";
-      }
+      for (int i = 0; i < 4; i++)
+        cout << i << " - " << Transmiss::getTransmiss(i) << "\n";
       cout << "Qual opcao voce escolhe? ";
       getline(cin, input);
       stringstream stream(input);
@@ -323,31 +253,23 @@ void setTransmiss(Carros *carroPtr[]) {
       system("clear||cls");
       cout << "Entrada invalida! Tente de novo!\n";
     }
-    carroPtr[escolha]->setTransmiss(opcao);
+    vehiclePtr[escolha]->setTransmiss(opcao);
     return;
   }
   system("cls||clear");
-  cout << "Digite um carro especificado!\n";
+  cout << "Digite um veiculo especificado!\n";
 }
 
-void setSuspens(Carros *carroPtr[]) {
-  const int numCars = Carros::getNumCars();
-  if (!numCars) {
-    system("cls||clear");
-    cout << "Nao ha carros para modificar!\n";
-    return;
-  }
-  int escolha = getEscolha(carroPtr);
-  if (verifyEscolha(escolha)) {
+void setSuspens(Vehicle *vehiclePtr[]) {
+  if (existsVeh("modificar")) return;
+  const int escolha = getEscolha(vehiclePtr);
+  if (verEscolha(escolha)) {
     int opcao;
     system("cls||clear");
     while (1) {
       string input;
-      for (int i = 0; i < 3; i++) {
-        const suspens elem = Chassis::getSuspens(i);
-        if (*carroPtr[escolha] != elem)
-          cout << i << " - " << elem << "\n";
-      }
+      for (int i = 0; i < 3; i++)
+        cout << i << " - " << Chassis::getSuspens(i) << "\n";
       cout << "Qual opcao voce escolhe? ";
       getline(cin, input);
       stringstream stream(input);
@@ -356,31 +278,23 @@ void setSuspens(Carros *carroPtr[]) {
       system("clear||cls");
       cout << "Entrada invalida! Tente de novo!\n";
     }
-    carroPtr[escolha]->setSuspens(opcao);
+    vehiclePtr[escolha]->setSuspens(opcao);
     return;
   }
   system("cls||clear");
-  cout << "Digite um carro especificado!\n";
+  cout << "Digite um veiculo especificado!\n";
 }
 
-void setChassis(Carros *carroPtr[]) {
-  const int numCars = Carros::getNumCars();
-  if (!numCars) {
-    system("cls||clear");
-    cout << "Nao ha carros para modificar!\n";
-    return;
-  }
-  int escolha = getEscolha(carroPtr);
-  if (verifyEscolha(escolha)) {
+void setChassis(Vehicle *vehiclePtr[]) {
+  if (existsVeh("modificar")) return;
+  const int escolha = getEscolha(vehiclePtr);
+  if (verEscolha(escolha)) {
     int opcao;
     system("cls||clear");
     while (1) {
       string input;
-      for (int i = 0; i < 3; i++) {
-        const chassis elem = Chassis::getChassis(i);
-        if (*carroPtr[escolha] != elem)
-          cout << i << " - " << elem << "\n";
-      }
+      for (int i = 0; i < 3; i++)
+        cout << i << " - " << Chassis::getChassis(i) << "\n";
       cout << "Qual opcao voce escolhe? ";
       getline(cin, input);
       stringstream stream(input);
@@ -389,57 +303,30 @@ void setChassis(Carros *carroPtr[]) {
       system("clear||cls");
       cout << "Entrada invalida! Tente de novo!\n";
     }
-    carroPtr[escolha]->setChassis(opcao);
+    vehiclePtr[escolha]->setChassis(opcao);
     return;
   }
   system("cls||clear");
-  cout << "Digite um carro especificado!\n";
+  cout << "Digite um veiculo especificado!\n";
 }
 
-void checkDate(Carros *carroPtr[]) {
-  const int numCars = Carros::getNumCars();
-  if (!numCars) {
-    system("cls||clear");
-    cout << "Nao ha carros para modificar!\n";
-    return;
-  }
-  int escolha = getEscolha(carroPtr);
-  if (verifyEscolha(escolha)) {
-    int dia;
-    system("cls||clear");
-    while (1) {
-      string input;
-      cout << "Digite um numero (um dia): ";
-      getline(cin, input);
-      stringstream stream(input);
-      if (stream >> dia) break;
-      system("clear||cls");
-      cout << "Entrada invalida! Tente de novo!\n";
-    }
-    carroPtr[escolha]->checkDate(dia);
-    return;
-  }
-  system("cls||clear");
-  cout << "Digite um carro especificado!\n";
-}
-
-void exitProgram(Carros *carroPtr[]) {
-  const int numCars = Carros::getNumCars();
-  for (int i = 0; i < numCars; i++) {
-    delete carroPtr[i]; carroPtr[i] = 0;
+void exitProgram(Vehicle *vehiclePtr[]) {
+  const int numVehicle = Vehicle::getNumVehicle();
+  for (int i = 0; i < numVehicle; i++) {
+    delete vehiclePtr[i]; vehiclePtr[i] = 0;
   }
   system("clear||cls");
   cout << "Ate a proxima vez!\n";
 }
 
-const int getEscolha(Carros *carroPtr[]) {
-  const int numCars = Carros::getNumCars();
-  system("cls||clear");
+const int getEscolha(Vehicle *vehiclePtr[]) {
+  const int numVehicle = Vehicle::getNumVehicle();
   int escolha;
+  system("cls||clear");
   while (1) {
     string input;
-    for (int i = 0; i < numCars; i++)
-      cout << i << " - " << *carroPtr[i] << "\n";
+    for (int i = 0; i < numVehicle; i++)
+      cout << i << " - " << vehiclePtr[i] << "\n";
     cout << "Qual opcao voce escolhe? ";
     getline(cin, input);
     stringstream stream(input);
@@ -450,17 +337,41 @@ const int getEscolha(Carros *carroPtr[]) {
   return escolha;
 }
 
-const bool verifyEscolha(const int escolha) {
-  const int numCars = Carros::getNumCars();
-  return (0 <= escolha && escolha < numCars);
+const bool existsVeh(const char *action) {
+  const int numVehicle = Vehicle::getNumVehicle();
+  if (!numVehicle) {
+    system("cls||clear");
+    printf("Nao ha veiculos para %s!\n", action);
+    return 1;
+  }
+  return 0;
 }
 
-const bool verifyName(const string &nameCar) {
-  const int MAXLEN = Carros::getMaxLen();
+const bool maximumVehicles() {
+  const int numVehicle = Vehicle::getNumVehicle();
+  if (numVehicle + 1 > MAXVEHICLES) {
+    system("cls||clear");
+    cout << "Estamos no maximo de veiculos!\n";
+    return 1;
+  }
+  return 0;
+}
+
+const bool verEscolha(const int escolha) {
+  const int numVehicle = Vehicle::getNumVehicle();
+  return (0 <= escolha && escolha < numVehicle);
+}
+
+const bool verCreate(const int escolha) {
+  return (1 <= escolha && escolha <= 1);
+}
+
+const bool verName(const string &nameCar) {
+  const int MAXLEN = Vehicle::getMaxLen();
   return (nameCar.length() <= MAXLEN);
 }
 
-const bool verifyHP(const int hpStock) {
+const bool verHpStock(const int hpStock) {
   const int MINHP = Carros::getMinHP();
   const int MAXHP = Carros::getMaxHP();
   return (MINHP <= hpStock && hpStock <= MAXHP);

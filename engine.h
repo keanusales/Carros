@@ -31,11 +31,11 @@ class Engine {
     Engine();
     Engine(const Engine &);
     ~Engine();
+    const bool setInternals(const int);
     const int setTurbo(const int, const int);
     const int setIntake(const int, const int);
     const int setExaust(const int, const int);
     const int setECUnit(const int, const int);
-    const bool setInternals(const int);
     static const turbo getTurbo(const int);
     static const intake getIntake(const int);
     static const exaust getExaust(const int);
@@ -43,22 +43,11 @@ class Engine {
     static const intern getIntern(const int);
 
   public: //Sobrecargas
-    const Engine &operator=(const turbo &);
-    const Engine &operator=(const intake &);
-    const Engine &operator=(const exaust &);
-    const Engine &operator=(const ECUnit &);
-    const Engine &operator=(const intern &);
     const bool operator==(const turbo &) const;
     const bool operator==(const intake &) const;
     const bool operator==(const exaust &) const;
     const bool operator==(const ECUnit &) const;
     const bool operator==(const intern &) const;
-    const bool operator!=(const turbo &) const;
-    const bool operator!=(const intake &) const;
-    const bool operator!=(const exaust &) const;
-    const bool operator!=(const ECUnit &) const;
-    const bool operator!=(const intern &) const;
-    const bool operator!() const;
 
   private: //Bibliotecas
     static const turbo turbosParts[];

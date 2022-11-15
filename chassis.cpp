@@ -31,14 +31,14 @@ Chassis::~Chassis() {}
 const bool Chassis::setSuspens(const int opcao) {
   const suspens suspens = Chassis::suspensParts[opcao];
   if (*this == suspens) return 0;
-  *this = suspens;
+  this -> mySuspens = suspens;
   return 1;
 }
 
 const bool Chassis::setChassis(const int opcao) {
   const chassis chassis = Chassis::chassisParts[opcao];
   if (*this == chassis) return 0;
-  *this = chassis;
+  this -> myChassis = chassis;
   return 1;
 }
 
@@ -53,39 +53,17 @@ const suspens Chassis::getSuspens(const int opcao) {
 // SOBRECARGAS DA CLASSE
 
 ostream &operator<<(ostream &output, const Chassis &chassis) {
-  output << "Suspension: " << chassis.myChassis.part << "\n";
-  output << "Chassis: " << chassis.myChassis.part << "\n";
+  output << "Suspension: " << chassis.myChassis << "\n";
+  output << "Chassis: " << chassis.myChassis << "\n";
   return output;
 }
 
-const Chassis &Chassis::operator=(const chassis &part) {
-  this -> myChassis = part;
-  return *this;
-}
-
-const Chassis &Chassis::operator=(const suspens &part) {
-  this -> mySuspens = part;
-  return *this;
-}
-
 const bool Chassis::operator==(const chassis &part) const {
-  if (myChassis.gForce == part.gForce) return 1;
-  if (myChassis.part == part.part) return 1;
-  return 0;
+  return (myChassis.gForce == part.gForce && myChassis.part == part.part);
 }
 
 const bool Chassis::operator==(const suspens &part) const {
-  if (mySuspens.gForce == part.gForce) return 1;
-  if (mySuspens.part == part.part) return 1;
-  return 0;
-}
-
-const bool Chassis::operator!=(const chassis &part) const {
-  return !(*this == part);
-}
-
-const bool Chassis::operator!=(const suspens &part) const {
-  return !(*this == part);
+  return (mySuspens.gForce == part.gForce && mySuspens.part == part.part);
 }
 
 // SOBRECARGAS DOS STRUCTS

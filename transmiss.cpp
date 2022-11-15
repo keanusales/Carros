@@ -24,7 +24,7 @@ Transmiss::~Transmiss() {}
 const bool Transmiss::setTransmiss(const int opcao) {
   const transmiss transmiss = Transmiss::transmissParts[opcao];
   if (*this == transmiss) return 0;
-  *this = transmiss;
+  this -> myTransmiss = transmiss;
   return 1;
 }
 
@@ -35,23 +35,12 @@ const transmiss Transmiss::getTransmiss(const int opcao) {
 // SOBRECARGAS DA CLASSE
 
 ostream &operator<<(ostream &output, const Transmiss &trasmiss) {
-  output << "Transmission: " << trasmiss.myTransmiss.part << "\n";
+  output << "Transmission: " << trasmiss.myTransmiss << "\n";
   return output;
 }
 
-const Transmiss &Transmiss::operator=(const transmiss &part) {
-  this -> myTransmiss = part;
-  return *this;
-}
-
 const bool Transmiss::operator==(const transmiss &part) const {
-  if (myTransmiss.time == part.time) return 1;
-  if (myTransmiss.part == part.part) return 1;
-  return 0;
-}
-
-const bool Transmiss::operator!=(const transmiss &part) const {
-  return !(*this == part);
+  return (myTransmiss.time == part.time && myTransmiss.part == part.part);
 }
 
 // SOBRECARGAS DOS STRUCTS

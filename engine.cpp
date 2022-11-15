@@ -1,4 +1,4 @@
-#include "carros.h"
+#include "mainf.h"
 
 // DICIONÁRIOS
 
@@ -32,7 +32,7 @@ const intern Engine::internParts[] = {
   {"Piston RP-1000, Rod XXt-970", 970},
   {"Piston RP-1300, Rod XXt-1320, Forged Crankshaft", 1290},
   {"Piston RP-1650, Rod XXt-1640, Billet Crankshaft", 1630},
-  {"Piston RP-2000+, Rod XXt-2000+, Billet Crankshaft, Billet Block", 2500}
+  {"Piston RP-2000+, Rod XXt-2000+, Billet Crankshaft & Block", 2500}
 };
 
 // IMPLEMENTAÇÃO
@@ -58,51 +58,51 @@ Engine::~Engine() {}
 const bool Engine::setInternals(const int opcao) {
   const intern intern = Engine::internParts[opcao];
   if (*this == intern) return 0;
-  *this = intern;
+  this -> myIntern = intern;
   return 1;
 }
 
 const int Engine::setTurbo(const int opcao, const int hpStock) {
-  if (!*this) return 0;
+  if (!myIntern.hpResis) return 0;
   const turbo turbo = Engine::turbosParts[opcao];
   const int hpFinal = hpStock + turbo.hpGain + myIntake.hpGain
     + myExaust.hpGain + myECUnit.hpGain;
   if (hpFinal > myIntern.hpResis) return 0;
   if (*this == turbo) return -1;
-  *this = turbo;
+  this -> myTurbo = turbo;
   return hpFinal;
 }
 
 const int Engine::setIntake(const int opcao, const int hpStock) {
-  if (!*this) return 0;
+  if (!myIntern.hpResis) return 0;
   const intake intake = Engine::intakeParts[opcao];
   const int hpFinal = hpStock + intake.hpGain + myTurbo.hpGain
     + myExaust.hpGain + myECUnit.hpGain;
   if (hpFinal > myIntern.hpResis) return 0;
   if (*this == intake) return -1;
-  *this = intake;
+  this -> myIntake = intake;
   return hpFinal;
 }
 
 const int Engine::setExaust(const int opcao, const int hpStock) {
-  if (!*this) return 0;
+  if (!myIntern.hpResis) return 0;
   const exaust exaust = Engine::exaustParts[opcao];
   const int hpFinal = hpStock + exaust.hpGain + myTurbo.hpGain
     + myIntake.hpGain + myECUnit.hpGain;
   if (hpFinal > myIntern.hpResis) return 0;
   if (*this == exaust) return -1;
-  *this = exaust;
+  this -> myExaust = exaust;
   return hpFinal;
 }
 
 const int Engine::setECUnit(const int opcao, const int hpStock) {
-  if (!*this) return 0;
+  if (!myIntern.hpResis) return 0;
   const ECUnit ECUnit = Engine::ECUnitParts[opcao];
   const int hpFinal = hpStock + ECUnit.hpGain + myTurbo.hpGain
     + myIntake.hpGain + myExaust.hpGain;
   if (hpFinal > myIntern.hpResis) return 0;
   if (*this == ECUnit) return -1;
-  *this = ECUnit;
+  this -> myECUnit = ECUnit;
   return hpFinal;
 }
 
@@ -129,91 +129,32 @@ const intern Engine::getIntern(const int opcao) {
 // SOBRECARGAS DA CLASSE
 
 ostream &operator<<(ostream &output, const Engine &engine) {
-  output << "Turbo: " << engine.myTurbo.part << "\n";
-  output << "Intake: " << engine.myIntake.part << "\n";
-  output << "Exaust: " << engine.myExaust.part << "\n";
-  output << "ECUnit: " << engine.myECUnit.part << "\n";
-  output << "Internals: " << engine.myIntern.part << "\n";
+  output << "Turbo: " << engine.myTurbo << "\n";
+  output << "Intake: " << engine.myIntake << "\n";
+  output << "Exaust: " << engine.myExaust << "\n";
+  output << "ECUnit: " << engine.myECUnit << "\n";
+  output << "Interns: " << engine.myIntern << "\n";
   return output;
 }
 
-const Engine &Engine::operator=(const turbo &part) {
-  this -> myTurbo = part;
-  return *this;
-}
-
-const Engine &Engine::operator=(const intake &part) {
-  this -> myIntake = part;
-  return *this;
-}
-
-const Engine &Engine::operator=(const exaust &part) {
-  this -> myExaust = part;
-  return *this;
-}
-
-const Engine &Engine::operator=(const ECUnit &part) {
-  this -> myECUnit = part;
-  return *this;
-}
-
-const Engine &Engine::operator=(const intern &part) {
-  this -> myIntern = part;
-  return *this;
-}
-
 const bool Engine::operator==(const turbo &part) const {
-  if (myTurbo.hpGain == part.hpGain) return 1;
-  if (myTurbo.part == part.part) return 1;
-  return 0;
+  return (myTurbo.hpGain == part.hpGain && myTurbo.part == part.part);
 }
 
 const bool Engine::operator==(const intake &part) const {
-  if (myIntake.hpGain == part.hpGain) return 1;
-  if (myIntake.part == part.part) return 1;
-  return 0;
+  return (myIntake.hpGain == part.hpGain && myIntake.part == part.part);
 }
 
 const bool Engine::operator==(const exaust &part) const {
-  if (myExaust.hpGain == part.hpGain) return 1;
-  if (myExaust.part == part.part) return 1;
-  return 0;
+  return (myExaust.hpGain == part.hpGain && myExaust.part == part.part);
 }
 
 const bool Engine::operator==(const ECUnit &part) const {
-  if (myECUnit.hpGain == part.hpGain) return 1;
-  if (myECUnit.part == part.part) return 1;
-  return 0;
+  return (myECUnit.hpGain == part.hpGain && myECUnit.part == part.part);
 }
 
 const bool Engine::operator==(const intern &part) const {
-  if (myIntern.hpResis == part.hpResis) return 1;
-  if (myIntern.part == part.part) return 1;
-  return 0;
-}
-
-const bool Engine::operator!=(const turbo &part) const {
-  return !(*this == part);
-}
-
-const bool Engine::operator!=(const intake &part) const {
-  return !(*this == part);
-}
-
-const bool Engine::operator!=(const exaust &part) const {
-  return !(*this == part);
-}
-
-const bool Engine::operator!=(const ECUnit &part) const {
-  return !(*this == part);
-}
-
-const bool Engine::operator!=(const intern &part) const {
-  return !(*this == part);
-}
-
-const bool Engine::operator!() const {
-  return !(myIntern.hpResis);
+  return (myIntern.hpResis == part.hpResis && myIntern.part == part.part);
 }
 
 // SOBRECARGAS DOS STRUCTS
