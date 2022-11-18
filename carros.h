@@ -4,23 +4,24 @@
 #include "vehicle.h"
 
 class Carros: public Vehicle {
-  friend ostream &operator<<(ostream &, const Carros &);
-
   public:
     Carros(const string &, const int);
     Carros(const Carros &);
     ~Carros();
     Vehicle *clone();
-    void setInternals(const int);
-    void setTurbos(const int);
-    void setIntake(const int);
-    void setExaust(const int);
-    void setECUnit(const int);
-    void setTransmiss(const int);
-    void setSuspens(const int);
-    void setChassis(const int);
+    void setInternals();
+    void setTurbos();
+    void setIntake();
+    void setExaust();
+    void setECUnit();
+    void setTransmiss();
+    void setSuspens();
+    void setChassis();
     static const int getMinHP();
     static const int getMaxHP();
+
+  public: // Virtual Get for Ostream
+    void getout(ostream &) const;
 
   private:
     Engine *myEngine;

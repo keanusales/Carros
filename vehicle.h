@@ -27,14 +27,17 @@ class Vehicle {
 
   public: // Virtual Functions
     virtual Vehicle *clone() = 0;
-    virtual void setInternals(const int) {}
-    virtual void setTurbos(const int) {}
-    virtual void setIntake(const int) {}
-    virtual void setExaust(const int) {}
-    virtual void setECUnit(const int) {}
-    virtual void setTransmiss(const int) {}
-    virtual void setSuspens(const int) {}
-    virtual void setChassis(const int) {}
+    virtual void setInternals() = 0;
+    virtual void setTurbos() = 0;
+    virtual void setIntake() = 0;
+    virtual void setExaust() = 0;
+    virtual void setECUnit() = 0;
+    virtual void setTransmiss() = 0;
+    virtual void setSuspens() = 0;
+    virtual void setChassis() = 0;
+
+  public: // Virtual Get for Ostream
+    virtual void getout(ostream &) const = 0;
 
   protected:
     int hpStock, hpAtual;

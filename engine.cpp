@@ -55,74 +55,144 @@ Engine::Engine(const Engine &other) {
 
 Engine::~Engine() {}
 
-const bool Engine::setInternals(const int opcao) {
-  const intern intern = Engine::internParts[opcao];
+const bool Engine::setInternals() {
+  const intern intern = getIntern();
   if (*this == intern) return 0;
   this -> myIntern = intern;
   return 1;
 }
 
-const int Engine::setTurbo(const int opcao, const int hpStock) {
+const int Engine::setTurbo(const int hpStock) {
   if (!myIntern.hpResis) return 0;
-  const turbo turbo = Engine::turbosParts[opcao];
-  const int hpFinal = hpStock + turbo.hpGain + myIntake.hpGain
-    + myExaust.hpGain + myECUnit.hpGain;
+  const turbo turbo = getTurbo();
+  const int hpFinal = hpStock + turbo.hpGain +
+    myIntake.hpGain + myExaust.hpGain + myECUnit.hpGain;
   if (hpFinal > myIntern.hpResis) return 0;
   if (*this == turbo) return -1;
   this -> myTurbo = turbo;
   return hpFinal;
 }
 
-const int Engine::setIntake(const int opcao, const int hpStock) {
+const int Engine::setIntake(const int hpStock) {
   if (!myIntern.hpResis) return 0;
-  const intake intake = Engine::intakeParts[opcao];
-  const int hpFinal = hpStock + intake.hpGain + myTurbo.hpGain
-    + myExaust.hpGain + myECUnit.hpGain;
+  const intake intake = getIntake();
+  const int hpFinal = hpStock + intake.hpGain +
+    myTurbo.hpGain + myExaust.hpGain + myECUnit.hpGain;
   if (hpFinal > myIntern.hpResis) return 0;
   if (*this == intake) return -1;
   this -> myIntake = intake;
   return hpFinal;
 }
 
-const int Engine::setExaust(const int opcao, const int hpStock) {
+const int Engine::setExaust(const int hpStock) {
   if (!myIntern.hpResis) return 0;
-  const exaust exaust = Engine::exaustParts[opcao];
-  const int hpFinal = hpStock + exaust.hpGain + myTurbo.hpGain
-    + myIntake.hpGain + myECUnit.hpGain;
+  const exaust exaust = getExaust();
+  const int hpFinal = hpStock + exaust.hpGain +
+    myTurbo.hpGain + myIntake.hpGain + myECUnit.hpGain;
   if (hpFinal > myIntern.hpResis) return 0;
   if (*this == exaust) return -1;
   this -> myExaust = exaust;
   return hpFinal;
 }
 
-const int Engine::setECUnit(const int opcao, const int hpStock) {
+const int Engine::setECUnit(const int hpStock) {
   if (!myIntern.hpResis) return 0;
-  const ECUnit ECUnit = Engine::ECUnitParts[opcao];
-  const int hpFinal = hpStock + ECUnit.hpGain + myTurbo.hpGain
-    + myIntake.hpGain + myExaust.hpGain;
+  const ECUnit ECUnit = getECUnit();
+  const int hpFinal = hpStock + ECUnit.hpGain +
+    myTurbo.hpGain + myIntake.hpGain + myExaust.hpGain;
   if (hpFinal > myIntern.hpResis) return 0;
   if (*this == ECUnit) return -1;
   this -> myECUnit = ECUnit;
   return hpFinal;
 }
 
-const turbo Engine::getTurbo(const int opcao) {
+const turbo Engine::getTurbo() {
+  int opcao;
+  system("cls||clear");
+  while (1) {
+    string input; int cont = 0;
+    for (turbo elem : turbosParts)
+      cout << cont++ << " - " << elem << "\n";
+    cout << "Qual opcao voce escolhe? ";
+    getline(cin, input);
+    stringstream stream(input);
+    if (stream >> opcao)
+      if (0 <= opcao && opcao < cont) break;
+    system("clear||cls");
+    cout << "Entrada invalida! Tente de novo!\n";
+  }
   return Engine::turbosParts[opcao];
 }
 
-const intake Engine::getIntake(const int opcao) {
+const intake Engine::getIntake() {
+  int opcao;
+  system("cls||clear");
+  while (1) {
+    string input; int cont = 0;
+    for (intake elem : intakeParts)
+      cout << cont++ << " - " << elem << "\n";
+    cout << "Qual opcao voce escolhe? ";
+    getline(cin, input);
+    stringstream stream(input);
+    if (stream >> opcao)
+      if (0 <= opcao && opcao < cont) break;
+    system("clear||cls");
+    cout << "Entrada invalida! Tente de novo!\n";
+  }
   return Engine::intakeParts[opcao];
 }
 
-const exaust Engine::getExaust(const int opcao) {
+const exaust Engine::getExaust() {
+  int opcao;
+  system("cls||clear");
+  while (1) {
+    string input; int cont = 0;
+    for (exaust elem : exaustParts)
+      cout << cont++ << " - " << elem << "\n";
+    cout << "Qual opcao voce escolhe? ";
+    getline(cin, input);
+    stringstream stream(input);
+    if (stream >> opcao)
+      if (0 <= opcao && opcao < cont) break;
+    system("clear||cls");
+    cout << "Entrada invalida! Tente de novo!\n";
+  }
   return Engine::exaustParts[opcao];
 }
 
-const ECUnit Engine::getECUnit(const int opcao) {
+const ECUnit Engine::getECUnit() {
+  int opcao;
+  system("cls||clear");
+  while (1) {
+    string input; int cont = 0;
+    for (ECUnit elem : ECUnitParts)
+      cout << cont++ << " - " << elem << "\n";
+    cout << "Qual opcao voce escolhe? ";
+    getline(cin, input);
+    stringstream stream(input);
+    if (stream >> opcao)
+      if (0 <= opcao && opcao < cont) break;
+    system("clear||cls");
+    cout << "Entrada invalida! Tente de novo!\n";
+  }
   return Engine::ECUnitParts[opcao];
 }
 
-const intern Engine::getIntern(const int opcao) {
+const intern Engine::getIntern() {
+  int opcao;
+  system("cls||clear");
+  while (1) {
+    string input; int cont = 0;
+    for (intern elem : internParts)
+      cout << cont++ << " - " << elem << "\n";
+    cout << "Qual opcao voce escolhe? ";
+    getline(cin, input);
+    stringstream stream(input);
+    if (stream >> opcao)
+      if (0 <= opcao && opcao < cont) break;
+    system("clear||cls");
+    cout << "Entrada invalida! Tente de novo!\n";
+  }
   return Engine::internParts[opcao];
 }
 

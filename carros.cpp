@@ -25,8 +25,8 @@ Carros::~Carros() {
 
 Vehicle *Carros::clone() { return new Carros(*this); }
 
-void Carros::setInternals(const int opcao) {
-  const bool resul = myEngine->setInternals(opcao);
+void Carros::setInternals() {
+  const bool resul = myEngine->setInternals();
   system("cls||clear");
   if (resul) {
     cout << "Atualizacao feita com sucesso!\n";
@@ -35,8 +35,8 @@ void Carros::setInternals(const int opcao) {
   cout << "A parte selecionada ja esta no carro!\n";
 }
 
-void Carros::setTurbos(const int opcao) {
-  const int hpFinal = myEngine->setTurbo(opcao, hpStock);
+void Carros::setTurbos() {
+  const int hpFinal = myEngine->setTurbo(hpStock);
   system("cls||clear");
   if (hpFinal > 0) {
     this -> hpAtual = hpFinal;
@@ -51,8 +51,8 @@ void Carros::setTurbos(const int opcao) {
   cout << "A parte selecionada ja esta no carro!\n";
 }
 
-void Carros::setIntake(const int opcao) {
-  const int hpFinal = myEngine->setIntake(opcao, hpStock);
+void Carros::setIntake() {
+  const int hpFinal = myEngine->setIntake(hpStock);
   system("cls||clear");
   if (hpFinal > 0) {
     this -> hpAtual = hpFinal;
@@ -67,8 +67,8 @@ void Carros::setIntake(const int opcao) {
   cout << "A parte selecionada ja esta no carro!\n";
 }
 
-void Carros::setExaust(const int opcao) {
-  const int hpFinal = myEngine->setExaust(opcao, hpStock);
+void Carros::setExaust() {
+  const int hpFinal = myEngine->setExaust(hpStock);
   system("cls||clear");
   if (hpFinal > 0) {
     this -> hpAtual = hpFinal;
@@ -83,8 +83,8 @@ void Carros::setExaust(const int opcao) {
   cout << "A parte selecionada ja esta no carro!\n";
 }
 
-void Carros::setECUnit(const int opcao) {
-  const int hpFinal = myEngine->setECUnit(opcao, hpStock);
+void Carros::setECUnit() {
+  const int hpFinal = myEngine->setECUnit(hpStock);
   system("cls||clear");
   if (hpFinal > 0) {
     this -> hpAtual = hpFinal;
@@ -99,8 +99,8 @@ void Carros::setECUnit(const int opcao) {
   cout << "A parte selecionada ja esta no carro!\n";
 }
 
-void Carros::setTransmiss(const int opcao) {
-  const bool resul = myTransmiss->setTransmiss(opcao);
+void Carros::setTransmiss() {
+  const bool resul = myTransmiss->setTransmiss();
   system("cls||clear");
   if (resul) {
     cout << "Atualizacao feita com sucesso!\n";
@@ -109,8 +109,8 @@ void Carros::setTransmiss(const int opcao) {
   cout << "A parte selecionada ja esta no carro!\n";
 }
 
-void Carros::setSuspens(const int opcao) {
-  const bool resul = myChassis->setSuspens(opcao);
+void Carros::setSuspens() {
+  const bool resul = myChassis->setSuspens();
   system("cls||clear");
   if (resul) {
     cout << "Atualizacao feita com sucesso!\n";
@@ -119,8 +119,8 @@ void Carros::setSuspens(const int opcao) {
   cout << "A parte selecionada ja esta no carro!\n";
 }
 
-void Carros::setChassis(const int opcao) {
-  const bool resul = myChassis->setChassis(opcao);
+void Carros::setChassis() {
+  const bool resul = myChassis->setChassis();
   system("cls||clear");
   if (resul) {
     cout << "Atualizacao feita com sucesso!\n";
@@ -133,11 +133,10 @@ const int Carros::getMinHP() { return MINHP; }
 
 const int Carros::getMaxHP() { return MAXHP; }
 
-// SOBRECARGAS DA CLASSE
+// Virtual Get for Ostream
 
-ostream &operator<<(ostream &output, const Carros &carro) {
-  output << "Motor:\n" << *carro.myEngine << "\n";
-  output << "Transmisao:\n" << *carro.myTransmiss << "\n";
-  output << "Chassis:\n" << *carro.myChassis << "\n";
-  return output;
+void Carros::getout(ostream &output) const {
+  output << "Motor:\n" << *myEngine << "\n";
+  output << "Transmisao:\n" << *myTransmiss << "\n";
+  output << "Chassis:\n" << *myChassis << "\n";
 }

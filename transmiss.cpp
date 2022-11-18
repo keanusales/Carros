@@ -21,14 +21,28 @@ Transmiss::Transmiss(const Transmiss &other) {
 
 Transmiss::~Transmiss() {}
 
-const bool Transmiss::setTransmiss(const int opcao) {
-  const transmiss transmiss = Transmiss::transmissParts[opcao];
+const bool Transmiss::setTransmiss() {
+  const transmiss transmiss = getTransmiss();
   if (*this == transmiss) return 0;
   this -> myTransmiss = transmiss;
   return 1;
 }
 
-const transmiss Transmiss::getTransmiss(const int opcao) {
+const transmiss Transmiss::getTransmiss() {
+  int opcao;
+  system("cls||clear");
+  while (1) {
+    string input; int cont = 0;
+    for (transmiss elem : transmissParts)
+      cout << cont++ << " - " << elem << "\n";
+    cout << "Qual opcao voce escolhe? ";
+    getline(cin, input);
+    stringstream stream(input);
+    if (stream >> opcao)
+      if (0 <= opcao && opcao < cont) break;
+    system("clear||cls");
+    cout << "Entrada invalida! Tente de novo!\n";
+  }
   return Transmiss::transmissParts[opcao];
 }
 

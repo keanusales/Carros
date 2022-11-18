@@ -114,21 +114,7 @@ void setInternals(Vehicle *vehiclePtr[]) {
   if (existsVeh("modificar")) return;
   const int escolha = getEscolha(vehiclePtr);
   if (verEscolha(escolha)) {
-    int opcao;
-    system("cls||clear");
-    while (1) {
-      string input;
-      for (int i = 0; i < 6; i++)
-        cout << i << " - " << Engine::getIntern(i) << "\n";
-      cout << "Qual opcao voce escolhe? ";
-      getline(cin, input);
-      stringstream stream(input);
-      if (stream >> opcao)
-        if (0 <= opcao && opcao <= 5) break;
-      system("clear||cls");
-      cout << "Entrada invalida! Tente de novo!\n";
-    }
-    vehiclePtr[escolha]->setInternals(opcao);
+    vehiclePtr[escolha]->setInternals();
     return;
   }
   system("cls||clear");
@@ -139,21 +125,7 @@ void setTurbos(Vehicle *vehiclePtr[]) {
   if (existsVeh("modificar")) return;
   const int escolha = getEscolha(vehiclePtr);
   if (verEscolha(escolha)) {
-    int opcao;
-    system("cls||clear");
-    while (1) {
-      string input;
-      for (int i = 0; i < 6; i++)
-        cout << i << " - " << Engine::getTurbo(i) << "\n";
-      cout << "Qual opcao voce escolhe? ";
-      getline(cin, input);
-      stringstream stream(input);
-      if (stream >> opcao)
-        if (0 <= opcao && opcao <= 5) break;
-      system("clear||cls");
-      cout << "Entrada invalida! Tente de novo!\n";
-    }
-    vehiclePtr[escolha]->setTurbos(opcao);
+    vehiclePtr[escolha]->setTurbos();
     return;
   }
   system("cls||clear");
@@ -164,21 +136,7 @@ void setIntake(Vehicle *vehiclePtr[]) {
   if (existsVeh("modificar")) return;
   const int escolha = getEscolha(vehiclePtr);
   if (verEscolha(escolha)) {
-    int opcao;
-    system("cls||clear");
-    while (1) {
-      string input;
-      for (int i = 0; i < 4; i++)
-        cout << i << " - " << Engine::getIntake(i) << "\n";
-      cout << "Qual opcao voce escolhe? ";
-      getline(cin, input);
-      stringstream stream(input);
-      if (stream >> opcao)
-        if (0 <= opcao && opcao <= 3) break;
-      system("clear||cls");
-      cout << "Entrada invalida! Tente de novo!\n";
-    }
-    vehiclePtr[escolha]->setIntake(opcao);
+    vehiclePtr[escolha]->setIntake();
     return;
   }
   system("cls||clear");
@@ -189,21 +147,7 @@ void setExaust(Vehicle *vehiclePtr[]) {
   if (existsVeh("modificar")) return;
   const int escolha = getEscolha(vehiclePtr);
   if (verEscolha(escolha)) {
-    int opcao;
-    system("cls||clear");
-    while (1) {
-      string input;
-      for (int i = 0; i < 3; i++)
-        cout << i << " - " << Engine::getExaust(i) << "\n";
-      cout << "Qual opcao voce escolhe? ";
-      getline(cin, input);
-      stringstream stream(input);
-      if (stream >> opcao)
-        if (0 <= opcao && opcao <= 2) break;
-      system("clear||cls");
-      cout << "Entrada invalida! Tente de novo!\n";
-    }
-    vehiclePtr[escolha]->setExaust(opcao);
+    vehiclePtr[escolha]->setExaust();
     return;
   }
   system("cls||clear");
@@ -214,21 +158,7 @@ void setECUnit(Vehicle *vehiclePtr[]) {
   if (existsVeh("modificar")) return;
   const int escolha = getEscolha(vehiclePtr);
   if (verEscolha(escolha)) {
-    int opcao;
-    system("cls||clear");
-    while (1) {
-      string input;
-      for (int i = 0; i < 2; i++)
-        cout << i << " - " << Engine::getECUnit(i) << "\n";
-      cout << "Qual opcao voce escolhe? ";
-      getline(cin, input);
-      stringstream stream(input);
-      if (stream >> opcao)
-        if (0 <= opcao && opcao <= 1) break;
-      system("clear||cls");
-      cout << "Entrada invalida! Tente de novo!\n";
-    }
-    vehiclePtr[escolha]->setECUnit(opcao);
+    vehiclePtr[escolha]->setECUnit();
     return;
   }
   system("cls||clear");
@@ -239,21 +169,7 @@ void setTransmiss(Vehicle *vehiclePtr[]) {
   if (existsVeh("modificar")) return;
   const int escolha = getEscolha(vehiclePtr);
   if (verEscolha(escolha)) {
-    int opcao;
-    system("cls||clear");
-    while (1) {
-      string input;
-      for (int i = 0; i < 4; i++)
-        cout << i << " - " << Transmiss::getTransmiss(i) << "\n";
-      cout << "Qual opcao voce escolhe? ";
-      getline(cin, input);
-      stringstream stream(input);
-      if (stream >> opcao)
-        if (0 <= opcao && opcao <= 3) break;
-      system("clear||cls");
-      cout << "Entrada invalida! Tente de novo!\n";
-    }
-    vehiclePtr[escolha]->setTransmiss(opcao);
+    vehiclePtr[escolha]->setTransmiss();
     return;
   }
   system("cls||clear");
@@ -264,21 +180,7 @@ void setSuspens(Vehicle *vehiclePtr[]) {
   if (existsVeh("modificar")) return;
   const int escolha = getEscolha(vehiclePtr);
   if (verEscolha(escolha)) {
-    int opcao;
-    system("cls||clear");
-    while (1) {
-      string input;
-      for (int i = 0; i < 3; i++)
-        cout << i << " - " << Chassis::getSuspens(i) << "\n";
-      cout << "Qual opcao voce escolhe? ";
-      getline(cin, input);
-      stringstream stream(input);
-      if (stream >> opcao)
-        if (0 <= opcao && opcao <= 2) break;
-      system("clear||cls");
-      cout << "Entrada invalida! Tente de novo!\n";
-    }
-    vehiclePtr[escolha]->setSuspens(opcao);
+    vehiclePtr[escolha]->setSuspens();
     return;
   }
   system("cls||clear");
@@ -289,21 +191,7 @@ void setChassis(Vehicle *vehiclePtr[]) {
   if (existsVeh("modificar")) return;
   const int escolha = getEscolha(vehiclePtr);
   if (verEscolha(escolha)) {
-    int opcao;
-    system("cls||clear");
-    while (1) {
-      string input;
-      for (int i = 0; i < 3; i++)
-        cout << i << " - " << Chassis::getChassis(i) << "\n";
-      cout << "Qual opcao voce escolhe? ";
-      getline(cin, input);
-      stringstream stream(input);
-      if (stream >> opcao)
-        if (0 <= opcao && opcao <= 2) break;
-      system("clear||cls");
-      cout << "Entrada invalida! Tente de novo!\n";
-    }
-    vehiclePtr[escolha]->setChassis(opcao);
+    vehiclePtr[escolha]->setChassis();
     return;
   }
   system("cls||clear");

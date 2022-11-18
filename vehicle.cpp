@@ -44,8 +44,7 @@ ostream &operator<<(ostream &output, const Vehicle &vehicle) {
   output << "Veiculo: " << vehicle.nameVehicle << "\n";
   output << "Horsepower: " << vehicle.hpAtual << "\n";
   output << "Criacao: " << vehicle.diaCria << "\n\n";
-  output << *dynamic_cast <Carros*> (const_cast <Vehicle*> (&vehicle));
-  output << *dynamic_cast <Trucks*> (const_cast <Vehicle*> (&vehicle));
+  vehicle.getout(output);
   return output;
 }
 

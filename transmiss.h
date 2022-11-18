@@ -15,8 +15,8 @@ class Transmiss {
     Transmiss();
     Transmiss(const Transmiss &);
     ~Transmiss();
-    const bool setTransmiss(const int);
-    static const transmiss getTransmiss(const int);
+    const bool setTransmiss();
+    static const transmiss getTransmiss();
 
   public: //Sobrecargas
     const bool operator==(const transmiss &) const;

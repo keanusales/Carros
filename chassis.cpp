@@ -28,25 +28,53 @@ Chassis::Chassis(const Chassis &other) {
 
 Chassis::~Chassis() {}
 
-const bool Chassis::setSuspens(const int opcao) {
-  const suspens suspens = Chassis::suspensParts[opcao];
+const bool Chassis::setSuspens() {
+  const suspens suspens = getSuspens();
   if (*this == suspens) return 0;
   this -> mySuspens = suspens;
   return 1;
 }
 
-const bool Chassis::setChassis(const int opcao) {
-  const chassis chassis = Chassis::chassisParts[opcao];
+const bool Chassis::setChassis() {
+  const chassis chassis = getChassis();
   if (*this == chassis) return 0;
   this -> myChassis = chassis;
   return 1;
 }
 
-const chassis Chassis::getChassis(const int opcao) {
+const chassis Chassis::getChassis() {
+  int opcao;
+  system("cls||clear");
+  while (1) {
+    string input; int cont = 0;
+    for (chassis elem : chassisParts)
+      cout << cont++ << " - " << elem << "\n";
+    cout << "Qual opcao voce escolhe? ";
+    getline(cin, input);
+    stringstream stream(input);
+    if (stream >> opcao)
+      if (0 <= opcao && opcao < cont) break;
+    system("clear||cls");
+    cout << "Entrada invalida! Tente de novo!\n";
+  }
   return Chassis::chassisParts[opcao];
 }
 
-const suspens Chassis::getSuspens(const int opcao) {
+const suspens Chassis::getSuspens() {
+  int opcao;
+  system("cls||clear");
+  while (1) {
+    string input; int cont = 0;
+    for (suspens elem : suspensParts)
+      cout << cont++ << " - " << elem << "\n";
+    cout << "Qual opcao voce escolhe? ";
+    getline(cin, input);
+    stringstream stream(input);
+    if (stream >> opcao)
+      if (0 <= opcao && opcao < cont) break;
+    system("clear||cls");
+    cout << "Entrada invalida! Tente de novo!\n";
+  }
   return Chassis::suspensParts[opcao];
 }
 

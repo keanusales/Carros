@@ -31,16 +31,16 @@ class Engine {
     Engine();
     Engine(const Engine &);
     ~Engine();
-    const bool setInternals(const int);
-    const int setTurbo(const int, const int);
-    const int setIntake(const int, const int);
-    const int setExaust(const int, const int);
-    const int setECUnit(const int, const int);
-    static const turbo getTurbo(const int);
-    static const intake getIntake(const int);
-    static const exaust getExaust(const int);
-    static const ECUnit getECUnit(const int);
-    static const intern getIntern(const int);
+    const bool setInternals();
+    const int setTurbo(const int);
+    const int setIntake(const int);
+    const int setExaust(const int);
+    const int setECUnit(const int);
+    static const turbo getTurbo();
+    static const intake getIntake();
+    static const exaust getExaust();
+    static const ECUnit getECUnit();
+    static const intern getIntern();
 
   public: //Sobrecargas
     const bool operator==(const turbo &) const;

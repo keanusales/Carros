@@ -19,10 +19,10 @@ class Chassis {
     Chassis();
     Chassis(const Chassis &);
     ~Chassis();
-    const bool setSuspens(const int);
-    const bool setChassis(const int);
-    static const chassis getChassis(const int);
-    static const suspens getSuspens(const int);
+    const bool setSuspens();
+    const bool setChassis();
+    static const chassis getChassis();
+    static const suspens getSuspens();
 
   public: //Sobrecargas
     const bool operator==(const chassis &) const;
