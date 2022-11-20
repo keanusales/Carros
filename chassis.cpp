@@ -1,4 +1,4 @@
-#include "transmiss.cpp"
+#include "transm.cpp"
 
 // DICIONÁRIOS
 
@@ -26,8 +26,6 @@ Chassis::Chassis(const Chassis &other) {
   this -> myChassis = other.myChassis;
 }
 
-Chassis::~Chassis() {}
-
 const bool Chassis::setSuspens() {
   const suspens suspens = getSuspens();
   if (*this == suspens) return 0;
@@ -42,7 +40,7 @@ const bool Chassis::setChassis() {
   return 1;
 }
 
-const chassis Chassis::getChassis() {
+const chassis &Chassis::getChassis() {
   int opcao;
   system("cls||clear");
   while (1) {
@@ -60,7 +58,7 @@ const chassis Chassis::getChassis() {
   return Chassis::chassisParts[opcao];
 }
 
-const suspens Chassis::getSuspens() {
+const suspens &Chassis::getSuspens() {
   int opcao;
   system("cls||clear");
   while (1) {

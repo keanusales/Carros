@@ -4,31 +4,28 @@
 #include "vehicle.h"
 
 class Carros: public Vehicle {
+  friend ostream &operator<<(ostream &, const Carros &);
+
   public:
-    Carros(const string &, const int);
+    Carros(const string &, const unsigned);
     Carros(const Carros &);
-    ~Carros();
-    Vehicle *clone();
-    void setInternals();
+    ~Carros() {}
+
+  public: //Virtual Functions
+    void printState();
+    void setInterns();
     void setTurbos();
     void setIntake();
     void setExaust();
     void setECUnit();
-    void setTransmiss();
+    void setTransm();
     void setSuspens();
     void setChassis();
-    static const int getMinHP();
-    static const int getMaxHP();
 
-  public: // Virtual Get for Ostream
-    void getout(ostream &) const;
-
-  private:
-    Engine *myEngine;
-    Transmiss *myTransmiss;
-    Chassis *myChassis;
-    static const int MINHP;
-    static const int MAXHP;
+  protected:
+    Engine myEngine;
+    Transm myTransm;
+    Chassis myChassis;
 };
 
 #endif

@@ -1,8 +1,8 @@
-#include "mainf.h"
+#include "derived.h"
 
 // DICIONÁRIOS
 
-const turbo Engine::turbosParts[] = {
+const turbos Engine::turbosParts[] = {
   {"MasterPr 550-AH", 280}, {"Precision 650-LS", 360},
   {"Garrett 750-XT", 450}, {"2x MasterPr 550-AH", 500},
   {"2x Precision 650-LS", 670}, {"2x Garrett 750-XT", 840}
@@ -38,7 +38,7 @@ const intern Engine::internParts[] = {
 // IMPLEMENTAÇÃO
 
 Engine::Engine() {
-  this -> myTurbo = {"Original", 0};
+  this -> myTurbos = {"Original", 0};
   this -> myIntake = {"Original", 0};
   this -> myExaust = {"Original", 0};
   this -> myECUnit = {"Original", 0};
@@ -46,150 +46,143 @@ Engine::Engine() {
 }
 
 Engine::Engine(const Engine &other) {
-  this -> myTurbo = other.myTurbo;
+  this -> myTurbos = other.myTurbos;
   this -> myIntake = other.myIntake;
   this -> myExaust = other.myExaust;
   this -> myECUnit = other.myECUnit;
   this -> myIntern = other.myIntern;
 }
 
-Engine::~Engine() {}
-
-const bool Engine::setInternals() {
+const bool Engine::setInterns() {
   const intern intern = getIntern();
   if (*this == intern) return 0;
   this -> myIntern = intern;
   return 1;
 }
 
-const int Engine::setTurbo(const int hpStock) {
+const unsigned Engine::setTurbos(const unsigned hpStock) {
   if (!myIntern.hpResis) return 0;
-  const turbo turbo = getTurbo();
-  const int hpFinal = hpStock + turbo.hpGain +
+  const turbos turbos = getTurbos();
+  const unsigned hpFinal = hpStock + turbos.hpGain +
     myIntake.hpGain + myExaust.hpGain + myECUnit.hpGain;
   if (hpFinal > myIntern.hpResis) return 0;
-  if (*this == turbo) return -1;
-  this -> myTurbo = turbo;
+  if (*this == turbos) return 0;
+  this -> myTurbos = turbos;
   return hpFinal;
 }
 
-const int Engine::setIntake(const int hpStock) {
+const unsigned Engine::setIntake(const unsigned hpStock) {
   if (!myIntern.hpResis) return 0;
   const intake intake = getIntake();
-  const int hpFinal = hpStock + intake.hpGain +
-    myTurbo.hpGain + myExaust.hpGain + myECUnit.hpGain;
+  const unsigned hpFinal = hpStock + intake.hpGain +
+    myTurbos.hpGain + myExaust.hpGain + myECUnit.hpGain;
   if (hpFinal > myIntern.hpResis) return 0;
-  if (*this == intake) return -1;
+  if (*this == intake) return 0;
   this -> myIntake = intake;
   return hpFinal;
 }
 
-const int Engine::setExaust(const int hpStock) {
+const unsigned Engine::setExaust(const unsigned hpStock) {
   if (!myIntern.hpResis) return 0;
   const exaust exaust = getExaust();
-  const int hpFinal = hpStock + exaust.hpGain +
-    myTurbo.hpGain + myIntake.hpGain + myECUnit.hpGain;
+  const unsigned hpFinal = hpStock + exaust.hpGain +
+    myTurbos.hpGain + myIntake.hpGain + myECUnit.hpGain;
   if (hpFinal > myIntern.hpResis) return 0;
-  if (*this == exaust) return -1;
+  if (*this == exaust) return 0;
   this -> myExaust = exaust;
   return hpFinal;
 }
 
-const int Engine::setECUnit(const int hpStock) {
+const unsigned Engine::setECUnit(const unsigned hpStock) {
   if (!myIntern.hpResis) return 0;
   const ECUnit ECUnit = getECUnit();
-  const int hpFinal = hpStock + ECUnit.hpGain +
-    myTurbo.hpGain + myIntake.hpGain + myExaust.hpGain;
+  const unsigned hpFinal = hpStock + ECUnit.hpGain +
+    myTurbos.hpGain + myIntake.hpGain + myExaust.hpGain;
   if (hpFinal > myIntern.hpResis) return 0;
-  if (*this == ECUnit) return -1;
+  if (*this == ECUnit) return 0;
   this -> myECUnit = ECUnit;
   return hpFinal;
 }
 
-const turbo Engine::getTurbo() {
-  int opcao;
+const turbos &Engine::getTurbos() {
+  unsigned opcao;
   system("cls||clear");
   while (1) {
-    string input; int cont = 0;
-    for (turbo elem : turbosParts)
+    string input; unsigned cont = 0;
+    for (turbos elem : turbosParts)
       cout << cont++ << " - " << elem << "\n";
     cout << "Qual opcao voce escolhe? ";
     getline(cin, input);
     stringstream stream(input);
-    if (stream >> opcao)
-      if (0 <= opcao && opcao < cont) break;
+    if (stream >> opcao && opcao < cont) break;
     system("clear||cls");
     cout << "Entrada invalida! Tente de novo!\n";
   }
   return Engine::turbosParts[opcao];
 }
 
-const intake Engine::getIntake() {
-  int opcao;
+const intake &Engine::getIntake() {
+  unsigned opcao;
   system("cls||clear");
   while (1) {
-    string input; int cont = 0;
+    string input; unsigned cont = 0;
     for (intake elem : intakeParts)
       cout << cont++ << " - " << elem << "\n";
     cout << "Qual opcao voce escolhe? ";
     getline(cin, input);
     stringstream stream(input);
-    if (stream >> opcao)
-      if (0 <= opcao && opcao < cont) break;
+    if (stream >> opcao && opcao < cont) break;
     system("clear||cls");
     cout << "Entrada invalida! Tente de novo!\n";
   }
   return Engine::intakeParts[opcao];
 }
 
-const exaust Engine::getExaust() {
-  int opcao;
+const exaust &Engine::getExaust() {
+  unsigned opcao;
   system("cls||clear");
   while (1) {
-    string input; int cont = 0;
+    string input; unsigned cont = 0;
     for (exaust elem : exaustParts)
       cout << cont++ << " - " << elem << "\n";
     cout << "Qual opcao voce escolhe? ";
     getline(cin, input);
     stringstream stream(input);
-    if (stream >> opcao)
-      if (0 <= opcao && opcao < cont) break;
+    if (stream >> opcao && opcao < cont) break;
     system("clear||cls");
     cout << "Entrada invalida! Tente de novo!\n";
   }
   return Engine::exaustParts[opcao];
 }
 
-const ECUnit Engine::getECUnit() {
-  int opcao;
+const ECUnit &Engine::getECUnit() {
+  unsigned opcao;
   system("cls||clear");
   while (1) {
-    string input; int cont = 0;
+    string input; unsigned cont = 0;
     for (ECUnit elem : ECUnitParts)
       cout << cont++ << " - " << elem << "\n";
     cout << "Qual opcao voce escolhe? ";
     getline(cin, input);
     stringstream stream(input);
-    if (stream >> opcao)
-      if (0 <= opcao && opcao < cont) break;
+    if (stream >> opcao && opcao < cont) break;
     system("clear||cls");
     cout << "Entrada invalida! Tente de novo!\n";
   }
   return Engine::ECUnitParts[opcao];
 }
 
-const intern Engine::getIntern() {
-  int opcao;
+const intern &Engine::getIntern() {
+  unsigned opcao;
   system("cls||clear");
   while (1) {
-    string input; int cont = 0;
+    string input; unsigned cont = 0;
     for (intern elem : internParts)
       cout << cont++ << " - " << elem << "\n";
     cout << "Qual opcao voce escolhe? ";
     getline(cin, input);
     stringstream stream(input);
-    if (stream >> opcao)
-      if (0 <= opcao && opcao < cont) break;
+    if (stream >> opcao && opcao < cont) break;
     system("clear||cls");
     cout << "Entrada invalida! Tente de novo!\n";
   }
@@ -199,7 +192,7 @@ const intern Engine::getIntern() {
 // SOBRECARGAS DA CLASSE
 
 ostream &operator<<(ostream &output, const Engine &engine) {
-  output << "Turbo: " << engine.myTurbo << "\n";
+  output << "Turbos: " << engine.myTurbos << "\n";
   output << "Intake: " << engine.myIntake << "\n";
   output << "Exaust: " << engine.myExaust << "\n";
   output << "ECUnit: " << engine.myECUnit << "\n";
@@ -207,8 +200,8 @@ ostream &operator<<(ostream &output, const Engine &engine) {
   return output;
 }
 
-const bool Engine::operator==(const turbo &part) const {
-  return (myTurbo.hpGain == part.hpGain && myTurbo.part == part.part);
+const bool Engine::operator==(const turbos &part) const {
+  return (myTurbos.hpGain == part.hpGain && myTurbos.part == part.part);
 }
 
 const bool Engine::operator==(const intake &part) const {
@@ -234,7 +227,7 @@ ostream &operator<<(ostream &output, const intern &elem) {
   return output;
 }
 
-ostream &operator<<(ostream &output, const turbo &elem) {
+ostream &operator<<(ostream &output, const turbos &elem) {
   output << elem.part << " - " << elem.hpGain;
   return output;
 }

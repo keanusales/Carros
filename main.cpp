@@ -1,60 +1,91 @@
-#include "mainf.cpp"
+#include "derived.cpp"
+
+Sports sport1("Nissan GTR", 630);
+Sports sport2(sport1);
+SUVs suv1("Lamborghini Urus", 650);
+SUVs suv2(suv1);
+Trucks truck1("Actros 470", 470);
+Trucks truck2(truck1);
+
+const unsigned selectOption();
+const unsigned getEscolha();
+void exitProgram();
 
 int main() {
-  Vehicle *vehiclePtr[MAXVEHICLES];
-  for (Vehicle *elem : vehiclePtr) elem = 0;
-  vehiclePtr[0] = new Carros("Nissan GTR", 630);
-  vehiclePtr[1] = new Carros("Lancer Evo X", 280);
-  vehiclePtr[2] = new Carros("Aventador", 770);
-  int opcao;
-  system("clear||cls");
+  system("cls||clear");
   while (1) {
-    opcao = selectOption();
-    switch (opcao) {
+    unsigned opcao = selectOption();
+    if (opcao == 9) exitProgram();
+    unsigned escolha = getEscolha();
+    switch (escolha) {
       case 1:
-        createCar(vehiclePtr);
+        (::sport1.*sport1.actions[opcao])();
         break;
       case 2:
-        copyExtCar(vehiclePtr);
+        (::sport2.*sport2.actions[opcao])();
         break;
       case 3:
-        deleteCar(vehiclePtr);
+        (::suv1.*suv1.actions[opcao])();
         break;
       case 4:
-        getAtributes(vehiclePtr);
-        break;
+        (::suv2.*suv2.actions[opcao])();
       case 5:
-        setInternals(vehiclePtr);
+        (::truck1.*truck1.actions[opcao])();
         break;
       case 6:
-        setTurbos(vehiclePtr);
+        (::truck2.*truck2.actions[opcao])();
         break;
-      case 7:
-        setIntake(vehiclePtr);
-        break;
-      case 8:
-        setExaust(vehiclePtr);
-        break;
-      case 9:
-        setECUnit(vehiclePtr);
-        break;
-      case 10:
-        setTransmiss(vehiclePtr);
-        break;
-      case 11:
-        setSuspens(vehiclePtr);
-        break;
-      case 12:
-        setChassis(vehiclePtr);
-        break;
-      case 13:
-        exitProgram(vehiclePtr);
-        exit(0);
       default:
-        system("clear||cls");
-        cout << "Valor Invalido! Tente de novo.\n";
+        cout << "Escolha errada!\n";
         break;
     }
   }
-  return 0;
+}
+
+const unsigned selectOption() {
+  while (1) {
+    string input; unsigned opcao;
+    cout << "0 - Printar estado de um veiculo\n"
+      << "1 - Setar internos de um veiculo\n"
+      << "2 - Setar turbo de um veiculo\n"
+      << "3 - Setar intake de um veiculo\n"
+      << "4 - Setar exaust de um veiculo\n"
+      << "5 - Setar eletronics de um veiculo\n"
+      << "6 - Setar transmission de um veiculo\n"
+      << "7 - Setar suspension de um veiculo\n"
+      << "8 - Setar chassis de um veiculo\n"
+      << "9 - Sair do programa (apaga tudo)\n"
+      << "Qual opcao voce escolhe? ";
+    getline(cin, input);
+    stringstream stream(input);
+    if (stream >> opcao && opcao < 10) return opcao;
+    system("clear||cls");
+    cout << "Entrada invalida/Valor invalido!\n";
+  }
+}
+
+const unsigned getEscolha() {
+  unsigned escolha;
+  system("cls||clear");
+  while (1) {
+    string input;
+    cout << 1 << " - " << ::sport1.getName() << "\n"
+      << 2 << " - " << ::sport2.getName() << "\n"
+      << 3 << " - " << ::suv1.getName() << "\n"
+      << 4 << " - " << ::suv2.getName() << "\n"
+      << 5 << " - " << ::truck1.getName() << "\n"
+      << 6 << " - " << ::truck2.getName() << "\n"
+      << "Qual opcao voce escolhe? ";
+    getline(cin, input);
+    stringstream stream(input);
+    if (stream >> escolha) return escolha;
+    system("cls||clear");
+    cout << "Entrada invalida! Tente de novo!\n";
+  }
+}
+
+void exitProgram() {
+  system("cls||clear");
+  cout << "Ate a proxima!\n";
+  exit(0);
 }

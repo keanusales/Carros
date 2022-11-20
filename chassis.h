@@ -1,16 +1,10 @@
 #ifndef CHASSIS_H
 #define CHASSIS_H
 
-#include "transmiss.h"
+#include "transm.h"
 
-struct chassis {
-  string part;
-  float gForce;
-};
-struct suspens {
-  string part;
-  float gForce;
-};
+struct chassis { string part; float gForce; };
+struct suspens { string part; float gForce; };
 
 class Chassis {
   friend ostream &operator<<(ostream &, const Chassis &);
@@ -18,13 +12,13 @@ class Chassis {
   public:
     Chassis();
     Chassis(const Chassis &);
-    ~Chassis();
+    ~Chassis() {}
     const bool setSuspens();
     const bool setChassis();
-    static const chassis getChassis();
-    static const suspens getSuspens();
+    static const chassis &getChassis();
+    static const suspens &getSuspens();
 
-  public: //Sobrecargas
+  private: //Sobrecargas
     const bool operator==(const chassis &) const;
     const bool operator==(const suspens &) const;
 

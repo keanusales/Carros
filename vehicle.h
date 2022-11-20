@@ -3,51 +3,48 @@
 
 #include "chassis.h"
 
-struct diaCria {
-  int dia, mes, ano;
-};
-struct newVeh {
-  int typeVehicle;
-  string nameVehicle;
-  int hpStock;
-};
+struct diaCria { unsigned dia, mes, ano; };
 
 class Vehicle {
   friend ostream &operator<<(ostream &, const Vehicle &);
-  friend ostream &operator<<(ostream &, const Vehicle *);
 
   public:
-    Vehicle(const string &, const int);
+    Vehicle(const string &, const unsigned);
     Vehicle(const Vehicle &);
-    virtual ~Vehicle();
-    static Vehicle *create(const newVeh &);
-    static const int getNumVehicle();
-    static const int getMaxLen();
-    static const int getMaxVehicle();
+    virtual ~Vehicle() {}
+    string getName() const;
 
-  public: // Virtual Functions
-    virtual Vehicle *clone() = 0;
-    virtual void setInternals() = 0;
-    virtual void setTurbos() = 0;
-    virtual void setIntake() = 0;
-    virtual void setExaust() = 0;
-    virtual void setECUnit() = 0;
-    virtual void setTransmiss() = 0;
-    virtual void setSuspens() = 0;
-    virtual void setChassis() = 0;
+  public: //Pointers to functions
+    typedef void (Vehicle::*action)();
+    const action actions[9] = {
+      &Vehicle::printState,
+      &Vehicle::setInterns,
+      &Vehicle::setTurbos,
+      &Vehicle::setIntake,
+      &Vehicle::setExaust,
+      &Vehicle::setECUnit,
+      &Vehicle::setTransm,
+      &Vehicle::setSuspens,
+      &Vehicle::setChassis
+    };
 
-  public: // Virtual Get for Ostream
-    virtual void getout(ostream &) const = 0;
+  public: //Virtual Functions
+    virtual void printState() {}
+    virtual void setInterns() {}
+    virtual void setTurbos() {}
+    virtual void setIntake() {}
+    virtual void setExaust() {}
+    virtual void setECUnit() {}
+    virtual void setTransm() {}
+    virtual void setSuspens() {}
+    virtual void setChassis() {}
 
   protected:
-    int hpStock, hpAtual;
+    unsigned hpStock, hpAtual;
 
   private:
     string nameVehicle;
     diaCria diaCria;
-    static int numVehicles;
-    static const int MAXLEN;
-    static const int MAXVEHICLES;
 };
 
 ostream &operator<<(ostream &, const diaCria &);
