@@ -19,21 +19,22 @@ int main() {
     unsigned escolha = getEscolha();
     switch (escolha) {
       case 1:
-        (::sport1.*sport1.actions[opcao])();
+        ::sport1.calling(opcao);
         break;
       case 2:
-        (::sport2.*sport2.actions[opcao])();
+        ::sport2.calling(opcao);
         break;
       case 3:
-        (::suv1.*suv1.actions[opcao])();
+        ::suv1.calling(opcao);
         break;
       case 4:
-        (::suv2.*suv2.actions[opcao])();
+        ::suv2.calling(opcao);
+        break;
       case 5:
-        (::truck1.*truck1.actions[opcao])();
+        ::truck1.calling(opcao);
         break;
       case 6:
-        (::truck2.*truck2.actions[opcao])();
+        ::truck2.calling(opcao);
         break;
       default:
         cout << "Escolha errada!\n";
@@ -58,7 +59,7 @@ const unsigned selectOption() {
       << "Qual opcao voce escolhe? ";
     getline(cin, input);
     stringstream stream(input);
-    if (stream >> opcao && opcao < 10) return opcao;
+    if (stream >> opcao && opcao <= 9) return opcao;
     system("clear||cls");
     cout << "Entrada invalida/Valor invalido!\n";
   }

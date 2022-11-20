@@ -27,17 +27,16 @@ const bool Transm::setTransm() {
 }
 
 const transm &Transm::getTransm() {
-  int opcao;
+  unsigned opcao;
   system("cls||clear");
   while (1) {
-    string input; int cont = 0;
+    string input; unsigned cont = 0;
     for (transm elem : transmParts)
       cout << cont++ << " - " << elem << "\n";
     cout << "Qual opcao voce escolhe? ";
     getline(cin, input);
     stringstream stream(input);
-    if (stream >> opcao)
-      if (0 <= opcao && opcao < cont) break;
+    if (stream >> opcao && opcao < cont) break;
     system("clear||cls");
     cout << "Entrada invalida! Tente de novo!\n";
   }

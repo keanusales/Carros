@@ -14,9 +14,18 @@ Trucks::Trucks(const Trucks &other)
   this -> myTransm = Transm(other.myTransm);
 }
 
+void Trucks::calling(const unsigned opcao) {
+  typedef void (Trucks::*action)();
+  const action actions[] = {
+    &Trucks::printState, &Trucks::setInterns, &Trucks::setTurbos,
+    &Trucks::setIntake, &Trucks::setExaust, &Trucks::setECUnit,
+    &Trucks::setTransm, &Trucks::setSuspens, &Trucks::setChassis
+  };
+  ((*this).*actions[opcao])();
+}
+
 void Trucks::printState() {
-  system("cls||clear");
-  cout << *this;
+  system("cls||clear"); cout << *this;
 }
 
 void Trucks::setInterns() {

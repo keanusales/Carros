@@ -21,11 +21,6 @@ class Engine {
     const unsigned setIntake(const unsigned);
     const unsigned setExaust(const unsigned);
     const unsigned setECUnit(const unsigned);
-    static const turbos &getTurbos();
-    static const intake &getIntake();
-    static const exaust &getExaust();
-    static const ECUnit &getECUnit();
-    static const intern &getIntern();
 
   private: //Sobrecargas
     const bool operator==(const turbos &) const;
@@ -42,6 +37,11 @@ class Engine {
     static const intern internParts[];
   
   private:
+    static const turbos &getTurbos();
+    static const intake &getIntake();
+    static const exaust &getExaust();
+    static const ECUnit &getECUnit();
+    static const intern &getIntern();
     turbos myTurbos;
     intake myIntake;
     exaust myExaust;

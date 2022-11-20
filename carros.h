@@ -10,8 +10,9 @@ class Carros: public Vehicle {
     Carros(const string &, const unsigned);
     Carros(const Carros &);
     ~Carros() {}
+    void calling(const unsigned);
 
-  public: //Virtual Functions
+  private:
     void printState();
     void setInterns();
     void setTurbos();
@@ -21,8 +22,6 @@ class Carros: public Vehicle {
     void setTransm();
     void setSuspens();
     void setChassis();
-
-  protected:
     Engine myEngine;
     Transm myTransm;
     Chassis myChassis;

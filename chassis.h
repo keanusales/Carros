@@ -15,8 +15,6 @@ class Chassis {
     ~Chassis() {}
     const bool setSuspens();
     const bool setChassis();
-    static const chassis &getChassis();
-    static const suspens &getSuspens();
 
   private: //Sobrecargas
     const bool operator==(const chassis &) const;
@@ -27,6 +25,8 @@ class Chassis {
     static const suspens suspensParts[];
   
   private:
+    static const chassis &getChassis();
+    static const suspens &getSuspens();
     chassis myChassis;
     suspens mySuspens;
 };

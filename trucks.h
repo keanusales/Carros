@@ -10,8 +10,9 @@ class Trucks: public Vehicle {
     Trucks(const string &, const unsigned);
     Trucks(const Trucks &);
     ~Trucks() {}
+    void calling(const unsigned);
 
-  public: //Virtual Functions
+  private:
     void printState();
     void setInterns();
     void setTurbos();
@@ -21,8 +22,6 @@ class Trucks: public Vehicle {
     void setTransm();
     void setSuspens();
     void setChassis();
-
-  private:
     Engine myEngine;
     Transm myTransm;
 };

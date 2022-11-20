@@ -13,7 +13,6 @@ class Transm {
     Transm(const Transm &);
     ~Transm() {}
     const bool setTransm();
-    static const transm &getTransm();
 
   private: //Sobrecargas
     const bool operator==(const transm &) const;
@@ -22,6 +21,7 @@ class Transm {
     static const transm transmParts[];
   
   private:
+    static const transm &getTransm();
     transm myTransm;
 };
 

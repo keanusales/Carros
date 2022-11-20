@@ -16,9 +16,18 @@ Carros::Carros(const Carros &other)
   this -> myChassis = Chassis(other.myChassis);
 }
 
+void Carros::calling(const unsigned opcao) {
+  typedef void (Carros::*action)();
+  const action actions[] = {
+    &Carros::printState, &Carros::setInterns, &Carros::setTurbos,
+    &Carros::setIntake, &Carros::setExaust, &Carros::setECUnit,
+    &Carros::setTransm, &Carros::setSuspens, &Carros::setChassis
+  };
+  ((*this).*actions[opcao])();
+}
+
 void Carros::printState() {
-  system("cls||clear");
-  cout << *this;
+  system("cls||clear"); cout << *this;
 }
 
 void Carros::setInterns() {
