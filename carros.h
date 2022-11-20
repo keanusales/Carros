@@ -10,10 +10,8 @@ class Carros: public Vehicle {
     Carros(const string &, const unsigned);
     Carros(const Carros &);
     ~Carros() {}
-    void calling(const unsigned);
 
-  private:
-    void printState();
+  protected:
     void setInterns();
     void setTurbos();
     void setIntake();
@@ -22,6 +20,8 @@ class Carros: public Vehicle {
     void setTransm();
     void setSuspens();
     void setChassis();
+
+  private:
     Engine myEngine;
     Transm myTransm;
     Chassis myChassis;
