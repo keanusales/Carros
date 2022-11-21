@@ -10,6 +10,8 @@ class Sports: public Carros {
     Sports(const string &, const unsigned);
     Sports(const Sports &);
     ~Sports() {}
+
+  public: //Virtual Function
     void calling(const unsigned);
 
   private:
@@ -24,6 +26,8 @@ class SUVs: public Carros {
     SUVs(const string &, const unsigned);
     SUVs(const SUVs &);
     ~SUVs() {}
+
+  public: //Virtual Function
     void calling(const unsigned);
 
   private:

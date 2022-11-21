@@ -14,6 +14,9 @@ class Vehicle {
     virtual ~Vehicle() {}
     string getName() const;
 
+  public: //Virtual Function
+    virtual void calling(const unsigned) {}
+
   protected:
     unsigned hpStock, hpAtual;
 

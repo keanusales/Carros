@@ -10,6 +10,8 @@ class Trucks: public Vehicle {
     Trucks(const string &, const unsigned);
     Trucks(const Trucks &);
     ~Trucks() {}
+
+  public: //Virtual Function
     void calling(const unsigned);
 
   private:
