@@ -8,6 +8,7 @@ class Carros: public Vehicle {
 
   public:
     Carros(const string &, const unsigned);
+    Carros(const Vehicle &);
     Carros(const Carros &);
     ~Carros() {}
 

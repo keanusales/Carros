@@ -10,6 +10,9 @@ Sports::Sports(const string &nameCar, const unsigned hpStock)
 Sports::Sports(const Sports &other)
 : Carros(static_cast <Carros> (other)) {}
 
+Sports::Sports(const Vehicle &other)
+: Sports(*dynamic_cast <Sports*> (const_cast <Vehicle*> (&other))) {}
+
 void Sports::calling(const unsigned opcao) {
   typedef void (Sports::*action)();
   const action actions[] = {
@@ -41,6 +44,9 @@ SUVs::SUVs(const string &nameCar, const unsigned hpStock)
 
 SUVs::SUVs(const SUVs &other)
 : Carros(static_cast <Carros> (other)) {}
+
+SUVs::SUVs(const Vehicle &other)
+: SUVs(*dynamic_cast <SUVs*> (const_cast <Vehicle*> (&other))) {}
 
 void SUVs::calling(const unsigned opcao) {
   typedef void (SUVs::*action)();

@@ -16,6 +16,9 @@ Carros::Carros(const Carros &other)
   this -> myChassis = Chassis(other.myChassis);
 }
 
+Carros::Carros(const Vehicle &other)
+: Carros(*dynamic_cast <Carros*> (const_cast <Vehicle*> (&other))) {}
+
 void Carros::setInterns() {
   const bool resul = myEngine.setInterns();
   system("cls||clear");

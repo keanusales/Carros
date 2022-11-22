@@ -14,6 +14,9 @@ Trucks::Trucks(const Trucks &other)
   this -> myTransm = Transm(other.myTransm);
 }
 
+Trucks::Trucks(const Vehicle &other)
+: Trucks(*dynamic_cast <Trucks*> (const_cast <Vehicle*> (&other))) {}
+
 void Trucks::calling(const unsigned opcao) {
   typedef void (Trucks::*action)();
   const action actions[] = {

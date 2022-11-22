@@ -8,6 +8,7 @@ class Sports: public Carros {
 
   public:
     Sports(const string &, const unsigned);
+    Sports(const Vehicle &);
     Sports(const Sports &);
     ~Sports() {}
 
@@ -24,6 +25,7 @@ class SUVs: public Carros {
 
   public:
     SUVs(const string &, const unsigned);
+    SUVs(const Vehicle &);
     SUVs(const SUVs &);
     ~SUVs() {}
 

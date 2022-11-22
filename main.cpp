@@ -3,11 +3,11 @@
 int main() {
   Vehicle *vehPtr[] = {
     new Sports("Nissan GTR", 630),
-    new Sports(*dynamic_cast <Sports*> (vehPtr[0])),
+    new Sports(*vehPtr[0]),
     new SUVs("Lamborghini Urus", 650),
-    new SUVs(*dynamic_cast <SUVs*> (vehPtr[2])),
+    new SUVs(*vehPtr[2]),
     new Trucks("Actros 470", 470),
-    new Trucks(*dynamic_cast <Trucks*> (vehPtr[4]))
+    new Trucks(*vehPtr[4])
   };
   system("cls||clear");
   while (1) {
@@ -50,4 +50,5 @@ int main() {
   for (Vehicle *elem : vehPtr) { delete elem; elem = 0; }
   system("cls||clear");
   cout << "Ate a proxima!\n";
+  return 0;
 }
