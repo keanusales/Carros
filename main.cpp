@@ -1,4 +1,4 @@
-#include "derived.cpp"
+#include "SUVs.cpp"
 
 int main() {
   Vehicle *vehPtr[] = {
@@ -47,7 +47,9 @@ int main() {
     }
     vehPtr[escol]->calling(opcao);
   }
-  for (Vehicle *elem : vehPtr) { delete elem; elem = 0; }
+  for (Vehicle *elem : vehPtr) {
+    delete elem; elem = 0;
+  }
   system("cls||clear");
   cout << "Ate a proxima!\n";
   return 0;

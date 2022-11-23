@@ -20,21 +20,4 @@ class Sports: public Carros {
     static const unsigned HPOWER;
 };
 
-class SUVs: public Carros {
-  friend ostream &operator<<(ostream &, const SUVs &);
-
-  public:
-    SUVs(const string &, const unsigned);
-    SUVs(const Vehicle &);
-    SUVs(const SUVs &);
-    ~SUVs() {}
-
-  public: //Virtual Function
-    void calling(const unsigned);
-
-  private:
-    void printState();
-    static const unsigned HPOWER;
-};
-
 #endif
