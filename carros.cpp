@@ -9,15 +9,15 @@ Carros::Carros(const string &nameCar, const unsigned hpStock)
   this -> myChassis = Chassis();
 }
 
-Carros::Carros(const Carros &other)
-: Vehicle(static_cast <Vehicle> (other)) {
+Carros::Carros(const Carros &other): Vehicle(other) {
   this -> myEngine = Engine(other.myEngine);
   this -> myTransm = Transm(other.myTransm);
   this -> myChassis = Chassis(other.myChassis);
 }
 
-Carros::Carros(const Vehicle &other)
-: Carros(*dynamic_cast <Carros*> (const_cast <Vehicle*> (&other))) {}
+Vehicle *Carros::clone() { return new Carros(*this); }
+
+void Carros::output(ostream &output) const { output << *this; }
 
 void Carros::setInterns() {
   const bool resul = myEngine.setInterns();
@@ -110,7 +110,6 @@ void Carros::setChassis() {
 // SOBRECARGAS DA CLASSE
 
 ostream &operator<<(ostream &output, const Carros &carro) {
-  output << static_cast <Vehicle> (carro) << "\n";
   output << "Motor:\n" << carro.myEngine << "\n";
   output << "Transmisao:\n" << carro.myTransm << "\n";
   output << "Chassis:\n" << carro.myChassis << "\n";

@@ -2,28 +2,54 @@
 
 // IMPLEMENTAÇÃO
 
-Vehicle::Vehicle(const string &nameVehicle, const unsigned hpStock) {
-  this -> nameVehicle = nameVehicle;
+const unsigned Vehicle::MAXLEN = 40;
+const unsigned Vehicle::MINPOWER = 100;
+const unsigned Vehicle::MAXPOWER = 1000;
+
+Vehicle::Vehicle(const string &nameVeh, const unsigned hpStock) {
+  this -> nameVeh = nameVeh;
   this -> hpStock = hpStock;
   this -> hpAtual = hpStock;
   this -> diaCria = getDiaCria();
 }
 
 Vehicle::Vehicle(const Vehicle &other) {
-  this -> nameVehicle = other.nameVehicle;
+  this -> nameVeh = other.nameVeh;
   this -> hpStock = other.hpStock;
   this -> hpAtual = other.hpStock;
   this -> diaCria = getDiaCria();
 }
 
-string Vehicle::getName() const { return nameVehicle; }
+Vehicle *Vehicle::create(const newVeh &vehicle) {
+  if (vehicle.type == 1)
+    return new Carros(vehicle.name, vehicle.hpStock);
+  return new Trucks(vehicle.name, vehicle.hpStock);
+}
+
+const bool Vehicle::verString(const string &nameVeh) {
+  return (nameVeh.size() <= MAXLEN);
+}
+
+const bool Vehicle::verCreate(const unsigned escolha) {
+  return (1 <= escolha && escolha <= 2);
+}
+
+const bool Vehicle::verHpower(const unsigned hpStock) {
+  return (MINPOWER <= hpStock && hpStock <= MAXPOWER);
+}
 
 // SOBRECARGAS DA CLASSE
 
 ostream &operator<<(ostream &output, const Vehicle &vehicle) {
-  output << "Veiculo: " << vehicle.nameVehicle << "\n";
+  output << "Veiculo: " << vehicle.nameVeh << "\n";
   output << "Horsepower: " << vehicle.hpAtual << "\n";
-  output << "Criacao: " << vehicle.diaCria << "\n";
+  output << "Criacao: " << vehicle.diaCria << "\n\n";
+  vehicle.output(output);
+  return output;
+}
+
+ostream &operator<<(ostream &output, const Vehicle *vehicle) {
+  output << vehicle->nameVeh;
   return output;
 }
 

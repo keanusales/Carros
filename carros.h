@@ -8,11 +8,12 @@ class Carros: public Vehicle {
 
   public:
     Carros(const string &, const unsigned);
-    Carros(const Vehicle &);
     Carros(const Carros &);
     ~Carros() {}
-
-  protected:
+  
+  public: // Virtual Functions
+    Vehicle *clone();
+    void output(ostream &) const;
     void setInterns();
     void setTurbos();
     void setIntake();

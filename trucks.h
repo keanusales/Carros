@@ -8,15 +8,12 @@ class Trucks: public Vehicle {
 
   public:
     Trucks(const string &, const unsigned);
-    Trucks(const Vehicle &);
     Trucks(const Trucks &);
     ~Trucks() {}
-
-  public: //Virtual Function
-    void calling(const unsigned);
-
-  private:
-    void printState();
+  
+  public: // Virtual Functions
+    Vehicle *clone();
+    void output(ostream &) const;
     void setInterns();
     void setTurbos();
     void setIntake();
@@ -25,6 +22,8 @@ class Trucks: public Vehicle {
     void setTransm();
     void setSuspens();
     void setChassis();
+
+  private:
     Engine myEngine;
     Transm myTransm;
 };

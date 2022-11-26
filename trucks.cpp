@@ -8,28 +8,14 @@ Trucks::Trucks(const string &nameTruck, const unsigned hpStock)
   this -> myTransm = Transm();
 }
 
-Trucks::Trucks(const Trucks &other)
-: Vehicle(static_cast <Vehicle> (other)) {
+Trucks::Trucks(const Trucks &other): Vehicle(other) {
   this -> myEngine = Engine(other.myEngine);
   this -> myTransm = Transm(other.myTransm);
 }
 
-Trucks::Trucks(const Vehicle &other)
-: Trucks(*dynamic_cast <Trucks*> (const_cast <Vehicle*> (&other))) {}
+Vehicle *Trucks::clone() { return new Trucks(*this); }
 
-void Trucks::calling(const unsigned opcao) {
-  typedef void (Trucks::*action)();
-  const action actions[] = {
-    &Trucks::printState, &Trucks::setInterns, &Trucks::setTurbos,
-    &Trucks::setIntake, &Trucks::setExaust, &Trucks::setECUnit,
-    &Trucks::setTransm, &Trucks::setSuspens, &Trucks::setChassis
-  };
-  ((*this).*actions[opcao])();
-}
-
-void Trucks::printState() {
-  system("cls||clear"); cout << *this;
-}
+void Trucks::output(ostream &output) const { output << *this; }
 
 void Trucks::setInterns() {
   const bool resul = myEngine.setInterns();
@@ -110,7 +96,6 @@ void Trucks::setChassis() {
 // SOBRACARGAS DA CLASSE
 
 ostream &operator<<(ostream &output, const Trucks &truck) {
-  output << static_cast <Vehicle> (truck) << "\n";
   output << "Motor:\n" << truck.myEngine << "\n";
   output << "Transmisao:\n" << truck.myTransm << "\n";
   return output;

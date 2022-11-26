@@ -1,6 +1,9 @@
 #ifndef INCLUDE_H
 #define INCLUDE_H
 
+#include <vector>
+using std::vector;
+
 #include <ctime>
 using std::time_t;
 using std::tm;
