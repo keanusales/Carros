@@ -20,8 +20,8 @@ void createCar(vecVeh &vehtor) {
       << "Qual tipo de veiculo voce quer? ";
     getline(cin, input);
     stringstream stream(input);
-    if (stream >> vehicle.type)
-      if (Vehicle::verCreate(vehicle.type)) break;
+    if (stream >> vehicle.type &&
+      Vehicle::verCreate(vehicle.type)) break;
     system("cls||clear");
     cout << "Digite um dos tipos especificados!\n";
   }
@@ -37,8 +37,8 @@ void createCar(vecVeh &vehtor) {
     cout << "Digite a potencia do veiculo: ";
     getline(cin, input);
     stringstream stream(input);
-    if (stream >> vehicle.hpStock)
-      if (Vehicle::verHpower(vehicle.hpStock)) break;
+    if (stream >> vehicle.hpStock &&
+      Vehicle::verHpower(vehicle.hpStock)) break;
     system("cls||clear");
     cout << "Hp deve ficar entre 100 e 1000!\n";
   }
