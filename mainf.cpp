@@ -48,7 +48,7 @@ void createCar(vecVeh &vehtor) {
 }
 
 void copyExtCar(vecVeh &vehtor) {
-  if (!exists("copiar", vehtor)) return;
+  if (nexists("copiar", vehtor)) return;
   const unsigned escolha = getEscolha(vehtor);
   vehtor.push_back(vehtor[escolha]->clone());
   system("cls||clear");
@@ -56,61 +56,58 @@ void copyExtCar(vecVeh &vehtor) {
 }
 
 void deleteCar(vecVeh &vehtor) {
-  if (!exists("deletar", vehtor)) return;
+  if (nexists("deletar", vehtor)) return;
   const unsigned escolha = getEscolha(vehtor);
   delete vehtor[escolha];
-  const unsigned tam = vehtor.size() - 1;
-  for (unsigned i = escolha; i < tam; i++)
-    vehtor[i] = vehtor[i+1];
-  vehtor.pop_back();
+  vehtor.erase(vehtor.begin() + escolha);
   system("cls||clear");
   cout << "Carro deletado com sucesso!\n";
 }
 
 void getStatus(vecVeh &vehtor) {
-  if (!exists("mostrar", vehtor)) return;
+  if (nexists("mostrar", vehtor)) return;
   const unsigned escolha = getEscolha(vehtor);
   system("cls||clear");
   cout << *vehtor[escolha];
 }
 
 void setInterns(vecVeh &vehtor) {
-  if (!exists("modificar", vehtor)) return;
+  if (nexists("modificar", vehtor)) return;
   vehtor[getEscolha(vehtor)]->setInterns();
 }
 
 void setTurbos(vecVeh &vehtor) {
-  if (!exists("modificar", vehtor)) return;
+  if (nexists("modificar", vehtor)) return;
   vehtor[getEscolha(vehtor)]->setTurbos();
 }
 
 void setIntake(vecVeh &vehtor) {
-  if (!exists("modificar", vehtor)) return;
+  if (nexists("modificar", vehtor)) return;
   vehtor[getEscolha(vehtor)]->setIntake();
 }
 
 void setExaust(vecVeh &vehtor) {
-  if (!exists("modificar", vehtor)) return;
+  if (nexists("modificar", vehtor)) return;
   vehtor[getEscolha(vehtor)]->setExaust();
 }
 
 void setECUnit(vecVeh &vehtor) {
-  if (!exists("modificar", vehtor)) return;
+  if (nexists("modificar", vehtor)) return;
   vehtor[getEscolha(vehtor)]->setECUnit();
 }
 
 void setTransm(vecVeh &vehtor) {
-  if (!exists("modificar", vehtor)) return;
+  if (nexists("modificar", vehtor)) return;
   vehtor[getEscolha(vehtor)]->setTransm();
 }
 
 void setSuspens(vecVeh &vehtor) {
-  if (!exists("modificar", vehtor)) return;
+  if (nexists("modificar", vehtor)) return;
   vehtor[getEscolha(vehtor)]->setSuspens();
 }
 
 void setChassis(vecVeh &vehtor) {
-  if (!exists("modificar", vehtor)) return;
+  if (nexists("modificar", vehtor)) return;
   vehtor[getEscolha(vehtor)]->setChassis();
 }
 
@@ -138,11 +135,11 @@ const unsigned getEscolha(vecVeh &vehtor) {
   }
 }
 
-const bool exists(const char *action, vecVeh &vehtor) {
+const bool nexists(const char *action, vecVeh &vehtor) {
   if (!vehtor.size()) {
     system("cls||clear");
     cout << "Nao ha carros para " << action << "!\n";
-    return 0;
+    return 1;
   }
-  return 1;
+  return 0;
 }

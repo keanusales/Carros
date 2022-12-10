@@ -19,6 +19,6 @@ void setSuspens(vecVeh &);
 void setChassis(vecVeh &);
 void exitProgram(vecVeh &);
 const unsigned getEscolha(vecVeh &);
-const bool exists(const char *, vecVeh &);
+const bool nexists(const char *, vecVeh &);
 
 #endif
