@@ -4,8 +4,6 @@
 #include "carros.h"
 
 class Trucks: public Vehicle {
-  friend ostream &operator<<(ostream &, const Trucks &);
-
   public:
     Trucks(const string &, const unsigned);
     Trucks(const Trucks &);

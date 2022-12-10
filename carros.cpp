@@ -4,20 +4,24 @@
 
 Carros::Carros(const string &nameCar, const unsigned hpStock)
 : Vehicle(nameCar, hpStock) {
-  this -> myEngine = Engine();
-  this -> myTransm = Transm();
-  this -> myChassis = Chassis();
+  this->myEngine = Engine();
+  this->myTransm = Transm();
+  this->myChassis = Chassis();
 }
 
 Carros::Carros(const Carros &other): Vehicle(other) {
-  this -> myEngine = Engine(other.myEngine);
-  this -> myTransm = Transm(other.myTransm);
-  this -> myChassis = Chassis(other.myChassis);
+  this->myEngine = Engine(other.myEngine);
+  this->myTransm = Transm(other.myTransm);
+  this->myChassis = Chassis(other.myChassis);
 }
 
 Vehicle *Carros::clone() { return new Carros(*this); }
 
-void Carros::output(ostream &output) const { output << *this; }
+void Carros::output(ostream &output) const {
+  output << "Motor:\n" << this->myEngine << "\n";
+  output << "Transmisao:\n" << this->myTransm << "\n";
+  output << "Chassis:\n" << this->myChassis << "\n";
+}
 
 void Carros::setInterns() {
   const bool resul = myEngine.setInterns();
@@ -33,7 +37,7 @@ void Carros::setTurbos() {
   const unsigned hpFinal = myEngine.setTurbos(hpStock);
   system("cls||clear");
   if (hpFinal) {
-    this -> hpAtual = hpFinal;
+    this->hpAtual = hpFinal;
     cout << "Atualizacao feita com sucesso!\n";
     return;
   }
@@ -45,7 +49,7 @@ void Carros::setIntake() {
   const unsigned hpFinal = myEngine.setIntake(hpStock);
   system("cls||clear");
   if (hpFinal) {
-    this -> hpAtual = hpFinal;
+    this->hpAtual = hpFinal;
     cout << "Atualizacao feita com sucesso!\n";
     return;
   }
@@ -57,7 +61,7 @@ void Carros::setExaust() {
   const unsigned hpFinal = myEngine.setExaust(hpStock);
   system("cls||clear");
   if (hpFinal) {
-    this -> hpAtual = hpFinal;
+    this->hpAtual = hpFinal;
     cout << "Atualizacao feita com sucesso!\n";
     return;
   }
@@ -69,7 +73,7 @@ void Carros::setECUnit() {
   const unsigned hpFinal = myEngine.setECUnit(hpStock);
   system("cls||clear");
   if (hpFinal) {
-    this -> hpAtual = hpFinal;
+    this->hpAtual = hpFinal;
     cout << "Atualizacao feita com sucesso!\n";
     return;
   }
@@ -105,13 +109,4 @@ void Carros::setChassis() {
     return;
   }
   cout << "A parte selecionada ja esta no carro!\n";
-}
-
-// SOBRECARGAS DA CLASSE
-
-ostream &operator<<(ostream &output, const Carros &carro) {
-  output << "Motor:\n" << carro.myEngine << "\n";
-  output << "Transmisao:\n" << carro.myTransm << "\n";
-  output << "Chassis:\n" << carro.myChassis << "\n";
-  return output;
 }

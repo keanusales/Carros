@@ -12,17 +12,17 @@ const transm Transm::transmParts[] = {
 // IMPLEMENTAÇÃO
 
 Transm::Transm() {
-  this -> myTransm = {"Original", 0};
+  this->myTransm = {"Original", 0};
 }
 
 Transm::Transm(const Transm &other) {
-  this -> myTransm = other.myTransm;
+  this->myTransm = other.myTransm;
 }
 
 const bool Transm::setTransm() {
   const transm transm = getTransm();
   if (*this == transm) return 0;
-  this -> myTransm = transm;
+  this->myTransm = transm;
   return 1;
 }
 

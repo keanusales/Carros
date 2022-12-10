@@ -17,26 +17,26 @@ const chassis Chassis::chassisParts[] = {
 // IMPLEMENTAÇÃO
 
 Chassis::Chassis() {
-  this -> mySuspens = {"Original", 0};
-  this -> myChassis = {"Original", 0};
+  this->mySuspens = {"Original", 0};
+  this->myChassis = {"Original", 0};
 }
 
 Chassis::Chassis(const Chassis &other) {
-  this -> mySuspens = other.mySuspens;
-  this -> myChassis = other.myChassis;
+  this->mySuspens = other.mySuspens;
+  this->myChassis = other.myChassis;
 }
 
 const bool Chassis::setSuspens() {
   const suspens suspens = getSuspens();
   if (*this == suspens) return 0;
-  this -> mySuspens = suspens;
+  this->mySuspens = suspens;
   return 1;
 }
 
 const bool Chassis::setChassis() {
   const chassis chassis = getChassis();
   if (*this == chassis) return 0;
-  this -> myChassis = chassis;
+  this->myChassis = chassis;
   return 1;
 }
 

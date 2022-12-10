@@ -38,25 +38,25 @@ const intern Engine::internParts[] = {
 // IMPLEMENTAÇÃO
 
 Engine::Engine() {
-  this -> myTurbos = {"Original", 0};
-  this -> myIntake = {"Original", 0};
-  this -> myExaust = {"Original", 0};
-  this -> myECUnit = {"Original", 0};
-  this -> myIntern = {"Original", 0};
+  this->myTurbos = {"Original", 0};
+  this->myIntake = {"Original", 0};
+  this->myExaust = {"Original", 0};
+  this->myECUnit = {"Original", 0};
+  this->myIntern = {"Original", 0};
 }
 
 Engine::Engine(const Engine &other) {
-  this -> myTurbos = other.myTurbos;
-  this -> myIntake = other.myIntake;
-  this -> myExaust = other.myExaust;
-  this -> myECUnit = other.myECUnit;
-  this -> myIntern = other.myIntern;
+  this->myTurbos = other.myTurbos;
+  this->myIntake = other.myIntake;
+  this->myExaust = other.myExaust;
+  this->myECUnit = other.myECUnit;
+  this->myIntern = other.myIntern;
 }
 
 const bool Engine::setInterns() {
   const intern intern = getIntern();
   if (*this == intern) return 0;
-  this -> myIntern = intern;
+  this->myIntern = intern;
   return 1;
 }
 
@@ -67,7 +67,7 @@ const unsigned Engine::setTurbos(const unsigned hpStock) {
     myIntake.hpGain + myExaust.hpGain + myECUnit.hpGain;
   if (hpFinal > myIntern.hpResis) return 0;
   if (*this == turbos) return 0;
-  this -> myTurbos = turbos;
+  this->myTurbos = turbos;
   return hpFinal;
 }
 
@@ -78,7 +78,7 @@ const unsigned Engine::setIntake(const unsigned hpStock) {
     myTurbos.hpGain + myExaust.hpGain + myECUnit.hpGain;
   if (hpFinal > myIntern.hpResis) return 0;
   if (*this == intake) return 0;
-  this -> myIntake = intake;
+  this->myIntake = intake;
   return hpFinal;
 }
 
@@ -89,7 +89,7 @@ const unsigned Engine::setExaust(const unsigned hpStock) {
     myTurbos.hpGain + myIntake.hpGain + myECUnit.hpGain;
   if (hpFinal > myIntern.hpResis) return 0;
   if (*this == exaust) return 0;
-  this -> myExaust = exaust;
+  this->myExaust = exaust;
   return hpFinal;
 }
 
@@ -100,7 +100,7 @@ const unsigned Engine::setECUnit(const unsigned hpStock) {
     myTurbos.hpGain + myIntake.hpGain + myExaust.hpGain;
   if (hpFinal > myIntern.hpResis) return 0;
   if (*this == ECUnit) return 0;
-  this -> myECUnit = ECUnit;
+  this->myECUnit = ECUnit;
   return hpFinal;
 }
 

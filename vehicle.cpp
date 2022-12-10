@@ -7,17 +7,17 @@ const unsigned Vehicle::MINPOWER = 100;
 const unsigned Vehicle::MAXPOWER = 1000;
 
 Vehicle::Vehicle(const string &nameVeh, const unsigned hpStock) {
-  this -> nameVeh = nameVeh;
-  this -> hpStock = hpStock;
-  this -> hpAtual = hpStock;
-  this -> diaCria = getDiaCria();
+  this->nameVeh = nameVeh;
+  this->hpStock = hpStock;
+  this->hpAtual = hpStock;
+  this->diaCria = getDiaCria();
 }
 
 Vehicle::Vehicle(const Vehicle &other) {
-  this -> nameVeh = other.nameVeh;
-  this -> hpStock = other.hpStock;
-  this -> hpAtual = other.hpStock;
-  this -> diaCria = getDiaCria();
+  this->nameVeh = other.nameVeh;
+  this->hpStock = other.hpStock;
+  this->hpAtual = other.hpStock;
+  this->diaCria = getDiaCria();
 }
 
 Vehicle *Vehicle::create(const newVeh &vehicle) {
