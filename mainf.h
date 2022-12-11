@@ -9,6 +9,7 @@ void createCar(vecVeh &);
 void copyExtCar(vecVeh &);
 void deleteCar(vecVeh &);
 void getStatus(vecVeh &);
+void tiraTeima(vecVeh &);
 void setInterns(vecVeh &);
 void setTurbos(vecVeh &);
 void setIntake(vecVeh &);
@@ -19,6 +20,6 @@ void setSuspens(vecVeh &);
 void setChassis(vecVeh &);
 void exitProgram(vecVeh &);
 const unsigned getEscolha(vecVeh &);
-const bool nexists(const char *, vecVeh &);
+const bool notexts(const char *, vecVeh &);
 
 #endif

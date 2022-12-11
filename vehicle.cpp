@@ -3,6 +3,7 @@
 // IMPLEMENTAÇÃO
 
 const unsigned Vehicle::MAXLEN = 40;
+unsigned Vehicle::prevRand = 0;
 
 Vehicle::Vehicle(const string &nameVeh) {
   this->nameVeh = nameVeh;
@@ -38,11 +39,19 @@ const bool Vehicle::verCreate(const unsigned escolha) {
   return (1 <= escolha && escolha <= 2);
 }
 
+const double Vehicle::random() {
+  srand(time(0));
+  unsigned atual = prevRand;
+  while (atual == prevRand) atual = rand() % 100;
+  Vehicle::prevRand = atual;
+  return (double) (atual / 100) - .50;
+}
+
 // SOBRECARGAS DA CLASSE
 
 ostream &operator<<(ostream &output, const Vehicle &vehicle) {
   output << "Veiculo: " << vehicle.nameVeh << "\n";
-  output << "Criacao: " << vehicle.diaCria << "\n\n";
+  output << "Criacao: " << vehicle.diaCria << "\n";
   vehicle.output(output);
   return output;
 }

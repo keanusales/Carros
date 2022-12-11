@@ -17,6 +17,7 @@ class Trucks: public Vehicle {
   public: // Virtual Functions
     Vehicle *clone();
     void output(ostream &) const;
+    void tiraTeima() const;
     void setInterns();
     void setTurbos();
     void setIntake();

@@ -12,6 +12,7 @@ class Transm {
     Transm(const double &);
     Transm(const Transm &);
     ~Transm() {}
+    const double getTime() const;
     const bool setTransm();
     static const double getTimeSwap();
 

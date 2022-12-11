@@ -5,8 +5,7 @@
 using std::vector;
 
 #include <ctime>
-using std::time_t;
-using std::tm;
+#include <cmath>
 
 #include <sstream>
 using std::stringstream;

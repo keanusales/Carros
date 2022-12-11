@@ -24,6 +24,10 @@ Transm::Transm(const Transm &other) {
   this->timeSwap = other.timeSwap;
 }
 
+const double Transm::getTime() const {
+  return this->timeSwap;
+}
+
 const bool Transm::setTransm() {
   const transm transm = getTransm();
   if (*this == transm) return 0;

@@ -14,19 +14,20 @@ int main() {
         << "1 - Copiar um veiculo ja existente\n"
         << "2 - Deletar um veiculo existente\n"
         << "3 - Printar estado atual de um veiculo\n"
-        << "4 - Setar internos de um veiculo\n"
-        << "5 - Setar turbo de um veiculo\n"
-        << "6 - Setar intake de um veiculo\n"
-        << "7 - Setar exaust de um veiculo\n"
-        << "8 - Setar eletronics de um veiculo\n"
-        << "9 - Setar transmission de um veiculo\n"
-        << "10 - Setar suspension de um veiculo\n"
-        << "11 - Setar chassis de um veiculo\n"
-        << "12 - Sair do programa (apaga tudo)\n"
+        << "4 - Tira-Teima com um adversario\n"
+        << "5 - Setar internos de um veiculo\n"
+        << "6 - Setar turbo de um veiculo\n"
+        << "7 - Setar intake de um veiculo\n"
+        << "8 - Setar exaust de um veiculo\n"
+        << "9 - Setar eletronics de um veiculo\n"
+        << "10 - Setar transmission de um veiculo\n"
+        << "11 - Setar suspension de um veiculo\n"
+        << "12 - Setar chassis de um veiculo\n"
+        << "13 - Sair do programa (apaga tudo)\n"
         << "Qual opcao voce escolhe? ";
       getline(cin, input);
       stringstream stream(input);
-      if (stream >> opcao && opcao < 13) break;
+      if (stream >> opcao && opcao <= 13) break;
       system("clear||cls");
       cout << "Entrada invalida! Tente de novo!\n";
     }

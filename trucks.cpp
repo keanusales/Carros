@@ -17,6 +17,25 @@ void Trucks::output(ostream &output) const {
   output << "Transmisao:\n" << this->myTransm << "\n";
 }
 
+void Trucks::tiraTeima() const {
+  const unsigned hpAtual = myEngine.getHpower();
+  const double timeSwap = myTransm.getTime();
+  const double resul = 14 - log(hpAtual) + timeSwap;
+  const double adver = resul + Vehicle::random();
+  system("cls||clear");
+  cout << "Seu tempo foi de " << resul << "s!\n";
+  cout << "Seu adversaio fez " << adver << "s!\n";
+  if (resul < adver) {
+    cout << "Voce venceu seu adversario!\n\n";
+    return;
+  }
+  if (resul > adver) {
+    cout << "Voce perdeu pro adversario!\n\n";
+    return;
+  }
+  cout << "Voce empatou com seu adversario!\n\n";
+}
+
 void Trucks::setInterns() {
   const bool resul = myEngine.setInterns();
   system("cls||clear");
@@ -34,8 +53,8 @@ void Trucks::setTurbos() {
     cout << "Atualizacao feita com sucesso!\n";
     return;
   }
-  cout << "Internos nao aguentam ou sao originais!\n"
-    << "Tente fazer um upgrade dos internos!\n";
+  cout << "Internos sao originais!\n"
+    << "Faca um upgrade dos internos!\n";
 }
 
 void Trucks::setIntake() {
@@ -45,8 +64,8 @@ void Trucks::setIntake() {
     cout << "Atualizacao feita com sucesso!\n";
     return;
   }
-  cout << "Internos nao aguentam ou sao originais!\n"
-    << "Tente fazer um upgrade dos internos!\n";
+  cout << "Internos sao originais!\n"
+    << "Faca um upgrade dos internos!\n";
 }
 
 void Trucks::setExaust() {
@@ -56,8 +75,8 @@ void Trucks::setExaust() {
     cout << "Atualizacao feita com sucesso!\n";
     return;
   }
-  cout << "Internos nao aguentam ou sao originais!\n"
-    << "Tente fazer um upgrade dos internos!\n";
+  cout << "Internos sao originais!\n"
+    << "Faca um upgrade dos internos!\n";
 }
 
 void Trucks::setECUnit() {
@@ -67,8 +86,8 @@ void Trucks::setECUnit() {
     cout << "Atualizacao feita com sucesso!\n";
     return;
   }
-  cout << "Internos nao aguentam ou sao originais!\n"
-    << "Tente fazer um upgrade dos internos!\n";
+  cout << "Internos sao originais!\n"
+    << "Faca um upgrade dos internos!\n";
 }
 
 void Trucks::setTransm() {

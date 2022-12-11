@@ -3,7 +3,7 @@
 void calling(const unsigned opcao, vecVeh &vehtor) {
   typedef void (*action)(vecVeh &);
   const action actions[] = {
-    &createCar, &copyExtCar, &deleteCar, &getStatus,
+    &createCar, &copyExtCar, &deleteCar, &getStatus, &tiraTeima,
     &setInterns, &setTurbos, &setIntake, &setExaust, &setECUnit,
     &setTransm, &setSuspens, &setChassis, &exitProgram
   };
@@ -38,7 +38,7 @@ void createCar(vecVeh &vehtor) {
 }
 
 void copyExtCar(vecVeh &vehtor) {
-  if (nexists("copiar", vehtor)) return;
+  if (notexts("copiar", vehtor)) return;
   const unsigned escolha = getEscolha(vehtor);
   vehtor.push_back(vehtor[escolha]->clone());
   system("cls||clear");
@@ -46,7 +46,7 @@ void copyExtCar(vecVeh &vehtor) {
 }
 
 void deleteCar(vecVeh &vehtor) {
-  if (nexists("deletar", vehtor)) return;
+  if (notexts("deletar", vehtor)) return;
   const unsigned escolha = getEscolha(vehtor);
   delete vehtor[escolha];
   vehtor.erase(vehtor.begin() + escolha);
@@ -55,49 +55,54 @@ void deleteCar(vecVeh &vehtor) {
 }
 
 void getStatus(vecVeh &vehtor) {
-  if (nexists("mostrar", vehtor)) return;
+  if (notexts("mostrar", vehtor)) return;
   const unsigned escolha = getEscolha(vehtor);
   system("cls||clear");
   cout << *vehtor[escolha];
 }
 
+void tiraTeima(vecVeh &vehtor) {
+  if (notexts("tirar-teima", vehtor)) return;
+  vehtor[getEscolha(vehtor)]->tiraTeima();
+}
+
 void setInterns(vecVeh &vehtor) {
-  if (nexists("modificar", vehtor)) return;
+  if (notexts("modificar", vehtor)) return;
   vehtor[getEscolha(vehtor)]->setInterns();
 }
 
 void setTurbos(vecVeh &vehtor) {
-  if (nexists("modificar", vehtor)) return;
+  if (notexts("modificar", vehtor)) return;
   vehtor[getEscolha(vehtor)]->setTurbos();
 }
 
 void setIntake(vecVeh &vehtor) {
-  if (nexists("modificar", vehtor)) return;
+  if (notexts("modificar", vehtor)) return;
   vehtor[getEscolha(vehtor)]->setIntake();
 }
 
 void setExaust(vecVeh &vehtor) {
-  if (nexists("modificar", vehtor)) return;
+  if (notexts("modificar", vehtor)) return;
   vehtor[getEscolha(vehtor)]->setExaust();
 }
 
 void setECUnit(vecVeh &vehtor) {
-  if (nexists("modificar", vehtor)) return;
+  if (notexts("modificar", vehtor)) return;
   vehtor[getEscolha(vehtor)]->setECUnit();
 }
 
 void setTransm(vecVeh &vehtor) {
-  if (nexists("modificar", vehtor)) return;
+  if (notexts("modificar", vehtor)) return;
   vehtor[getEscolha(vehtor)]->setTransm();
 }
 
 void setSuspens(vecVeh &vehtor) {
-  if (nexists("modificar", vehtor)) return;
+  if (notexts("modificar", vehtor)) return;
   vehtor[getEscolha(vehtor)]->setSuspens();
 }
 
 void setChassis(vecVeh &vehtor) {
-  if (nexists("modificar", vehtor)) return;
+  if (notexts("modificar", vehtor)) return;
   vehtor[getEscolha(vehtor)]->setChassis();
 }
 
@@ -125,7 +130,7 @@ const unsigned getEscolha(vecVeh &vehtor) {
   }
 }
 
-const bool nexists(const char *action, vecVeh &vehtor) {
+const bool notexts(const char *action, vecVeh &vehtor) {
   if (!vehtor.size()) {
     system("cls||clear");
     cout << "Nao ha carros para " << action << "!\n";

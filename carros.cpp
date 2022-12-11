@@ -18,6 +18,25 @@ void Carros::output(ostream &output) const {
   output << "Chassis:\n" << this->myChassis << "\n";
 }
 
+void Carros::tiraTeima() const {
+  const unsigned hpAtual = myEngine.getHpower();
+  const double timeSwap = myTransm.getTime();
+  const double resul = 14 - log(hpAtual) + timeSwap;
+  const double adver = resul + Vehicle::random();
+  system("cls||clear");
+  cout << "Seu tempo foi de " << resul << "s!\n";
+  cout << "Seu adversaio fez " << adver << "s!\n";
+  if (resul < adver) {
+    cout << "Voce venceu seu adversario!\n\n";
+    return;
+  }
+  if (resul > adver) {
+    cout << "Voce perdeu pro adversario!\n\n";
+    return;
+  }
+  cout << "Voce empatou com seu adversario!\n\n";
+}
+
 void Carros::setInterns() {
   const bool resul = myEngine.setInterns();
   system("cls||clear");

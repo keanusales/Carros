@@ -21,6 +21,7 @@ class Vehicle {
   public: // Virtual Functions
     virtual Vehicle *clone() = 0;
     virtual void output(ostream &) const = 0;
+    virtual void tiraTeima() const = 0;
     virtual void setInterns() = 0;
     virtual void setTurbos() = 0;
     virtual void setIntake() = 0;
@@ -30,10 +31,14 @@ class Vehicle {
     virtual void setSuspens() = 0;
     virtual void setChassis() = 0;
 
+  protected:
+    static const double random();
+
   private:
     string nameVeh;
     diaCria diaCria;
     static const unsigned MAXLEN;
+    static unsigned prevRand;
 };
 
 ostream &operator<<(ostream &, const diaCria &);

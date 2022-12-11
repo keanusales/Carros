@@ -60,6 +60,10 @@ Engine::Engine(const Engine &other) {
   this->hpAtual = other.hpAtual;
 }
 
+const unsigned Engine::getHpower() const {
+  return this->hpAtual;
+}
+
 const bool Engine::setInterns() {
   const intern intern = getIntern();
   if (*this == intern) return 0;

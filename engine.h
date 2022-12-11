@@ -16,6 +16,7 @@ class Engine {
     Engine(const unsigned &);
     Engine(const Engine &);
     ~Engine() {}
+    const unsigned getHpower() const;
     const bool setInterns();
     const bool setTurbos();
     const bool setIntake();
