@@ -2,18 +2,13 @@
 
 // IMPLEMENTAÇÃO
 
-Carros::Carros(const string &nameCar, const unsigned hpStock)
-: Vehicle(nameCar, hpStock) {
-  this->myEngine = Engine();
-  this->myTransm = Transm();
-  this->myChassis = Chassis();
-}
+Carros::Carros(const string &nameCar, const argCarros &args):
+  Vehicle(nameCar), myEngine(args.hpStock),
+  myTransm(args.timeSwap), myChassis(args.gForce) {}
 
-Carros::Carros(const Carros &other): Vehicle(other) {
-  this->myEngine = Engine(other.myEngine);
-  this->myTransm = Transm(other.myTransm);
-  this->myChassis = Chassis(other.myChassis);
-}
+Carros::Carros(const Carros &other):
+  Vehicle(other), myEngine(other.myEngine),
+  myTransm(other.myTransm), myChassis(other.myChassis) {}
 
 Vehicle *Carros::clone() { return new Carros(*this); }
 
@@ -34,51 +29,47 @@ void Carros::setInterns() {
 }
 
 void Carros::setTurbos() {
-  const unsigned hpFinal = myEngine.setTurbos(hpStock);
+  const bool resul = myEngine.setTurbos();
   system("cls||clear");
-  if (hpFinal) {
-    this->hpAtual = hpFinal;
+  if (resul) {
     cout << "Atualizacao feita com sucesso!\n";
     return;
   }
-  cout << "Internos nao aguentam ou sao originais!\n"
-    << "Tente fazer um upgrade dos internos!\n";
+  cout << "Internos sao originais!\n"
+    << "Faca um upgrade dos internos!\n";
 }
 
 void Carros::setIntake() {
-  const unsigned hpFinal = myEngine.setIntake(hpStock);
+  const bool resul = myEngine.setIntake();
   system("cls||clear");
-  if (hpFinal) {
-    this->hpAtual = hpFinal;
+  if (resul) {
     cout << "Atualizacao feita com sucesso!\n";
     return;
   }
-  cout << "Internos nao aguentam ou sao originais!\n"
-    << "Tente fazer um upgrade dos internos!\n";
+  cout << "Internos sao originais!\n"
+    << "Faca um upgrade dos internos!\n";
 }
 
 void Carros::setExaust() {
-  const unsigned hpFinal = myEngine.setExaust(hpStock);
+  const bool resul = myEngine.setExaust();
   system("cls||clear");
-  if (hpFinal) {
-    this->hpAtual = hpFinal;
+  if (resul) {
     cout << "Atualizacao feita com sucesso!\n";
     return;
   }
-  cout << "Internos nao aguentam ou sao originais!\n"
-    << "Tente fazer um upgrade dos internos!\n";
+  cout << "Internos sao originais!\n"
+    << "Faca um upgrade dos internos!\n";
 }
 
 void Carros::setECUnit() {
-  const unsigned hpFinal = myEngine.setECUnit(hpStock);
+  const bool resul = myEngine.setECUnit();
   system("cls||clear");
-  if (hpFinal) {
-    this->hpAtual = hpFinal;
+  if (resul) {
     cout << "Atualizacao feita com sucesso!\n";
     return;
   }
-  cout << "Internos nao aguentam ou sao originais!\n"
-    << "Tente fazer um upgrade dos internos!\n";
+  cout << "Internos sao originais!\n"
+    << "Faca um upgrade dos internos!\n";
 }
 
 void Carros::setTransm() {

@@ -3,16 +3,16 @@
 // DICIONÁRIOS
 
 const turbos Engine::turbosParts[] = {
-  {"MasterPr 550-AH", 280}, {"Precision 650-LS", 360},
-  {"Garrett 750-XT", 450}, {"2x MasterPr 550-AH", 500},
-  {"2x Precision 650-LS", 670}, {"2x Garrett 750-XT", 840}
+  {"MasterPr 550-AH", 200}, {"Precision 650-LS", 270},
+  {"Garrett 750-XT", 380}, {"2x MasterPr 550-AH", 480},
+  {"2x Precision 650-LS", 570}, {"2x Garrett 750-XT", 650}
 };
 
 const intake Engine::intakeParts[] = {
   {"2 inch intake, Sport Filter, Original Head", 30},
-  {"2.5 inch intake, Sport Filter, Original Head w/ Sport Camshaft", 90},
-  {"3 inch intake, Racing Filter, CNC Head w/ Sport Camshaft", 165},
-  {"3.5 intake w/ flow work, Racing Filter, CNC Head w/ Racing Camshaft", 260}
+  {"2.5 inch intake, Sport Filter, Original Head w/ Sport Camshaft", 70},
+  {"3 inch intake, Racing Filter, CNC Head w/ Sport Camshaft", 130},
+  {"3.5 intake w/ flow work, Racing Filter, CNC Head w/ Racing Camshaft", 165}
 };
 
 const exaust Engine::exaustParts[] = {
@@ -37,20 +37,27 @@ const intern Engine::internParts[] = {
 
 // IMPLEMENTAÇÃO
 
-Engine::Engine() {
-  this->myTurbos = {"Original", 0};
-  this->myIntake = {"Original", 0};
-  this->myExaust = {"Original", 0};
-  this->myECUnit = {"Original", 0};
-  this->myIntern = {"Original", 0};
+const unsigned Engine::MINHP = 100;
+const unsigned Engine::MAXHP = 1000;
+
+Engine::Engine(const unsigned &hpStock) {
+  this->hpParts = (unsigned) hpStock / 4;
+  this->myTurbos = {"Original", hpParts};
+  this->myIntake = {"Original", hpParts};
+  this->myExaust = {"Original", hpParts};
+  this->myECUnit = {"Original", hpParts};
+  this->myIntern = {"Original", hpStock};
+  this->hpAtual = hpStock;
 }
 
 Engine::Engine(const Engine &other) {
+  this->hpParts = other.hpParts;
   this->myTurbos = other.myTurbos;
   this->myIntake = other.myIntake;
   this->myExaust = other.myExaust;
   this->myECUnit = other.myECUnit;
   this->myIntern = other.myIntern;
+  this->hpAtual = other.hpAtual;
 }
 
 const bool Engine::setInterns() {
@@ -60,48 +67,65 @@ const bool Engine::setInterns() {
   return 1;
 }
 
-const unsigned Engine::setTurbos(const unsigned hpStock) {
-  if (!myIntern.hpResis) return 0;
+const bool Engine::setTurbos() {
   const turbos turbos = getTurbos();
-  const unsigned hpFinal = hpStock + turbos.hpGain +
-    myIntake.hpGain + myExaust.hpGain + myECUnit.hpGain;
+  const unsigned hpFinal = hpParts + turbos.hpGain
+    + myIntake.hpGain + myExaust.hpGain + myECUnit.hpGain;
   if (hpFinal > myIntern.hpResis) return 0;
   if (*this == turbos) return 0;
-  this->myTurbos = turbos;
-  return hpFinal;
+  this->myTurbos.hpGain = turbos.hpGain + hpParts;
+  this->myTurbos.part = turbos.part;
+  this->hpAtual = hpFinal;
+  return 1;
 }
 
-const unsigned Engine::setIntake(const unsigned hpStock) {
-  if (!myIntern.hpResis) return 0;
+const bool Engine::setIntake() {
   const intake intake = getIntake();
-  const unsigned hpFinal = hpStock + intake.hpGain +
-    myTurbos.hpGain + myExaust.hpGain + myECUnit.hpGain;
+  const unsigned hpFinal = hpParts + intake.hpGain
+    + myTurbos.hpGain + myExaust.hpGain + myECUnit.hpGain;
   if (hpFinal > myIntern.hpResis) return 0;
   if (*this == intake) return 0;
-  this->myIntake = intake;
-  return hpFinal;
+  this->myIntake.hpGain = intake.hpGain + hpParts;
+  this->myIntake.part = intake.part;
+  this->hpAtual = hpFinal;
+  return 1;
 }
 
-const unsigned Engine::setExaust(const unsigned hpStock) {
-  if (!myIntern.hpResis) return 0;
+const bool Engine::setExaust() {
   const exaust exaust = getExaust();
-  const unsigned hpFinal = hpStock + exaust.hpGain +
-    myTurbos.hpGain + myIntake.hpGain + myECUnit.hpGain;
+  const unsigned hpFinal = hpParts + exaust.hpGain
+    + myTurbos.hpGain + myIntake.hpGain + myECUnit.hpGain;
   if (hpFinal > myIntern.hpResis) return 0;
   if (*this == exaust) return 0;
-  this->myExaust = exaust;
-  return hpFinal;
+  this->myExaust.hpGain = exaust.hpGain + hpParts;
+  this->myExaust.part = exaust.part;
+  this->hpAtual = hpFinal;
+  return 1;
 }
 
-const unsigned Engine::setECUnit(const unsigned hpStock) {
-  if (!myIntern.hpResis) return 0;
+const bool Engine::setECUnit() {
   const ECUnit ECUnit = getECUnit();
-  const unsigned hpFinal = hpStock + ECUnit.hpGain +
-    myTurbos.hpGain + myIntake.hpGain + myExaust.hpGain;
+  const unsigned hpFinal = hpParts + ECUnit.hpGain
+    + myTurbos.hpGain + myIntake.hpGain + myExaust.hpGain;
   if (hpFinal > myIntern.hpResis) return 0;
   if (*this == ECUnit) return 0;
-  this->myECUnit = ECUnit;
-  return hpFinal;
+  this->myECUnit.hpGain = ECUnit.hpGain + hpParts;
+  this->myECUnit.part = ECUnit.part;
+  this->hpAtual = hpFinal;
+  return 1;
+}
+
+const unsigned Engine::getHpStock() {
+  while (1) {
+    string input; unsigned hpStock;
+    cout << "Digite a potencia do veiculo: ";
+    getline(cin, input);
+    stringstream stream(input);
+    if (stream >> hpStock && MINHP <= hpStock
+      && hpStock <= MAXHP) return hpStock;
+    system("cls||clear");
+    cout << "Hp deve ficar entre 100 e 1000!\n";
+  }
 }
 
 const turbos &Engine::getTurbos() {
@@ -192,6 +216,7 @@ const intern &Engine::getIntern() {
 // SOBRECARGAS DA CLASSE
 
 ostream &operator<<(ostream &output, const Engine &engine) {
+  output << "Horsepower : " << engine.hpAtual << "\n";
   output << "Turbos: " << engine.myTurbos << "\n";
   output << "Intake: " << engine.myIntake << "\n";
   output << "Exaust: " << engine.myExaust << "\n";

@@ -32,16 +32,6 @@ void createCar(vecVeh &vehtor) {
     system("cls||clear");
     cout << "Nome muito grande! Diminua!\n";
   }
-  while (1) {
-    string input;
-    cout << "Digite a potencia do veiculo: ";
-    getline(cin, input);
-    stringstream stream(input);
-    if (stream >> vehicle.hpStock &&
-      Vehicle::verHpower(vehicle.hpStock)) break;
-    system("cls||clear");
-    cout << "Hp deve ficar entre 100 e 1000!\n";
-  }
   vehtor.push_back(Vehicle::create(vehicle));
   system("cls||clear");
   cout << "Carro adicionado com sucesso!\n";

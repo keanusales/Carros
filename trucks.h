@@ -3,9 +3,14 @@
 
 #include "carros.h"
 
+struct argTrucks {
+  unsigned hpStock;
+  double timeSwap;
+};
+
 class Trucks: public Vehicle {
   public:
-    Trucks(const string &, const unsigned);
+    Trucks(const string &, const argTrucks &);
     Trucks(const Trucks &);
     ~Trucks() {}
   

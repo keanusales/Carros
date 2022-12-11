@@ -13,14 +13,15 @@ class Engine {
   friend ostream &operator<<(ostream &, const Engine &);
 
   public:
-    Engine();
+    Engine(const unsigned &);
     Engine(const Engine &);
     ~Engine() {}
     const bool setInterns();
-    const unsigned setTurbos(const unsigned);
-    const unsigned setIntake(const unsigned);
-    const unsigned setExaust(const unsigned);
-    const unsigned setECUnit(const unsigned);
+    const bool setTurbos();
+    const bool setIntake();
+    const bool setExaust();
+    const bool setECUnit();
+    static const unsigned getHpStock();
 
   private: //Sobrecargas
     const bool operator==(const turbos &) const;
@@ -47,6 +48,10 @@ class Engine {
     exaust myExaust;
     ECUnit myECUnit;
     intern myIntern;
+    unsigned hpParts;
+    unsigned hpAtual;
+    static const unsigned MINHP;
+    static const unsigned MAXHP;
 };
 
 ostream &operator<<(ostream &, const intern &);

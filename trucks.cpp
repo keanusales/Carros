@@ -2,16 +2,13 @@
 
 // IMPLEMENTAÇÃO
 
-Trucks::Trucks(const string &nameTruck, const unsigned hpStock)
-: Vehicle(nameTruck, hpStock) {
-  this->myEngine = Engine();
-  this->myTransm = Transm();
-}
+Trucks::Trucks(const string &nameTruck, const argTrucks &args):
+  Vehicle(nameTruck), myEngine(args.hpStock),
+  myTransm(args.timeSwap) {}
 
-Trucks::Trucks(const Trucks &other): Vehicle(other) {
-  this->myEngine = Engine(other.myEngine);
-  this->myTransm = Transm(other.myTransm);
-}
+Trucks::Trucks(const Trucks &other):
+  Vehicle(other), myEngine(other.myEngine),
+  myTransm(other.myTransm) {}
 
 Vehicle *Trucks::clone() { return new Trucks(*this); }
 
@@ -31,10 +28,9 @@ void Trucks::setInterns() {
 }
 
 void Trucks::setTurbos() {
-  const unsigned hpFinal = myEngine.setTurbos(hpStock);
+  const bool resul = myEngine.setTurbos();
   system("cls||clear");
-  if (hpFinal) {
-    this->hpAtual = hpFinal;
+  if (resul) {
     cout << "Atualizacao feita com sucesso!\n";
     return;
   }
@@ -43,10 +39,9 @@ void Trucks::setTurbos() {
 }
 
 void Trucks::setIntake() {
-  const unsigned hpFinal = myEngine.setIntake(hpStock);
+  const bool resul = myEngine.setIntake();
   system("cls||clear");
-  if (hpFinal) {
-    this->hpAtual = hpFinal;
+  if (resul) {
     cout << "Atualizacao feita com sucesso!\n";
     return;
   }
@@ -55,10 +50,9 @@ void Trucks::setIntake() {
 }
 
 void Trucks::setExaust() {
-  const unsigned hpFinal = myEngine.setExaust(hpStock);
+  const bool resul = myEngine.setExaust();
   system("cls||clear");
-  if (hpFinal) {
-    this->hpAtual = hpFinal;
+  if (resul) {
     cout << "Atualizacao feita com sucesso!\n";
     return;
   }
@@ -67,10 +61,9 @@ void Trucks::setExaust() {
 }
 
 void Trucks::setECUnit() {
-  const unsigned hpFinal = myEngine.setECUnit(hpStock);
+  const bool resul = myEngine.setECUnit();
   system("cls||clear");
-  if (hpFinal) {
-    this->hpAtual = hpFinal;
+  if (resul) {
     cout << "Atualizacao feita com sucesso!\n";
     return;
   }

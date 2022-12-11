@@ -3,9 +3,15 @@
 
 #include "vehicle.h"
 
+struct argCarros {
+  unsigned hpStock;
+  double timeSwap;
+  double gForce;
+};
+
 class Carros: public Vehicle {
   public:
-    Carros(const string &, const unsigned);
+    Carros(const string &, const argCarros &);
     Carros(const Carros &);
     ~Carros() {}
   

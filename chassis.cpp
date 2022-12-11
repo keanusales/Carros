@@ -16,19 +16,26 @@ const chassis Chassis::chassisParts[] = {
 
 // IMPLEMENTAÇÃO
 
-Chassis::Chassis() {
-  this->mySuspens = {"Original", 0};
-  this->myChassis = {"Original", 0};
+const double Chassis::MINGFORCE = 1;
+const double Chassis::MAXGFORCE = 2;
+
+Chassis::Chassis(const double &gForce) {
+  const double temp = gForce / 2;
+  this->mySuspens = {"Original", temp};
+  this->myChassis = {"Original", temp};
+  this->gForce = gForce;
 }
 
 Chassis::Chassis(const Chassis &other) {
   this->mySuspens = other.mySuspens;
   this->myChassis = other.myChassis;
+  this->gForce = other.gForce;
 }
 
 const bool Chassis::setSuspens() {
   const suspens suspens = getSuspens();
   if (*this == suspens) return 0;
+  this->gForce = suspens.gForce + myChassis.gForce;
   this->mySuspens = suspens;
   return 1;
 }
@@ -36,8 +43,22 @@ const bool Chassis::setSuspens() {
 const bool Chassis::setChassis() {
   const chassis chassis = getChassis();
   if (*this == chassis) return 0;
+  this->gForce = chassis.gForce + mySuspens.gForce;
   this->myChassis = chassis;
   return 1;
+}
+
+const double Chassis::getGForce() {
+  while (1) {
+    string input; double gForce;
+    cout << "Digite o maximo de Forca G: ";
+    getline(cin, input);
+    stringstream stream(input);
+    if (stream >> gForce && MINGFORCE <= gForce
+      && gForce <= MAXGFORCE) return gForce;
+    system("cls||clear");
+    cout << "A Forca G deve ficar entre 1 e 2!\n";
+  }
 }
 
 const chassis &Chassis::getChassis() {
@@ -77,7 +98,8 @@ const suspens &Chassis::getSuspens() {
 // SOBRECARGAS DA CLASSE
 
 ostream &operator<<(ostream &output, const Chassis &chassis) {
-  output << "Suspension: " << chassis.myChassis << "\n";
+  output << "Forca G maxima: " << chassis.gForce << "\n";
+  output << "Suspension: " << chassis.mySuspens << "\n";
   output << "Chassis: " << chassis.myChassis << "\n";
   return output;
 }

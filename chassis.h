@@ -3,18 +3,19 @@
 
 #include "transm.h"
 
-struct chassis { string part; float gForce; };
-struct suspens { string part; float gForce; };
+struct chassis { string part; double gForce; };
+struct suspens { string part; double gForce; };
 
 class Chassis {
   friend ostream &operator<<(ostream &, const Chassis &);
 
   public:
-    Chassis();
+    Chassis(const double &);
     Chassis(const Chassis &);
     ~Chassis() {}
     const bool setSuspens();
     const bool setChassis();
+    static const double getGForce();
 
   private: //Sobrecargas
     const bool operator==(const chassis &) const;
@@ -29,6 +30,9 @@ class Chassis {
     static const suspens &getSuspens();
     chassis myChassis;
     suspens mySuspens;
+    double gForce;
+    static const double MINGFORCE;
+    static const double MAXGFORCE;
 };
 
 ostream &operator<<(ostream &, const chassis &);

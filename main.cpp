@@ -2,9 +2,9 @@
 
 int main() {
   vecVeh vehtor;
-  vehtor.push_back(new Carros("Nissan GTR", 630));
-  vehtor.push_back(new Carros("Lancer Evo X", 270));
-  vehtor.push_back(new Trucks("Actros 470", 470));
+  vehtor.push_back(new Carros("Nissan GTR", {630, .15, 1.2}));
+  vehtor.push_back(new Carros("Lancer Evo X", {270, .17, 1.4}));
+  vehtor.push_back(new Trucks("Ford F150 Raptor", {456, .16}));
   system("cls||clear");
   while (1) {
     unsigned opcao;
