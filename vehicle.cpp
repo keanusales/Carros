@@ -42,9 +42,9 @@ const bool Vehicle::verCreate(const unsigned escolha) {
 const double Vehicle::random() {
   srand(time(0));
   unsigned atual = prevRand;
-  while (atual == prevRand) atual = rand() % 50;
+  while (atual == prevRand) atual = rand() % 5000;
   Vehicle::prevRand = atual;
-  return ((double) atual / 100) - .25;
+  return ((double) atual / 10000) - .25;
 }
 
 // SOBRECARGAS DA CLASSE
