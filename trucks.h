@@ -1,31 +1,31 @@
-#ifndef TRUCKS_H
-#define TRUCKS_H
+#ifndef Trucks_h
+#define Trucks_h
 
 #include "carros.h"
 
 struct argTrucks {
+  string nameVeh;
   unsigned hpStock;
   double timeSwap;
 };
 
 class Trucks: public Vehicle {
+  friend ostream &operator<<(ostream &, const Trucks &);
+
   public:
-    Trucks(const string &, const argTrucks &);
+    Trucks(const argTrucks &);
     Trucks(const Trucks &);
     ~Trucks() {}
-  
-  public: // Virtual Functions
-    Vehicle *clone();
-    void output(ostream &) const;
-    void tiraTeima() const;
     void setInterns();
     void setTurbos();
     void setIntake();
     void setExaust();
     void setECUnit();
     void setTransm();
-    void setSuspens();
-    void setChassis();
+  
+  public: // Virtual Functions
+    void output(ostream &) const;
+    void tiraTeima() const;
 
   private:
     Engine myEngine;

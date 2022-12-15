@@ -1,7 +1,7 @@
 #ifndef MAINF_H
 #define MAINF_H
 
-#include "trucks.h"
+#include "mammoth.h"
 
 typedef vector <Vehicle*> vecVeh;
 void calling(const unsigned, vecVeh &);

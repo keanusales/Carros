@@ -2,20 +2,15 @@
 
 // IMPLEMENTAÇÃO
 
-Trucks::Trucks(const string &nameTruck, const argTrucks &args):
-  Vehicle(nameTruck), myEngine(args.hpStock),
+Trucks::Trucks(const argTrucks &args):
+  Vehicle(args.nameVeh), myEngine(args.hpStock),
   myTransm(args.timeSwap) {}
 
 Trucks::Trucks(const Trucks &other):
   Vehicle(other), myEngine(other.myEngine),
   myTransm(other.myTransm) {}
 
-Vehicle *Trucks::clone() { return new Trucks(*this); }
-
-void Trucks::output(ostream &output) const {
-  output << "Motor:\n" << this->myEngine << "\n";
-  output << "Transmisao:\n" << this->myTransm << "\n";
-}
+void Trucks::output(ostream &output) const { output << *this; }
 
 void Trucks::tiraTeima() const {
   const unsigned hpAtual = myEngine.getHpower();
@@ -100,10 +95,10 @@ void Trucks::setTransm() {
   cout << "A parte selecionada ja esta no truck!\n";
 }
 
-void Trucks::setSuspens() {
-  cout << "Nao ha como modificar essa parte!\n";
-}
+// SOBRECARGAS DA CLASSE
 
-void Trucks::setChassis() {
-  cout << "Nao ha como modificar essa parte!\n";
+ostream &operator<<(ostream &output, const Trucks &truck) {
+  output << "Motor:\n" << truck.myEngine << "\n";
+  output << "Transmisao:\n" << truck.myTransm << "\n";
+  return output;
 }

@@ -1,4 +1,4 @@
-#include "trucks.cpp"
+#include "mammoth.cpp"
 
 void calling(const unsigned opcao, vecVeh &vehtor) {
   typedef void (*action)(vecVeh &);
@@ -11,28 +11,24 @@ void calling(const unsigned opcao, vecVeh &vehtor) {
 }
 
 void createCar(vecVeh &vehtor) {
-  newVeh vehicle;
+  unsigned type;
   system("cls||clear");
   while (1) {
     string input;
-    cout << "1 - O novo veiculo e um Carro\n"
-      << "2 - O novo veiculo e um Truck\n"
+    cout << "1 - O novo veiculo e uma F150\n"
+      << "2 - O novo veiculo e uma Mammoth\n"
+      << "3 - O novo veiculo e uma Corvette\n"
+      << "4 - O novo veiculo e uma 911 GT2\n"
+      << "5 - O novo veiculo e um Carro\n" 
       << "Qual tipo de veiculo voce quer? ";
     getline(cin, input);
     stringstream stream(input);
-    if (stream >> vehicle.type &&
-      Vehicle::verCreate(vehicle.type)) break;
+    if (stream >> type &&
+      Vehicle::verCreate(type)) break;
     system("cls||clear");
     cout << "Digite um dos tipos especificados!\n";
   }
-  while (1) {
-    cout << "Digite o nome do veiculo: ";
-    getline(cin, vehicle.name);
-    if (Vehicle::verString(vehicle.name)) break;
-    system("cls||clear");
-    cout << "Nome muito grande! Diminua!\n";
-  }
-  vehtor.push_back(Vehicle::create(vehicle));
+  vehtor.push_back(Vehicle::create(type));
   system("cls||clear");
   cout << "Carro adicionado com sucesso!\n";
 }

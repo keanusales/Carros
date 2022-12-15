@@ -2,8 +2,8 @@
 
 // IMPLEMENTAÇÃO
 
-Carros::Carros(const string &nameCar, const argCarros &args):
-  Vehicle(nameCar), myEngine(args.hpStock),
+Carros::Carros(const argCarros &args):
+  Vehicle(args.nameVeh), myEngine(args.hpStock),
   myTransm(args.timeSwap), myChassis(args.gForce) {}
 
 Carros::Carros(const Carros &other):
@@ -12,11 +12,7 @@ Carros::Carros(const Carros &other):
 
 Vehicle *Carros::clone() { return new Carros(*this); }
 
-void Carros::output(ostream &output) const {
-  output << "Motor:\n" << this->myEngine << "\n";
-  output << "Transmisao:\n" << this->myTransm << "\n";
-  output << "Chassis:\n" << this->myChassis << "\n";
-}
+void Carros::output(ostream &output) const { output << *this; }
 
 void Carros::tiraTeima() const {
   const unsigned hpAtual = myEngine.getHpower();
@@ -119,4 +115,13 @@ void Carros::setChassis() {
     return;
   }
   cout << "A parte selecionada ja esta no carro!\n";
+}
+
+// SOBRECARGAS DA CLASSE
+
+ostream &operator<<(ostream &output, const Carros &carro) {
+  output << "Motor:\n" << carro.myEngine << "\n";
+  output << "Transmisao:\n" << carro.myTransm << "\n";
+  output << "Chassis:\n" << carro.myChassis << "\n";
+  return output;
 }
